@@ -70,4 +70,10 @@ public class SocketConnectionHandler extends TextWebSocketHandler {
             webSocketSession.sendMessage(message);
         }
     }
+
+    @Override
+    public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
+        super.handleTransportError(session, exception);
+        System.out.println(exception.getMessage());
+    }
 }

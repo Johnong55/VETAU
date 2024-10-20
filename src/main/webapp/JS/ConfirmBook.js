@@ -34,7 +34,8 @@ const buttonContinues = document.querySelectorAll(".confirmbook");
 console.log(buttonContinues);
 buttonContinues.forEach(buttonContinue => {
 	buttonContinue.addEventListener('click', function() {
-		let chairHold = [];
+		let chairHold = {};
+		let key = 0;
 		let chairs_selected = [];
 		let chairs_duplicate = [];
 		const Chairs = document.querySelectorAll(".item-square");
@@ -48,7 +49,8 @@ buttonContinues.forEach(buttonContinue => {
 		chairs_selected.forEach(chair => {
 			// xử lí chống trùng
 			if (chair.dataset.value != "holding") {
-				chairHold.push(chair.id);
+				chairHold[key] = chair.id;
+				key++;
 			} else if (chair.dataset.value == "holding") {
 				chairs_duplicate.push(chair.id);
 				chair.dataset.status = "non_available"
@@ -71,7 +73,8 @@ buttonContinues.forEach(buttonContinue => {
 				.then(data => {
 					console.log(data);
 					if (data === "ok") {
-						window.location.href = "reviewbooking.jsp";
+						localStorage.setItem("chairhold",JSON.stringify(chairHold));
+						window.location.href = "/reviewbooking";
 					}
 				})
 				.catch(error => {

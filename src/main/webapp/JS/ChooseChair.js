@@ -150,7 +150,7 @@ chairs.forEach(tmp => {
 		}
 		console.log(count);
 		const parent = tmp.closest(".auth-form-option-container");
-		txt_status = parent.querySelector("#text-status");
+		txt_status = parent.querySelector(".text-status");
 		txt_status.textContent = "Đã chọn: " + count;
 
 	});
