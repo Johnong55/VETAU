@@ -26,11 +26,8 @@
 </head>
 <body>
 	<script>
-		function GoNextPage() {
-			window.location.href = "payment.jsp";
-		}
 		function BackPage() {
-			window.location.href = "processbooking.jsp"
+			window.location.href = "/processbooking"
 		}
 	</script>
 	<div id="header-bookingProcess">
@@ -252,17 +249,20 @@
 								nhập</span>
 						</div>
 						<div class="auth-form__form">
-							<div class="auth-form__group">
-								<input type="text" class="auth-form__input"
-									placeholder="Nhập email">
+							<div class="auth-form__group form-field">
+								<input type="text" class="auth-form__input" id="email-signup"
+									   placeholder="Nhập email">
+								<small></small>
 							</div>
-							<div class="auth-form__group">
-								<input type="password" class="auth-form__input"
-									placeholder="Nhập mật khẩu">
+							<div class="auth-form__group form-field">
+								<input type="password" class="auth-form__input" id="password-signup"
+									   placeholder="Nhập mật khẩu">
+								<small></small>
 							</div>
-							<div class="auth-form__group">
-								<input type="password" class="auth-form__input"
-									placeholder="Nhập lại mật khẩu">
+							<div class="auth-form__group form-field">
+								<input type="password" class="auth-form__input" id="confirm-password-signup"
+									   placeholder="Nhập lại mật khẩu">
+								<small></small>
 							</div>
 						</div>
 						<div class="auth-form__aside">
@@ -274,7 +274,7 @@
 							</p>
 						</div>
 						<div class="box-btn">
-							<button class="login-btn">ĐĂNG KÍ</button>
+							<button class="login-btn" id="sign-up-btn">ĐĂNG KÍ</button>
 							<button class="login-btn login-btn--back" onclick="Back()">TRỞ
 								LẠI</button>
 						</div>
@@ -297,25 +297,28 @@
 								Đăng kí </span>
 						</div>
 						<div class="auth-form__form">
-							<div class="auth-form__group">
-								<input type="text" class="auth-form__input"
-									placeholder="Nhập email">
+							<div class="auth-form__group form-field">
+								<input type="text" class="auth-form__input" id="email-login"
+									   placeholder="Nhập email">
+								<small></small>
 							</div>
-							<div class="auth-form__group">
-								<input type="password" class="auth-form__input"
-									placeholder="Nhập mật khẩu">
+							<div class="auth-form__group form-field">
+								<input type="password" class="auth-form__input" id="password-login"
+									   placeholder="Nhập mật khẩu">
+								<small></small>
 							</div>
 						</div>
 						<div class="auth-form__aside">
 							<div class="auth-form__help">
 								<a href=""
-									class="auth-form__help-link auth-form__help-link--forgot">
-									Quên mật khẩu </a> <span class="auth-form__help-link--separate">|</span>
-								<a href="" class="auth-form__help-link"> Cần trợ giúp? </a>
+								   class="auth-form__help-link auth-form__help-link--forgot">
+									Quên mật khẩu </a> <span href=""
+															 class="auth-form__help-link--separate">|</span> <a href=""
+																												class="auth-form__help-link"> Cần trợ giúp? </a>
 							</div>
 						</div>
 						<div class="box-btn">
-							<button class="login-btn">ĐĂNG NHẬP</button>
+							<button class="login-btn" id="login-button">ĐĂNG NHẬP</button>
 							<button class="login-btn login-btn--back" onclick="Back()">TRỞ
 								LẠI</button>
 						</div>
@@ -325,6 +328,8 @@
 		</div>
 	</div>
 	<script src="JS/login.js"></script>
+	<script type="module" src="../JS/Validate.js"></script>
+	<script type="module" src="../JS/ValidateLogin.js"></script>
 	<script src="JS/loadReview.js"></script>
 	<script src="JS/addFood.js"></script>
 	<script src="JS/Book_Payment.js"></script>
