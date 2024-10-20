@@ -26,11 +26,8 @@
 </head>
 <body>
 	<script>
-		function GoNextPage() {
-			window.location.href = "payment.jsp";
-		}
 		function BackPage() {
-			window.location.href = "processbooking.jsp"
+			window.location.href = "/processbooking"
 		}
 	</script>
 	<div id="header-bookingProcess">

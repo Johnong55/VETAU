@@ -23,7 +23,7 @@
 <body>
 	<script>
 		function BackPage() {
-			window.location.href = "reviewbooking.jsp";
+			window.location.href = "/reviewbooking";
 		}
 	</script>
 
