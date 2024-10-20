@@ -130,34 +130,12 @@
 
 
 			</div>
-			<%
-			// nhận ghế từ processbooking
-			String requestData = (String) session.getAttribute("requestData");
-			requestData = requestData.replaceAll("\\[|\\]|\"", "").trim(); // bỏ [] ""
-			String[] chairs = requestData.split(",\\s*"); // tách chuỗi bằng dấu ,
-			String result = String.join(", ", chairs); // thêm ", "
-			// xử lí định dạng 100.000 chỗ tổng bill
-			int So_Ghe = chairs.length;	        
-	        int tong = So_Ghe*200000 + 50000;
-	        String tongString = String.valueOf(tong);
-	        StringBuilder TONG = new StringBuilder();
-	        int m = 0;
-	        for (int i = tongString.length() - 1; i >= 0; i--) {
-	        	TONG.append(tongString.charAt(i));
-	            m++;
-	            if (m % 3 == 0 && i != 0) {
-	            	TONG.append('.');
-	            }
-	        }
-	        TONG.reverse();
-	        
-			%>
 			<div id="wrap-body-right">
 				<div class="lable-ticket">
 					<div class="ticket-title">Chi Tiết Vé</div>
 					<div class="info-train-chair">
 						<div class="name-train">12340 - SE1</div>
-						<div class="name-chair"><%=result%></div>
+						<div class="name-chair" id="listChair"></div>
 					</div>
 
 					<div class="lable-time_line time-ticket">
@@ -193,7 +171,7 @@
 						</div>
 						<div class="bill-content-item">
 							<div class="bill-content-item-left">Số lượng</div>
-							<div class="bill-content-item-right"><%=So_Ghe%></div>
+							<div class="bill-content-item-right" id="numberofchair"></div>
 						</div>
 						<div class="bill-content-item">
 							<div class="bill-content-item-left">Thuế hàng hóa và dịch
@@ -203,7 +181,7 @@
 					</div>
 					<div class="bill-total">
 						<div class="bill-total-left">Tổng thanh toán</div>
-						<div class="bill-total-right"><%=TONG %> VND</div>
+						<div class="bill-total-right" id="total-bill"></div>
 					</div>
 				</div>
 
@@ -347,6 +325,7 @@
 		</div>
 	</div>
 	<script src="JS/login.js"></script>
+	<script src="JS/loadReview.js"></script>
 	<script src="JS/addFood.js"></script>
 	<script src="JS/Book_Payment.js"></script>
 </body>

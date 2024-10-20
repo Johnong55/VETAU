@@ -12,7 +12,7 @@ import java.util.Map;
 @Controller
 public class home_controller {
 
-		@GetMapping("/")
+		@GetMapping(value = {"/", "/index"})
 		public String index()
 		{
 			return "index";
@@ -37,5 +37,20 @@ public class home_controller {
 		@GetMapping("/processbooking")
 		public String processbooking() {
 			return "processbooking";
+		}
+
+		@PostMapping("/confirmbook")
+		@ResponseBody
+		public String responseConfirmBook(@RequestBody Map<String, String> payload) {
+
+
+
+
+			return "ok";
+		}
+
+		@GetMapping("/reviewbooking")
+		public String reviewbooking() {
+		return "reviewbooking";
 		}
 }
