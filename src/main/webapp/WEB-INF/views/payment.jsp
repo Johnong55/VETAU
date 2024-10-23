@@ -46,8 +46,7 @@
 
 	<div class="content-payment">
 		<h1 class="content-payment-header">
-			Thanh toán <span style="color: rgba(255, 96, 96, 1);">650.000
-				VND</span> để xác nhận đặt vé
+			Thanh toán <span id="price-title" style="color: rgba(255, 96, 96, 1);">650.00 VND</span> để xác nhận đặt vé
 		</h1>
 
 		<div class="content-payment-body">
@@ -56,7 +55,7 @@
 					<div class="ticket-title">Chi Tiết Vé</div>
 					<div class="info-train-chair">
 						<div class="name-train">12340 - SE1</div>
-						<div class="name-chair">3A & 20</div>
+						<div class="name-chair" id="NameChair">20-3A</div>
 					</div>
 
 					<div class="lable-time_line time-ticket">

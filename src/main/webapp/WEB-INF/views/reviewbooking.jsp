@@ -55,11 +55,9 @@
 					<div class="wrap-lable-info-user-title">Thông tin chi tiết</div>
 
 					<div class="wrap-input-info">
-						<input type="text" class="input-info-review" style="width: 60%;"
-							placeholder="Họ và Tên"> <input type="number"
-							class="input-info-review" style="width: 10%;" placeholder="Tuổi">
-						<input type="text" class="input-info-review" style="width: 10%;"
-							placeholder="Giới tính">
+						<input type="text" class="input-info-review" style="width: 60%;" id="name" placeholder="Họ và Tên">
+						<input type="number"class="input-info-review" style="width: 10%;" id="age" placeholder="Tuổi">
+						<input type="text" class="input-info-review" style="width: 10%;" id="gender" placeholder="Giới tính">
 					</div>
 				</div>
 
@@ -69,8 +67,9 @@
 						Thông tin liên lạc</div>
 
 					<div class="wrap-input-info">
-						<input type="number" class="input-info-review" style="width: 45%;"
-							placeholder="Số điện thoại"> <input type="email"
+						<input type="number" class="input-info-review" style="width: 45%;" id="sdt"
+							placeholder="Số điện thoại">
+						<input type="email" id="email"
 							class="input-info-review" style="width: 45%;" placeholder="Email">
 					</div>
 				</div>
