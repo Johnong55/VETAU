@@ -2,6 +2,7 @@ package com.PBL4.test.entity;
 
 import java.time.LocalDate;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "Account")
@@ -19,6 +20,7 @@ public  class Account {
     private String email;
 
     @Column(nullable = false)
+
     private String password;
 
     private String firstName;
