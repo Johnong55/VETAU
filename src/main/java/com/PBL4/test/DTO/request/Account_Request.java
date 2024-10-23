@@ -1,4 +1,6 @@
-package com.PBL4.test.DTO;
+package com.PBL4.test.DTO.request;
+
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 
@@ -6,7 +8,7 @@ public class Account_Request {
 	private String username;
 
     private String email;
-
+	@Size(min = 6, message = "INVALID_PASSWORD")
     private String password;
 
     private String firstName;

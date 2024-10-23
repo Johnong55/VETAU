@@ -1,12 +1,13 @@
 package com.PBL4.test.mapper;
 
+import com.PBL4.test.DTO.request.Account_UpdateRequest;
 import com.PBL4.test.entity.Account;
 
-import com.PBL4.test.DTO.Account_Request;
+import com.PBL4.test.DTO.request.Account_Request;
 
 public class Account_Mapper {
 		
-		public Account toAccount(Account_Request rq)
+		public Account CreationtoAccount(Account_Request rq)
 		{
 			
 			Account ac = new Account();
@@ -23,5 +24,21 @@ public class Account_Mapper {
 			System.out.println(ac);
 			return ac;
 			
+		}
+		public Account UpdateToAccount(Account_UpdateRequest rq,Account ac)
+		{
+
+			ac.setAddress(rq.getAddress());
+
+			ac.setDob(rq.getDob());
+
+			ac.setFirstName(rq.getFirstName());
+			ac.setLastName(rq.getLastName());
+			ac.setPassword(rq.getPassword());
+			ac.setPhoneNumber(rq.getPhoneNumber());
+
+			System.out.println("hehehe");
+			System.out.println(ac);
+			return ac;
 		}
 }

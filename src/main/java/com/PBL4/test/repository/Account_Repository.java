@@ -7,8 +7,11 @@ import org.springframework.stereotype.Repository;
 
 import com.PBL4.test.entity.Account;
 
+import java.util.Optional;
 @Repository
-public interface Account_Repository extends JpaRepository<Account,String>{	
-    @Query("SELECT a FROM Account a WHERE a.email = :email ")
-    Account findAccountByEmail(@Param("email") String email);
+public interface Account_Repository extends JpaRepository<Account, String> {
+
+    @Query("SELECT a FROM Account a WHERE a.email = :username OR a.username = :username")
+    Optional<Account> existsByEmailOrUsername(@Param("username") String username);
+
 }
