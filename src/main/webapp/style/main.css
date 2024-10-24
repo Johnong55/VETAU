@@ -798,6 +798,15 @@ small {
     border: 3px solid var(--primary-color);
     border-radius: 10px;
 }
+.option-body-3A {
+    background-color: rgba(208, 255, 200, 1);
+}
+.option-body-2A {
+    background-color: rgba(255, 233, 200, 1);
+}
+.option-body-1A {
+    background-color: rgba(255, 205, 205, 1);
+}
 
 .option-body-left {
     display: flex;
