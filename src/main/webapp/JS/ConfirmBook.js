@@ -31,8 +31,11 @@ ws.onmessage = function(event) {
 			count++;
 		}
 		console.log(newObject);
+		localStorage.setItem("listChairHold",JSON.stringify(newObject));
+	} else {
+		localStorage.setItem("listChairHold",JSON.stringify(listChairHold));
 	}
-	localStorage.setItem("listChairHold",JSON.stringify(newObject));
+
 
 
 	const Chairs = document.querySelectorAll(".item-square");
