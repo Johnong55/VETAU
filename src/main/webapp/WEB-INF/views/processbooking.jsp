@@ -23,6 +23,29 @@
 <!--flatpickr-->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+	<script>
+		window.addEventListener('load', function() {
+			let openTabs = parseInt(localStorage.getItem('openTabs')) || 0;
+			localStorage.setItem('openTabs', (openTabs + 1).toString());
+			console.log(openTabs+1);
+		});
+		window.addEventListener("unload", function() {
+			let openTabs = parseInt(localStorage.getItem('openTabs'));
+
+			if (openTabs === 1) {
+				localStorage.removeItem("listChairHold");
+				localStorage.removeItem("openTabs");
+			} else {
+				localStorage.setItem('openTabs', (openTabs - 1).toString());
+			}
+		});
+		window.addEventListener("pageshow", function(event) {
+			if (event.persisted) {
+				window.location.reload();
+			}
+		});
+
+	</script>
 
 </head>
 <body>
@@ -102,110 +125,7 @@
 
 			<div id="booking-right-body">
 
-				<%
-                        for (int i = 0; i < 10; i++) {
-                    %>
 
-
-				<div class="wrap-lable">
-					<div class="booking-label">
-						<div class="label-title">
-							<p style="margin-bottom: 6px;">12340 - SE1</p>
-						</div>
-
-						<div class="lable-info-bonus">
-							<div class="lable-info-bonus-left">
-								<p>Các ga đi qua:</p>
-								<div class="info-bonus-left-result">Huế, Vinh, Thanh Hóa,
-									Ninh Bình</div>
-							</div>
-
-							<div class="lable-info-bonus-right">
-								<p>Xem chi tiết thời gian</p>
-							</div>
-						</div>
-
-						<div class="lable-time_line">
-							<div class="wrap-time time-start">
-								<p class="day">Ngày 14/9</p>
-
-								<p class="hour">11:25 pm</p>
-
-								<p class="location">Đà Nẵng</p>
-							</div>
-
-							<div class="time-illustration">
-								<p class="hour-illus">25 giờ</p>
-							</div>
-
-							<div class="wrap-time time-end">
-								<p class="day">Ngày 15/9</p>
-
-								<p class="hour">12:25 pm</p>
-
-								<p class="location">Hà Nội</p>
-							</div>
-						</div>
-
-						<div class="wrap-options">
-							<div class="option option-3A">
-								<div class="content">
-									<div class="option-left">
-										<p>Toa</p>
-										<p>Giá</p>
-									</div>
-
-									<div class="option-right">
-										<p>3A</p>
-										<p>200.000 VND</p>
-									</div>
-								</div>
-							</div>
-
-							<div class="option option-2A">
-								<div class="content">
-									<div class="option-left">
-										<p>Toa</p>
-										<p>Giá</p>
-									</div>
-
-									<div class="option-right">
-										<p>2A</p>
-										<p>400.000 VND</p>
-									</div>
-								</div>
-							</div>
-
-							<div class="option option-1A">
-								<div class="content">
-									<div class="option-left">
-										<p>Toa</p>
-										<p>Giá</p>
-									</div>
-
-									<div class="option-right">
-										<p>1A</p>
-										<p>600.000 VND</p>
-									</div>
-								</div>
-							</div>
-
-							<div class="option">
-								<div class="sold-out">
-									<p>Hết vé</p>
-								</div>
-							</div>
-
-						</div>
-
-					</div>
-				</div>
-
-
-
-				<%
-                        }
-                    %>
 
 			</div>
 		</div>
@@ -250,338 +170,6 @@
 	</div>
 
 
-	<!--chọn ghế trong toa-->
-
-	<div class="form-option-3A">
-		<div class="modal">
-			<div class="modal__overlay"></div>
-			<div class="modal__body body-option-3A">
-				<div class="auth-form-option auth-form-option-3A ">
-					<div class="auth-form-option-container">
-						<div class="option-header">
-							<h1>Toa: 3A</h1>
-						</div>
-
-						<div class="option-body"
-							style="background-color: rgba(208, 255, 200, 1);">
-							<div class="option-body-left">
-
-								<%
-                                        for(int k = 0; k <=16 ; k +=4) {
-                                            %>
-
-								<div class="option-chair-column">
-									<%
-                                                    for(int i = 1; i <=4; i++) {
-                                                %>
-									<div class="option-chair-item">
-										<div class="item-backrest"></div>
-										<%  String name = (i + k) + "-3A";%>
-										<div class="item-square" id="<%=name%>" data-value="available" data-status="available">
-											<%=i+k%>
-										</div>
-									</div>
-									<%
-                                                }
-                                                %>
-								</div>
-								<%
-                                        }
-                                    %>
-
-							</div>
-
-							<div class="option-body-mid">
-								<div class="mid-item"></div>
-
-								<div class="mid-item"></div>
-							</div>
-
-							<div class="option-body-right">
-
-								<%
-                                        for(int k = 20; k <=36 ; k +=4) {
-                                            %>
-
-								<div class="option-chair-column">
-									<%
-                                                    for(int i = 1; i <=4; i++) {
-                                                %>
-									<div class="option-chair-item">
-										<div class="item-backrest"></div>
-										<%  String name = (i + k) + "-3A";%>
-										<div class="item-square" id="<%=name%>" data-value="available" data-status="available">
-											<%=i+k%>
-										</div>
-									</div>
-									<%
-                                                }
-                                                %>
-								</div>
-								<%
-                                        }
-                                    %>
-
-							</div>
-						</div>
-
-						<div class="option-desc">
-							<div class="option-desc-item">
-								<div class="option-chair-item">
-									<div class="item-backrest"></div>
-
-									<div class="item-square color-chair-soldout"
-										style="cursor: default;"></div>
-								</div>
-								<span>Đã có người chọn</span>
-							</div>
-
-							<div class="option-desc-item">
-								<div class="option-chair-item">
-									<div class="item-backrest"></div>
-
-									<div class="item-square color-chair-hold"
-										style="cursor: default;"></div>
-								</div>
-								<span>Bạn đang chọn</span>
-							</div>
-						</div>
-
-						<div class="option-status">
-							<p class="text-status">Đã chọn: 0</p>
-						</div>
-
-						<div class="box-btn">
-							<button class="login-btn confirmbook">Tiếp tục</button>
-							<button class="login-btn login-btn--back"
-								onclick="ExitOption_3A()">Trở lại</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="form-option-2A">
-		<div class="modal">
-			<div class="modal__overlay"></div>
-			<div class="modal__body body-option-2A">
-				<div class="auth-form-option auth-form-option-3A ">
-					<div class="auth-form-option-container">
-						<div class="option-header">
-							<h1>Toa: 3A</h1>
-						</div>
-
-						<div class="option-body"
-							style="background-color: rgba(255, 233, 200, 1);">
-							<div class="option-body-left">
-
-								<%
-                                        for(int k = 0; k <=16 ; k +=4) {
-                                            %>
-
-								<div class="option-chair-column">
-									<%
-                                                    for(int i = 1; i <=4; i++) {
-                                                %>
-									<div class="option-chair-item">
-										<div class="item-backrest"></div>
-										<%  String name = (i + k) + "-2A";%>
-										<div class="item-square" id="<%=name%>" data-value="available" data-status="available">
-											<%=i+k%>
-										</div>
-									</div>
-									<%
-                                                }
-                                                %>
-								</div>
-								<%
-                                        }
-                                    %>
-
-							</div>
-
-							<div class="option-body-mid">
-								<div class="mid-item"></div>
-
-								<div class="mid-item"></div>
-							</div>
-
-							<div class="option-body-right">
-
-								<%
-                                        for(int k = 20; k <=36 ; k +=4) {
-                                            %>
-
-								<div class="option-chair-column">
-									<%
-                                                    for(int i = 1; i <=4; i++) {
-                                                %>
-									<div class="option-chair-item">
-										<div class="item-backrest"></div>
-										<%  String name = (i + k) + "-2A";%>
-										<div class="item-square" id="<%=name%>" data-value="available" data-status="available">
-											<%=i+k%>
-										</div>
-									</div>
-									<%
-                                                }
-                                                %>
-								</div>
-								<%
-                                        }
-                                    %>
-
-							</div>
-						</div>
-
-						<div class="option-desc">
-							<div class="option-desc-item">
-								<div class="option-chair-item">
-									<div class="item-backrest"></div>
-
-									<div class="item-square color-chair-soldout"
-										style="cursor: default;"></div>
-								</div>
-								<span>Đã có người chọn</span>
-							</div>
-
-							<div class="option-desc-item">
-								<div class="option-chair-item">
-									<div class="item-backrest"></div>
-
-									<div class="item-square color-chair-hold"
-										style="cursor: default;"></div>
-								</div>
-								<span>Bạn đang chọn</span>
-							</div>
-						</div>
-
-						<div class="option-status">
-							<p class="text-status">Đã chọn: 0</p>
-						</div>
-
-						<div class="box-btn">
-							<button class="login-btn confirmbook">Tiếp tục</button>
-							<button class="login-btn login-btn--back"
-								onclick="ExitOption_2A()">Trở lại</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-	<div class="form-option-1A">
-		<div class="modal">
-			<div class="modal__overlay"></div>
-			<div class="modal__body body-option-1A">
-				<div class="auth-form-option auth-form-option-3A ">
-					<div class="auth-form-option-container">
-						<div class="option-header">
-							<h1>Toa: 3A</h1>
-						</div>
-
-						<div class="option-body"
-							style="background-color: rgba(255, 205, 205, 1);">
-							<div class="option-body-left">
-
-								<%
-                                        for(int k = 0; k <=16 ; k +=4) {
-                                            %>
-
-								<div class="option-chair-column">
-									<%
-                                                    for(int i = 1; i <=4; i++) {
-                                                %>
-									<div class="option-chair-item">
-										<div class="item-backrest"></div>
-										<%  String name = (i + k) + "-1A";%>
-										<div class="item-square" id="<%=name%>" data-value="available" data-status="available">
-											<%=i+k%>
-										</div>
-									</div>
-									<%
-                                                }
-                                                %>
-								</div>
-								<%
-                                        }
-                                    %>
-
-							</div>
-
-							<div class="option-body-mid">
-								<div class="mid-item"></div>
-
-								<div class="mid-item"></div>
-							</div>
-
-							<div class="option-body-right">
-
-								<%
-                                        for(int k = 20; k <=36 ; k +=4) {
-                                            %>
-
-								<div class="option-chair-column">
-									<%
-                                                    for(int i = 1; i <=4; i++) {
-                                                %>
-									<div class="option-chair-item">
-										<div class="item-backrest"></div>
-										<%  String name = (i + k) + "-1A";%>
-										<div class="item-square" id="<%=name%>" data-value="available" data-status="available">
-											<%=i+k%>
-										</div>
-									</div>
-									<%
-                                                }
-                                                %>
-								</div>
-								<%
-                                        }
-                                    %>
-
-							</div>
-						</div>
-
-						<div class="option-desc">
-							<div class="option-desc-item">
-								<div class="option-chair-item">
-									<div class="item-backrest"></div>
-
-									<div class="item-square color-chair-soldout"
-										style="cursor: default;"></div>
-								</div>
-								<span>Đã có người chọn</span>
-							</div>
-
-							<div class="option-desc-item">
-								<div class="option-chair-item">
-									<div class="item-backrest"></div>
-
-									<div class="item-square color-chair-hold"
-										style="cursor: default;"></div>
-								</div>
-								<span>Bạn đang chọn</span>
-							</div>
-						</div>
-
-						<div class="option-status">
-							<p id="text-status">Đã chọn: 0</p>
-						</div>
-
-						<div class="box-btn">
-							<button class="login-btn confirmbook">Tiếp tục</button>
-							<button class="login-btn login-btn--back"
-								onclick="ExitOption_1A()">Trở lại</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 
 
 	<!--đăng nhập đăng kí-->
@@ -680,8 +268,10 @@
 	<script src="../JS/login.js"></script>
 	<script type="module" src="../JS/Validate.js"></script>
 	<script type="module" src="../JS/ValidateLogin.js"></script>
-	<script src="../JS/ChooseChair.js"></script>
-	<script src="../JS/loadProcessbooking.js"></script>
+	<script type="module" src="../JS/loadProcessbooking.js"></script>
+	<script type="module" src="../JS/renderChair.js"></script>
+	<script type="module" src="../JS/renderTrain.js"></script>
+	<script type="module" src="../JS/ConfirmBook.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 	<script>
 
@@ -689,6 +279,19 @@
             dateFormat: "Y-m-d"
             });
         </script>
-	<script src="../JS/ConfirmBook.js"></script>
+
+	<script>
+		setTimeout(function() {
+			const script = document.createElement('script');
+
+			script.type = "module";
+
+			script.src = '../JS/ChooseChair.js';
+
+			document.body.appendChild(script);
+
+			console.log('ChooseChair has been added after 3 seconds');
+		}, 500);
+	</script>
 </body>
 </html>
