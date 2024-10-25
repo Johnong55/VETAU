@@ -27,6 +27,8 @@ const listTrain_Trip = document.querySelector("#booking-right-body");
 
 console.log(listTrain_Trip);
 
+
+
 for(let i = 0; i < 10; i++ ) {
     listTrain_Trip.innerHTML += getTrainEL(123,"1a2b3c");
 }
