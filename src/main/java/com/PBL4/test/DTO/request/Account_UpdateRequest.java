@@ -4,7 +4,7 @@ import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 
-public class Account_UpdateRequest  {
+public class Account_UpdateRequest {
     @Size(min = 6, message = "INVALID_PASSWORssD")
     private String password;
     private String firstName;

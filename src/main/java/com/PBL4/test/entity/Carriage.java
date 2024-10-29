@@ -1,5 +1,6 @@
 package com.PBL4.test.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -22,14 +23,49 @@ public class Carriage {
 	@OneToMany(mappedBy = "Carriage_id", fetch = FetchType.LAZY)
 	private List<Seat> ListOfSeat;
 	
-	@OneToMany(mappedBy = "carriage",fetch = FetchType.LAZY)
-	private List<TrainTrip_Carriage> trip_Carriages;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "TypeofSeat")
 	private SeatType  TypeofSeat;
-	
-	
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Train train;
+
+	@OneToMany(mappedBy = "carriage")
+	private List<TrainTrip_Carriage> trainTripCarriages;
+
+
+
+	/* getter and setter */
+
+
+
+
+
+	public List<TrainTrip_Carriage> getTrainTripCarriages() {
+		return trainTripCarriages;
+	}
+
+	public void setTrainTripCarriages(List<TrainTrip_Carriage> trainTripCarriages) {
+		this.trainTripCarriages = trainTripCarriages;
+	}
+
+	public SeatType getTypeofSeat() {
+		return TypeofSeat;
+	}
+
+	public void setTypeofSeat(SeatType typeofSeat) {
+		TypeofSeat = typeofSeat;
+	}
+
+	public Train getTrain() {
+		return train;
+	}
+
+	public void setTrain(Train train) {
+		this.train = train;
+	}
+
 	public SeatType getSeatType() {
 		return TypeofSeat;
 	}
@@ -70,13 +106,9 @@ public class Carriage {
 		ListOfSeat = listOfSeat;
 	}
 
-	public List<TrainTrip_Carriage> getTrip_Carriages() {
-		return trip_Carriages;
+	public Carriage() {
+		trainTripCarriages = new ArrayList<>();
+		ListOfSeat = new ArrayList<>();
+		CarriageId = train.getTrainName()+getCarriageName();
 	}
-
-	public void setTrip_Carriages(List<TrainTrip_Carriage> trip_Carriages) {
-		this.trip_Carriages = trip_Carriages;
-	}
-	
-
 }

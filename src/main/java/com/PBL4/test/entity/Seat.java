@@ -43,9 +43,9 @@ public class Seat {
 	@ManyToOne(cascade =  CascadeType.ALL)
 	@JoinColumn(name = "TypeofSeat")
 	private SeatType TypeofSeat;
-	
+
 	private int situation;
-	
+
 	public SeatType getTypeofSeat() {
 		return TypeofSeat;
 	}

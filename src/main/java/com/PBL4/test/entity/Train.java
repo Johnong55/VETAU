@@ -1,5 +1,6 @@
 package com.PBL4.test.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -28,7 +29,16 @@ public class Train {
 	@OneToMany(mappedBy = "train",fetch = FetchType.LAZY)
 	private List<Schedule> schedules;
 	
+	@OneToMany(mappedBy = "train", fetch = FetchType.LAZY)
+	private List<Carriage> carriages;
 
+	public List<Carriage> getCarriages() {
+		return carriages;
+	}
+
+	public void setCarriages(List<Carriage> carriages) {
+		this.carriages = carriages;
+	}
 
 	public List<Schedule> getSchedules() {
 		return schedules;
@@ -91,49 +101,19 @@ public class Train {
 
 
 	public Train() {
-		super();
-		// TODO Auto-generated constructor stub
+			trainTrips = new ArrayList<>();
+			carriages= new ArrayList<>();
+			schedules = new ArrayList<>();
+			priceLists = new ArrayList<>();
 	}
-	
-	
-	/*
-	 * @OneToMany(mappedBy = "train",fetch = FetchType.LAZY) private List<PriceList>
-	 * priceLists;
-	 * 
-	 * 
-	 * @OneToMany(mappedBy = "train",fetch = FetchType.LAZY) private List<Schedule>
-	 * lichtrinh;
-	 * 
-	 * 
-	 * public String getTrainId() { return TrainId; }
-	 * 
-	 * 
-	 * public void setTrainId(String trainId) { TrainId = trainId; }
-	 * 
-	 * 
-	 * public String getTrainName() { return TrainName; }
-	 * 
-	 * 
-	 * public void setTrainName(String trainName) { TrainName = trainName; }
-	 * 
-	 * 
-	 * public List<PriceList> getPriceLists() { return priceLists; }
-	 * 
-	 * 
-	 * public void setPriceLists(List<PriceList> priceLists) { this.priceLists =
-	 * priceLists; }
-	 * 
-	 * 
-	 * public List<Schedule> getLichtrinh() { return lichtrinh; }
-	 * 
-	 * 
-	 * public void setLichtrinh(List<Schedule> lichtrinh) { this.lichtrinh =
-	 * lichtrinh; }
-	 * 
-	 * 
-	 * public Train() { super(); // TODO Auto-generated constructor stub }
-	 * 
-	 */
 
-	
+	public void addtrainTrip(TrainTrip trainTrip) {
+		trainTrips.add(trainTrip);
+	}
+	public void addcarriage(Carriage carriage) {
+		carriages.add(carriage);
+	}
+	public void addSchedule(Schedule schedule) {
+		schedules.add(schedule);
+	}
 }

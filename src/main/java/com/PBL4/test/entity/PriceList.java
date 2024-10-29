@@ -19,6 +19,9 @@ public class PriceList {
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private String PriceList_ID;
 
+	@ManyToOne(cascade = CascadeType.ALL)
+	private TrainTrip trainTrip;
+
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "price")
 	private SeatType seatType;
 
@@ -37,7 +40,16 @@ public class PriceList {
 	
 	private double giatien;
 
-	
+/* getter and setter */
+
+	public TrainTrip getTrainTrip() {
+		return trainTrip;
+	}
+
+	public void setTrainTrip(TrainTrip trainTrip) {
+		this.trainTrip = trainTrip;
+	}
+
 	public Station getArrivalStation() {
 		return ArrivalStation;
 	}

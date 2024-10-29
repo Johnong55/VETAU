@@ -3,23 +3,12 @@ package com.PBL4.test.entity;
 
 import java.time.LocalDateTime;
 
-import java.util.List;
 
-
-
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 
 @Entity
 
-public class StopStation  {
+public class StopSchedule {
 
 	@Id
 	@GeneratedValue(strategy =GenerationType.UUID)
@@ -45,12 +34,31 @@ public class StopStation  {
 	@OneToOne
 	@JoinColumn(name = "StopStation")
 	private Station stopstation;
-	
+
+
+	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	private Schedule Schedule;
+
+
+
+
+
+
 	private LocalDateTime TimeToRun;
-	
 	private LocalDateTime ArrivalTime;
-	
-	
+
+
+
+
+	public Schedule getSchedule() {
+		return Schedule;
+	}
+
+	public void setSchedule(Schedule schedule) {
+		Schedule = schedule;
+
+	}
+
 	  public Schedule getSchedules() {
 		return Schedules;
 	}
@@ -121,7 +129,7 @@ public class StopStation  {
 	  
 	  
 	  
-	  public StopStation() { super(); // TODO Auto-generated constructor stub 
+	  public StopSchedule() { super(); // TODO Auto-generated constructor stub
 	  }
 	  
 	

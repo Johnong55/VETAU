@@ -17,6 +17,12 @@ public class City {
 	@OneToMany(mappedBy = "CityId", fetch = FetchType.LAZY)
 	private List<Station> stations;
 
+
+
+	/* getter and setter */
+
+
+
 	public String getCityID() {
 		return CityID;
 	}

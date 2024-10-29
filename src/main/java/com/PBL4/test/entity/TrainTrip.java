@@ -1,6 +1,7 @@
 package com.PBL4.test.entity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.annotations.NotFound;
@@ -26,15 +27,18 @@ public class TrainTrip {
 	private Train train;
 	private LocalDate ngaydi;
 	private LocalDate ngayde;
-	@OneToMany(mappedBy = "traintrip", fetch = FetchType.LAZY)
-	private List<TrainTrip_Carriage> trainTrip_Carriages;
-	
-	public List<TrainTrip_Carriage> getTrainTrip_Carriages() {
-		return trainTrip_Carriages;
+	@OneToMany(mappedBy ="trainTrip" )
+	private List<TrainTrip_Carriage> trainTripCarriages;
+
+
+	public List<TrainTrip_Carriage> getTrainTripCarriages() {
+		return trainTripCarriages;
 	}
-	public void setTrainTrip_Carriages(List<TrainTrip_Carriage> trainTrip_Carriages) {
-		this.trainTrip_Carriages = trainTrip_Carriages;
+
+	public void setTrainTripCarriages(List<TrainTrip_Carriage> trainTripCarriages) {
+		this.trainTripCarriages = trainTripCarriages;
 	}
+
 	public String getTrainTripId() {
 		return TrainTripId;
 	}
@@ -67,7 +71,7 @@ public class TrainTrip {
 	}
 	public TrainTrip() {
 		super();
-		// TODO Auto-generated constructor stub
+		trainTripCarriages = new ArrayList<>();
 	}
 	@Override
 	public String toString() {

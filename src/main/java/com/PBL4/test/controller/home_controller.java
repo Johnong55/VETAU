@@ -31,4 +31,9 @@ public class home_controller {
 		{
 			return "payment";
 		}
+		@GetMapping("/test")
+		public String test()
+		{
+			return "test";
+		}
 }
