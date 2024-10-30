@@ -1311,6 +1311,7 @@ small {
 #content-booking-success {
     display: flex;
     flex-direction: column;
+    background-color: #F5F5F5;
 }
 
 #content-booking-success-header {
@@ -1420,3 +1421,39 @@ small {
     flex-direction: row;
 }
 
+.avatar {
+    cursor: pointer;
+    position: relative;
+}
+.avatar:hover .user-menu {
+    display: flex;
+}
+.user-menu {
+    width: 150px;
+    position: absolute;
+    right: 0;
+    top: 50px;
+    display: none;
+    flex-direction: column;
+    background-color: #f5f5f5a2;
+    z-index: 3;
+    border-radius: 5px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.item-user {
+    text-decoration: none;
+    color: var(--black-color);
+    margin: 15px auto;
+}
+.item-user:hover {
+    color: var(--primary-color);
+}
+#tmp {
+    width: 70px;
+    background-color: transparent;
+    position: absolute;
+    top: 40px;
+    height: 10px;
+    right: 0;
+}

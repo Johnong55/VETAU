@@ -24,7 +24,7 @@
 <body>
 	<script>
             function BackPage() {
-                window.location.href = "processbooking.jsp";
+                window.location.href = "/processbooking";
             }
         </script>
 
