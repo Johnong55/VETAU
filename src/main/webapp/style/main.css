@@ -1457,3 +1457,80 @@ small {
     height: 10px;
     right: 0;
 }
+
+.grap-info-user {
+    margin: 50px auto;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    width: 400px;
+}
+
+.content-info-user {
+    display: flex;
+    flex-direction: column;
+    margin: 30px 20px 0 20px;
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+    font-weight: 500;
+}
+
+.item-info-user {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+}
+
+.info-user-imgs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+#camera-info {
+    position: absolute;
+    width: 45px;
+    top: 72%;
+    right: 30%;
+}
+
+.info-user-decs {
+    text-align: center;
+    margin: 20px 0;
+    color: var(--text-color);
+}
+
+.input-info-user {
+    outline: none;
+    height: 36px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(234, 235, 243);
+    padding-left: 10px;
+    font-weight: 400;
+    font-size: 1.4rem;
+    margin-top: 4px;
+}
+
+.grap-input-info-user {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.hihi {
+    width: 30%;
+}
+
+.hehe {
+    width: 70%;
+}
+
+.btn_update-info {
+    height: 45px;
+    border-radius: 30px;
+    border: none;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    margin-top: 20px;
+}

@@ -35,4 +35,8 @@ public class home_controller {
 		public String bookingsuccess(){
 			return "bookingsuccess";
 		}
+		@GetMapping("/informationalUser")
+		public String informationalUser(){
+		return "informationalUser";
+	}
 }
