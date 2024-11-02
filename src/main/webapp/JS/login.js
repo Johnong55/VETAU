@@ -25,6 +25,8 @@ function Login() {
 	}
 }
 
+window.Login = Login;
+
 function SignIn() {
 	removeAnimationClass();
 	if (window.getComputedStyle(login).display === "block") {
@@ -37,7 +39,9 @@ function SignIn() {
 		signIn.style.display = "block";
 	}
 }
-function Back() {
+
+window.SignIn = SignIn;
+export function Back() {
 	removeAnimationClass();
 	if (login.style.display === "block") {
 		body_login.classList.add("slide-out-top");
@@ -52,3 +56,4 @@ function Back() {
 		}, 300);
 	}
 }
+window.Back = Back;

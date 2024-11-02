@@ -235,8 +235,8 @@
 						</div>
 						<div class="auth-form__form">
 							<div class="auth-form__group form-field">
-								<input type="text" class="auth-form__input" id="email-login"
-									placeholder="Nhập email">
+								<input type="text" class="auth-form__input" id="username-login"
+									placeholder="Nhập tên đăng nhập">
 								<small></small>
 							</div>
 							<div class="auth-form__group form-field">
@@ -265,9 +265,10 @@
 		</div>
 	</div>
 
-	<script src="../JS/login.js"></script>
+	<script type="module" src="../JS/login.js"></script>
 	<script type="module" src="../JS/Validate.js"></script>
 	<script type="module" src="../JS/ValidateLogin.js"></script>
+	<script type="module" src="../JS/user.js"></script>
 	<script type="module" src="../JS/loadProcessbooking.js"></script>
 	<script type="module" src="../JS/renderChair.js"></script>
 	<script type="module" src="../JS/renderTrain.js"></script>

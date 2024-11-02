@@ -39,4 +39,8 @@ public class home_controller {
 		public String informationalUser(){
 		return "informationalUser";
 	}
+		@GetMapping("/myTicket")
+		public String myTicket(){
+		return "myTicket";
+	}
 }
