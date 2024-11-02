@@ -1,29 +1,24 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
+<%@ page isELIgnored="false"%>
+
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>BookingSuccess</title>
+    <title>cc</title>
     <!--font chữ-->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-            href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
-            rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
     <!--reset css-->
-    <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
     <!--icon-->
     <!--css-->
     <link rel="stylesheet" href="style/main.css" />
     <!--flatpickr-->
-    <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
-    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
     <style>
         .custom-input::-webkit-outer-spin-button,
         .custom-input::-webkit-inner-spin-button {
@@ -32,7 +27,13 @@
         }
     </style>
 </head>
+
 <body>
+<script>
+    function BackPage() {
+        window.location.href = "processbooking.jsp";
+    }
+</script>
 
 <div id="header-bookingProcess">
     <div id="header-bookingProcess-wrap">
@@ -59,48 +60,44 @@
 </div>
 
 <div id="content-booking-success">
-    <div class="grap-info-user">
-        <div class="content-info-user">
-            <div class="item-info-user">
-                <div class="info-user-imgs">
-                    <img src="imgs/avatar.png" alt="" />
-                    <img id="camera-info" src="imgs/camera.png" alt="" />
+    <div class="wrap-myTicket">
+        <div class="myTicket-header">
+            Vé đã mua
+        </div>
+        <div class="myTicket-body">
+            <div class="myTicket-status">
+                <h1 class="status">Sắp chạy</h1>
+                <h1 class="status">Đã chạy</h1>
+            </div>
+            <div class="myTicket-tickets">
+                <div class="lable-ticket" style="margin-left: 0; width: 100%;">
+                    <div class="info-ticket-chair">
+                        <div class="name-train">Tên chuyến tàu</div>
+                        <div class="name-chair" id="listChair"></div>
+                    </div>
+
+                    <div class="lable-time_line time-ticket">
+                        <div class="wrap-time time-start">
+                            <p class="day">Ngày 14/9</p>
+
+                            <p class="hour">11:25 pm</p>
+
+                            <p class="location">Đà Nẵng</p>
+                        </div>
+
+                        <div class="time-illustration">
+                            <p class="hour-illus">25 giờ</p>
+                        </div>
+
+                        <div class="wrap-time time-end">
+                            <p class="day">Ngày 15/9</p>
+
+                            <p class="hour">12:25 pm</p>
+
+                            <p class="location">Hà Nội</p>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="info-user-decs">
-                    Cung cấp thông tin chính xác sẽ hỗ trợ bạn trong quá trình mua vé
-                    hoặc khi cần xác thực vé
-                </div>
-            </div>
-
-            <div class="item-info-user">
-                <span>Họ và tên</span>
-                <input class="input-info-user" type="text" />
-            </div>
-
-            <div class="item-info-user">
-                <span>Số điện thoại</span>
-                <div class="grap-input-info-user">
-                    <select name="" id="" class="input-info-user hihi">
-                        <option value="">+84</option>
-                        <option value="">+60</option>
-                        <option value="">+61</option>
-                        <option value="">+66</option>
-                        <option value="">+85</option>
-                        <option value="">+80</option>
-                    </select>
-                    <input class="input-info-user hehe custom-input" type="number" />
-                    <img src="" alt="" />
-                </div>
-            </div>
-
-            <div class="item-info-user">
-                <span>Email</span>
-                <input class="input-info-user" type="email" />
-            </div>
-
-            <div class="item-info-user">
-                <button class="btn_update-info">Cập nhật</button>
             </div>
         </div>
     </div>
@@ -122,12 +119,7 @@
             </div>
             <div class="footer-contact">
                 <div class="footer-wrap-input">
-                    <input
-                            type="email"
-                            class="input-email"
-                            name="email"
-                            placeholder="Nhập email của bạn"
-                    />
+                    <input type="email" class="input-email" name="email" placeholder="Nhập email của bạn" />
                     <img class="icon-date" src="imgs/icon-send.png" alt="" />
                 </div>
             </div>
@@ -153,5 +145,21 @@
 <script type="module" src="../JS/login.js"></script>
 <script type="module" src="../JS/Validate.js"></script>
 <script type="module" src="../JS/ValidateLogin.js"></script>
+
+<script>
+    const status = document.querySelectorAll(".status");
+    status.forEach(tmp => {
+        tmp.addEventListener("click", function () {
+            status.forEach(tmp1 => {
+                tmp1.classList.remove("status-choosed");
+                tmp1.classList.remove("text-black");
+            });
+            tmp.classList.add("status-choosed");
+            tmp.classList.add("text-black");
+        });
+    });
+
+</script>
 </body>
+
 </html>

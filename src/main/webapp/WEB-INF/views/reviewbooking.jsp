@@ -326,6 +326,9 @@
 			</div>
 		</div>
 	</div>
+	<script type="module" src="../JS/intro.js"></script>
+	<script type="module" src="../JS/Cookie.js"></script>
+	<script type="module" src="../JS/user.js"></script>
 	<script src="JS/login.js"></script>
 	<script type="module" src="../JS/Validate.js"></script>
 	<script type="module" src="../JS/ValidateLogin.js"></script>

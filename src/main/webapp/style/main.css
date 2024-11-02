@@ -1092,6 +1092,13 @@ small {
     margin: 25px 0 0 30px;
 }
 
+.info-ticket-chair {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 25px 0 0 30px;
+}
+
 .name-train {
     font-size: 2rem;
     font-weight: 500;
@@ -1533,4 +1540,72 @@ small {
     background-color: var(--primary-color);
     color: var(--white-color);
     margin-top: 20px;
+}
+.wrap-myTicket {
+    margin: 50px auto;
+    width: 700px;
+}
+
+.myTicket-header {
+    font-size: 2.6rem;
+    font-weight: 700;
+    line-height: 3rem;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.myTicket-header::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    border: 1px solid var(--border-color);
+    top: 160%;
+    left: 0;
+
+}
+
+.myTicket-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.myTicket-status {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 50px;
+
+}
+
+.myTicket-status h1 {
+    font-size: 1.6rem;
+    font-weight: 500;
+    position: relative;
+    color: var(--text-color);
+}
+
+.myTicket-tickets {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.status:hover {
+    color: var(--black-color);
+}
+
+.status-choosed::after {
+    position: absolute;
+    content: "";
+    width: 40%;
+    border: 2px solid var(--primary-color);
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.text-black {
+    color: var(--black-color) !important;
 }

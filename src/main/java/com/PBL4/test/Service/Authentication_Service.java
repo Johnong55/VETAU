@@ -43,15 +43,12 @@ public class Authentication_Service {
 
         try {
             SignedJWT signedJWT = SignedJWT.parse(token);
-            Date expiretime = signedJWT.getJWTClaimsSet().getExpirationTime();
+            Date expiration = signedJWT.getJWTClaimsSet().getExpirationTime();
             var    verified = signedJWT.verify(verifier);
-            return new IntrospectResponse(verified && expiretime.after(new Date()));
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        } catch (JOSEException e) {
+            return new IntrospectResponse(verified && expiration.after(new Date()));
+        } catch (ParseException | JOSEException e) {
             throw new RuntimeException(e);
         }
-
 
     }
 
@@ -59,6 +56,8 @@ public class Authentication_Service {
         var account = account_Repository.existsByEmailOrUsername(request.getUsername()).orElseThrow(() -> new AppException(ErrorCode.ACCOUNT_NOT_EXISTED));
         System.out.println(account);
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
+        System.out.println(request.getPassword());
+        System.out.println(account.getPassword());
         boolean authenticated = passwordEncoder.matches(request.getPassword(), account.getPassword());
         if (!authenticated) {
             throw new AppException(ErrorCode.UNAUTHENTICATED);
