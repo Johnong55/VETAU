@@ -1,14 +1,19 @@
 function getUserEL() {
     return `
-        <div class="avatar">
+        <div class="avatar" id="user-avatar">
             <img style="width: 40px" src="../imgs/user.png" alt="" />
             <div id="tmp"></div>
             <div class="user-menu">
               <a class="item-user" href="http://localhost:8080/informationalUser">Thông tin cá nhân</a>
               <a class="item-user" href="http://localhost:8080/myTicket">Vé của tôi</a>
-              <a class="item-user" href="">Đăng xuất</a>
+              <a class="item-user" id="logout-btn" >Đăng xuất</a>
             </div>
         </div>
+    `;
+}
+function getBtn() {
+    return `
+    <button id="login-signin" onclick="Login()">Đăng nhập / Đăng kí</button>
     `;
 }
 
@@ -17,6 +22,16 @@ export function replaceButton() {
     if (button) {
         button.remove();
         const newElement = getUserEL();
+
+        const headerRight = document.getElementById("header-bookingProcess-right");
+        headerRight.insertAdjacentHTML('beforeend', newElement);
+    }
+}
+export function replaceUser() {
+    const user = document.getElementById("user-avatar");
+    if (user) {
+        user.remove();
+        const newElement = getBtn();
 
         const headerRight = document.getElementById("header-bookingProcess-right");
         headerRight.insertAdjacentHTML('beforeend', newElement);

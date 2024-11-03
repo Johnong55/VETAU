@@ -49,8 +49,8 @@
                 <img style="width: 40px" src="imgs/user.png" alt="" />
                 <div id="tmp"></div>
                 <div class="user-menu">
-                    <a class="item-user" href="">Thông tin cá nhân</a>
-                    <a class="item-user" href="">Vé của tôi</a>
+                    <a class="item-user" href="http://localhost:8080/informationalUser">Thông tin cá nhân</a>
+                    <a class="item-user" href="http://localhost:8080/myTicket">Vé của tôi</a>
                     <a class="item-user" href="">Đăng xuất</a>
                 </div>
             </div>
@@ -149,7 +149,9 @@
         </div>
     </div>
 </div>
-
+<script type="module" src="../JS/intro.js"></script>
+<script type="module" src="../JS/Cookie.js"></script>
+<script type="module" src="../JS/user.js"></script>
 <script type="module" src="../JS/login.js"></script>
 <script type="module" src="../JS/Validate.js"></script>
 <script type="module" src="../JS/ValidateLogin.js"></script>

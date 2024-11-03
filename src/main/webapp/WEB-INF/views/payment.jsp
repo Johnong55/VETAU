@@ -267,8 +267,8 @@
 						</div>
 						<div class="auth-form__form">
 							<div class="auth-form__group form-field">
-								<input type="text" class="auth-form__input" id="email-login"
-									   placeholder="Nhập email">
+								<input type="text" class="auth-form__input" id="username-login"
+									   placeholder="Nhập tên đăng nhập">
 								<small></small>
 							</div>
 							<div class="auth-form__group form-field">
@@ -296,9 +296,25 @@
 			</div>
 		</div>
 	</div>
-	<script src="JS/login.js"></script>
+	<script type="module" src="../JS/intro.js"></script>
+	<script type="module" src="../JS/Cookie.js"></script>
+	<script type="module" src="../JS/user.js"></script>
+	<script type="module" src="JS/login.js"></script>
 	<script type="module" src="../JS/Validate.js"></script>
 	<script type="module" src="../JS/ValidateLogin.js"></script>
 	<script src="JS/VnPayAPI.js"></script>
+	<script>
+		setTimeout(function() {
+			const script = document.createElement('script');
+
+			script.type = "module";
+
+			script.src="../JS/logout.js";
+
+			document.body.appendChild(script);
+
+			console.log('logout has been added after 0.5 seconds');
+		}, 500);
+	</script>
 </body>
 </html>
