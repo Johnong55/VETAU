@@ -264,7 +264,9 @@
 			</div>
 		</div>
 	</div>
-
+	<script type="module" src="../JS/intro.js"></script>
+	<script type="module" src="../JS/Cookie.js"></script>
+	<script type="module" src="../JS/user.js"></script>
 	<script type="module" src="../JS/login.js"></script>
 	<script type="module" src="../JS/Validate.js"></script>
 	<script type="module" src="../JS/ValidateLogin.js"></script>
@@ -291,7 +293,18 @@
 
 			document.body.appendChild(script);
 
-			console.log('ChooseChair has been added after 3 seconds');
+			console.log('ChooseChair has been added after 0.5 seconds');
+		}, 500);
+		setTimeout(function() {
+			const script = document.createElement('script');
+
+			script.type = "module";
+
+			script.src="../JS/logout.js";
+
+			document.body.appendChild(script);
+
+			console.log('logout has been added after 0.5 seconds');
 		}, 500);
 	</script>
 </body>
