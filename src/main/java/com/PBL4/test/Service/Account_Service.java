@@ -10,7 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.PBL4.test.entity.Account;
-import com.PBL4.test.mapper.Account_Mapper;
+import com.PBL4.test.mapper.App_Mapper;
 import com.PBL4.test.repository.Account_Repository;
 
 import com.PBL4.test.DTO.request.Account_Request;
@@ -28,11 +28,11 @@ public class Account_Service {
 	{
 		
 		Account account= new Account();
-		if(ac.existsByEmailOrUsername(rq.getUsername())==null)
+		if(ac.existsByEmailOrUsername(rq.getUsername())!= null)
 		{
 			throw new AppException(ErrorCode.ACCOUNT_EXISTED);
 		}
-		Account_Mapper mapper = new Account_Mapper();
+		App_Mapper mapper = new App_Mapper();
 
 		account = mapper.CreationtoAccount(rq);
 		PasswordEncoder encoder = new BCryptPasswordEncoder(10);
@@ -45,7 +45,7 @@ public class Account_Service {
 	public Account UpdateRequest(Account_UpdateRequest rq,String AccountId)
 	{
 		Account account = getAccount(AccountId);
-		Account_Mapper mapper = new Account_Mapper();
+		App_Mapper mapper = new App_Mapper();
 		account = mapper.UpdateToAccount(rq,account);
 
 		return ac.save(account);

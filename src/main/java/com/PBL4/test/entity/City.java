@@ -2,10 +2,7 @@ package com.PBL4.test.entity;
 
 import java.util.List;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 @Entity
 public class City {
@@ -14,7 +11,7 @@ public class City {
 	private String CityID;
 	private String CityName;
 
-	@OneToMany(mappedBy = "CityId", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "CityId", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Station> stations;
 
 
@@ -46,7 +43,9 @@ public class City {
 	public void setStations(List<Station> stations) {
 		this.stations = stations;
 	}
-
+	public void addStation(Station station) {
+		stations.add(station);
+	}
 	public City() {
 		super();
 		// TODO Auto-generated constructor stub
