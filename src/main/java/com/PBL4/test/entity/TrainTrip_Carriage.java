@@ -1,50 +1,26 @@
 package com.PBL4.test.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 public class TrainTrip_Carriage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @ManyToOne(fetch = FetchType.LAZY,cascade =  CascadeType.ALL)
-    @JoinColumn(name = "Carriage")
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "carriage_id") // tên khóa ngoại rõ ràng hơn
     private Carriage carriage;
-    @JoinColumn(name = "TrainTrip")
-    @ManyToOne(fetch = FetchType.LAZY,cascade =  CascadeType.ALL)
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "train_trip_id") // tên khóa ngoại rõ ràng hơn
     private TrainTrip trainTrip;
 
-    public TrainTrip_Carriage() {
-        super();
-    }
-
-    public TrainTrip_Carriage(int id, Carriage carriage, TrainTrip trainTrip) {
-        this.id = id;
-        this.carriage = carriage;
-        this.trainTrip = trainTrip;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Carriage getCarriage() {
-        return carriage;
-    }
-
-    public void setCarriage(Carriage carriage) {
-        this.carriage = carriage;
-    }
-
-    public TrainTrip getTrainTrip() {
-        return trainTrip;
-    }
-
-    public void setTrainTrip(TrainTrip trainTrip) {
-        this.trainTrip = trainTrip;
-    }
 }

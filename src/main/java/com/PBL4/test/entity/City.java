@@ -3,53 +3,26 @@ package com.PBL4.test.entity;
 import java.util.List;
 
 import jakarta.persistence.*;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 public class City {
 
-	@Id
-	private String CityID;
-	private String CityName;
+    @Id
+    String cityID;
+    String cityName;
 
-	@OneToMany(mappedBy = "CityId", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<Station> stations;
+    @OneToMany(mappedBy = "city", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    List<Station> stations;
 
-
-
-	/* getter and setter */
-
-
-
-	public String getCityID() {
-		return CityID;
-	}
-
-	public void setCityID(String cityID) {
-		CityID = cityID;
-	}
-
-	public String getCityName() {
-		return CityName;
-	}
-
-	public void setCityName(String cityName) {
-		CityName = cityName;
-	}
-
-	public List<Station> getStations() {
-		return stations;
-	}
-
-	public void setStations(List<Station> stations) {
-		this.stations = stations;
-	}
-	public void addStation(Station station) {
-		stations.add(station);
-	}
-	public City() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	
+    public void addStation(Station station) {
+        stations.add(station);
+        station.setCity(this);
+    }
 }

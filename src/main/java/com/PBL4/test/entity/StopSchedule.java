@@ -5,135 +5,41 @@ import java.time.LocalDateTime;
 
 
 import jakarta.persistence.*;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 
 public class StopSchedule {
 
-	@Id
-	@GeneratedValue(strategy =GenerationType.UUID)
-	private String ID;
-	
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    String ID;
+    LocalDateTime TimeToRun;
+    LocalDateTime ArrivalTime;
 
-	@ManyToOne
-	@JoinColumn(name = "ArrivalStation")
-	private Station ArrivalStation;
-	
-	@ManyToOne
-	  @JoinColumn(name = "DepartureStation")
-	private Station DepartureStation;
-	
-	@ManyToOne
-	@JoinColumn(name = "Train")
-	private Train train;
-	
-	@ManyToOne
-	@JoinColumn(name = "Schedules")
-	private Schedule Schedules;
-	
-	@OneToOne
-	@JoinColumn(name = "StopStation")
-	private Station stopstation;
+    @ManyToOne
+    @JoinColumn(name = "ArrivalStation")
+    Station ArrivalStation;
 
+    @ManyToOne
+    @JoinColumn(name = "DepartureStation")
+    Station DepartureStation;
 
-	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-	private Schedule Schedule;
+    @ManyToOne
+    @JoinColumn(name = "Train")
+    Train train;
 
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "schedule")
+    Schedule schedule;
 
-
-
-
-
-	private LocalDateTime TimeToRun;
-	private LocalDateTime ArrivalTime;
-
-
-
-
-	public Schedule getSchedule() {
-		return Schedule;
-	}
-
-	public void setSchedule(Schedule schedule) {
-		Schedule = schedule;
-
-	}
-
-	  public Schedule getSchedules() {
-		return Schedules;
-	}
-
-	public void setSchedules(Schedule schedules) {
-		Schedules = schedules;
-	}
-
-	public Station getStopstation() {
-		return stopstation;
-	}
-
-	public void setStopstation(Station stopstation) {
-		this.stopstation = stopstation;
-	}
-
-	public LocalDateTime getTimeToRun() {
-		return TimeToRun;
-	}
-
-	public void setTimeToRun(LocalDateTime timeToRun) {
-		TimeToRun = timeToRun;
-	}
-
-	public LocalDateTime getArrivalTime() {
-		return ArrivalTime;
-	}
-
-	public void setArrivalTime(LocalDateTime arrivalTime) {
-		ArrivalTime = arrivalTime;
-	}
-
-	public Schedule getLichtrinh() {
-		return Schedules;
-	}
-
-	public void setLichtrinh(Schedule lichtrinh) {
-		this.Schedules = lichtrinh;
-	}
-
-	public Station getArrivalStation() {
-		return ArrivalStation;
-	}
-
-	public void setArrivalStation(Station arrivalStation) {
-		ArrivalStation = arrivalStation;
-	}
-
-	public Station getDepartureStation() {
-		return DepartureStation;
-	}
-
-	public void setDepartureStation(Station departureStation) {
-		DepartureStation = departureStation;
-	}
-
-	public Train getTrain() {
-		return train;
-	}
-
-	public void setTrain(Train train) {
-		this.train = train;
-	}
-
-	public String getID() { return ID; }
-	  
-	  public void setID(String iD) { ID = iD; }
-	  
-	  
-	  
-	  public StopSchedule() { super(); // TODO Auto-generated constructor stub
-	  }
-	  
-	
-	
-	
-
+    @OneToOne
+    @JoinColumn(name = "StopStation")
+    Station stopStation;
 }

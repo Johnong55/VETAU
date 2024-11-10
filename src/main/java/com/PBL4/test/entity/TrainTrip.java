@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
@@ -17,66 +19,28 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 public class TrainTrip {
-	@Id
-	@GeneratedValue(strategy = GenerationType.UUID)
-	private String TrainTripId;
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "Train", nullable = true)
-	private Train train;
-	private LocalDate ngaydi;
-	private LocalDate ngayde;
-	@OneToMany(mappedBy ="trainTrip" )
-	private List<TrainTrip_Carriage> trainTripCarriages;
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    String TrainTripId;
+    LocalDate ngaydi;
+    LocalDate ngayden;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "train_id", nullable = false)
+    Train train;
 
-	public List<TrainTrip_Carriage> getTrainTripCarriages() {
-		return trainTripCarriages;
-	}
+    @OneToMany(mappedBy = "trainTrip")
+    List<TrainTrip_Carriage> trainTripCarriages;
 
-	public void setTrainTripCarriages(List<TrainTrip_Carriage> trainTripCarriages) {
-		this.trainTripCarriages = trainTripCarriages;
-	}
-
-	public String getTrainTripId() {
-		return TrainTripId;
-	}
-	public void setTrainTripId(String trainTripId) {
-		TrainTripId = trainTripId;
-	}
-	public Train getTrain() {
-		return train;
-	}
-	public void setTrain(Train train) {
-		this.train = train;
-	}
-	public Train getTau() {
-		return train;
-	}
-	public void setTau(Train train) {
-		this.train = train;
-	}
-	public LocalDate getNgaydi() {
-		return ngaydi;
-	}
-	public void setNgaydi(LocalDate ngaydi) {
-		this.ngaydi = ngaydi;
-	}
-	public LocalDate getNgayde() {
-		return ngayde;
-	}
-	public void setNgayde(LocalDate ngayde) {
-		this.ngayde = ngayde;
-	}
-	public TrainTrip() {
-		super();
-		trainTripCarriages = new ArrayList<>();
-	}
-	@Override
-	public String toString() {
-		return "ChuyenTau [id=" + TrainTripId + ", tau=" + train + ", ngaydi=" + ngaydi + ", ngayde=" + ngayde + "]";
-	}
-	
-	
+    @Override
+    public String toString() {
+        return "ChuyenTau [id=" + TrainTripId + ", tau=" + train + ", ngaydi=" + ngaydi + ", ngayde=" + ngayden + "]";
+    }
 }

@@ -11,96 +11,30 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 
 public class PriceList {
-	@Id
-	@GeneratedValue(strategy = GenerationType.UUID)
-	private String PriceList_ID;
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    String priceListID;
+    double price;
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	private TrainTrip trainTrip;
+    @ManyToOne(cascade = CascadeType.ALL)
+    TrainTrip_Carriage trainTrip_Carriage;
 
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "price")
-	private SeatType seatType;
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "ArrivalStation")
+    Station arrivalStation;
 
-	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinColumn(nullable = true)
-	private Train train;
-	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "ArrivalStation")
-
-	private Station ArrivalStation;
-	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "DepartureStation")
-	private Station DepartureStation;
-	
-	private double giatien;
-
-/* getter and setter */
-
-	public TrainTrip getTrainTrip() {
-		return trainTrip;
-	}
-
-	public void setTrainTrip(TrainTrip trainTrip) {
-		this.trainTrip = trainTrip;
-	}
-
-	public Station getArrivalStation() {
-		return ArrivalStation;
-	}
-
-	public void setArrivalStation(Station arrivalStation) {
-		ArrivalStation = arrivalStation;
-	}
-
-	public Station getDepartureStation() {
-		return DepartureStation;
-	}
-
-	public void setDepartureStation(Station departureStation) {
-		DepartureStation = departureStation;
-	}
-
-	public String getPriceList_ID() {
-		return PriceList_ID;
-	}
-
-	public void setPriceList_ID(String priceList_ID) {
-		PriceList_ID = priceList_ID;
-	}
-
-	public SeatType getSeatType() {
-		return seatType;
-	}
-
-	public void setSeatType(SeatType seatType) {
-		this.seatType = seatType;
-	}
-
-	public Train getTrain() {
-		return train;
-	}
-
-	public void setTrain(Train train) {
-		this.train = train;
-	}
-
-	public double getGiatien() {
-		return giatien;
-	}
-
-	public void setGiatien(double giatien) {
-		this.giatien = giatien;
-	}
-
-	public PriceList() { super(); // TODO Auto-generated constructor stub 
-	
-	}
-	
-
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "DepartureStation")
+    Station departureStation;
 }
