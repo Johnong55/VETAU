@@ -1,13 +1,13 @@
 package com.PBL4.test.entity;
 
 import java.time.LocalDate;
+import java.util.Set;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "Account")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS) 
-@DiscriminatorColumn(name = "account_type", discriminatorType = DiscriminatorType.STRING)
 public  class Account {
     @Id    
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -29,10 +29,19 @@ public  class Account {
     private String address;
     private String phoneNumber;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = true, unique = true)
     private String cid; // citizen identification card
 
-    // Getters and setters
+	private Set<String> Roles;
+
+	public Set<String> getRoles() {
+		return Roles;
+	}
+
+	public void setRoles(Set<String> roles) {
+		Roles = roles;
+	}
+// Getters and setters
     // ...
 
     // Constructors

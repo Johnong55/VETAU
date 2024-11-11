@@ -1,6 +1,7 @@
 package com.PBL4.test.Exception;
 
-import com.PBL4.test.DTO.request.ApiResponse;
+import com.PBL4.test.DTO.response.ApiResponse;
+import com.PBL4.test.enums.ErrorCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;

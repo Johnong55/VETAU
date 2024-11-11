@@ -1,5 +1,7 @@
 package com.PBL4.test.Exception;
 
+import com.PBL4.test.enums.ErrorCode;
+
 public class AppException extends RuntimeException {
     private ErrorCode errorcode;
 

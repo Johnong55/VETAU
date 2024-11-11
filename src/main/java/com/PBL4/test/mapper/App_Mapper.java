@@ -1,20 +1,17 @@
 package com.PBL4.test.mapper;
 
-import com.PBL4.test.DTO.request.Account_UpdateRequest;
-import com.PBL4.test.DTO.request.City_Request;
-import com.PBL4.test.DTO.request.Train_Request;
+import com.PBL4.test.DTO.request.*;
 import com.PBL4.test.Exception.AppException;
-import com.PBL4.test.Exception.ErrorCode;
+import com.PBL4.test.enums.ErrorCode;
 import com.PBL4.test.entity.*;
 
-import com.PBL4.test.DTO.request.Account_Request;
+import com.PBL4.test.repository.City_Repository;
 import com.PBL4.test.repository.Schedule_Repository;
 import com.PBL4.test.repository.Station_Repository;
 import com.PBL4.test.repository.TrainTrip_Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class App_Mapper {
@@ -25,6 +22,8 @@ public class App_Mapper {
 	private TrainTrip_Repository trainTripRepository;
 	@Autowired
 	private Station_Repository stationRepository;
+	@Autowired
+	private City_Repository cityRepository;
 		public Account CreationtoAccount(Account_Request rq)
 		{
 			
@@ -83,5 +82,12 @@ public class App_Mapper {
 
 		return city;
 	}
-
+	public Station CreationtoStation(Station_Request rq)
+	{
+		Station station = new Station();
+		station.setStationName(rq.getStationName());
+		station.setAddress(rq.getAddress());
+		station.setCityId(cityRepository.findById(rq.getCityId()).orElseThrow(()-> new AppException(ErrorCode.CITY_NOT_EXISTED)));
+		return station;
+	}
 }

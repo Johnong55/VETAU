@@ -1,10 +1,10 @@
-package com.PBL4.test.DTO.request;
+package com.PBL4.test.DTO.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiResponse <T> {
-    private int code;
+    private int code =1000;
     private String message;
     private T result;
 

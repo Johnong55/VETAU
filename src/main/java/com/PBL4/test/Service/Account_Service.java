@@ -1,9 +1,11 @@
 package com.PBL4.test.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import com.PBL4.test.DTO.request.Account_UpdateRequest;
 import com.PBL4.test.Exception.AppException;
-import com.PBL4.test.Exception.ErrorCode;
+import com.PBL4.test.enums.ErrorCode;
+import com.PBL4.test.enums.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,22 +23,28 @@ public class Account_Service {
 
 	@Autowired
 	private  Account_Repository ac;
-	
+
+	@Autowired
+	PasswordEncoder passwordEncoder;
 	
 	
 	public Account CreateRequest(Account_Request rq)
 	{
 		
 		Account account= new Account();
-		if(ac.existsByEmailOrUsername(rq.getUsername())!= null)
+		System.out.println(ac.existsByEmailOrUsername(rq.getUsername()).isEmpty());
+		if(!ac.existsByEmailOrUsername(rq.getUsername()).isEmpty())
 		{
 			throw new AppException(ErrorCode.ACCOUNT_EXISTED);
 		}
 		App_Mapper mapper = new App_Mapper();
 
 		account = mapper.CreationtoAccount(rq);
-		PasswordEncoder encoder = new BCryptPasswordEncoder(10);
-		account.setPassword(encoder.encode(rq.getPassword()));
+		HashSet<String> roles = new HashSet<>();
+			roles.add(Role.USER.name());
+			account.setRoles(roles);
+
+		account.setPassword(passwordEncoder.encode(rq.getPassword()));
 
 
 		return ac.save(account);

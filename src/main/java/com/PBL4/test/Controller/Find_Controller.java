@@ -1,4 +1,4 @@
-package com.PBL4.test.controller;
+package com.PBL4.test.Controller;
 
 import org.springframework.web.bind.annotation.*;
 

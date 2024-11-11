@@ -1,6 +1,6 @@
-package com.PBL4.test.controller;
+package com.PBL4.test.Controller;
 
-import com.PBL4.test.DTO.request.ApiResponse;
+import com.PBL4.test.DTO.response.ApiResponse;
 import com.PBL4.test.DTO.request.Authentication_Request;
 import com.PBL4.test.DTO.request.IntrospectRequest;
 import com.PBL4.test.DTO.response.Authentication_response;

@@ -1,0 +1,33 @@
+package com.PBL4.test.Controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class home_controller {
+		@GetMapping(value = {"/", "/index"})
+		public String index()
+		{
+			return "index";
+		}
+		@GetMapping("/processbooking")
+		public String processbooking()
+		{
+			return "processbooking";
+		}
+		@GetMapping("/reviewbooking")
+		public String reviewbooking()
+		{
+			return "reviewbooking";
+		}
+		@GetMapping("/payment")
+		public String payment()
+		{
+			return "payment";
+		}
+		@GetMapping("/test")
+		public String test()
+		{
+			return "test";
+		}
+}

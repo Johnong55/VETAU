@@ -1,9 +1,9 @@
-package com.PBL4.test.Exception;
+package com.PBL4.test.enums;
 
 public enum ErrorCode {
 
     UNCATEGORIZED_EXCEPTION(9999, "Uncategorized error"),
-
+    INVALID_TOKEN(1001, "Invalid token"),
     ACCOUNT_EXISTED(1002, "Account already existed"),
     ACCOUNT_NOT_EXISTED(1003, "Account not existed"),
     INVALID_PASSWORD(1004, "Invalid password"),

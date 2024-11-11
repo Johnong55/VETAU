@@ -1,12 +1,11 @@
-package com.PBL4.test.controller;
+package com.PBL4.test.Controller;
 
 
-import com.PBL4.test.DTO.request.ApiResponse;
+import com.PBL4.test.DTO.response.ApiResponse;
 import com.PBL4.test.DTO.request.Train_Request;
 import com.PBL4.test.Service.Train_Service;
 import com.PBL4.test.entity.Train;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
