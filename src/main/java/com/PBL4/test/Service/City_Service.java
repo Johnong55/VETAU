@@ -1,18 +1,17 @@
 package com.PBL4.test.Service;
 
-import com.PBL4.test.DTO.request.CityRequest;
-import com.PBL4.test.DTO.response.CityResponse;
+import com.PBL4.test.DTO.request.City_Request;
+import com.PBL4.test.DTO.response.City_Response;
 import com.PBL4.test.Exception.AppException;
 import com.PBL4.test.Exception.ErrorCode;
 import com.PBL4.test.entity.City;
 import com.PBL4.test.entity.Station;
 import com.PBL4.test.mapper.CityMapper;
-import com.PBL4.test.mapper.StationMapper;
+import com.PBL4.test.mapper.Station_Mapper;
 import com.PBL4.test.repository.City_Repository;
 import com.PBL4.test.repository.Station_Repository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,7 +27,7 @@ public class City_Service {
     @Autowired
     CityMapper cityMapper;
     @Autowired
-    StationMapper stationMapper;
+    Station_Mapper stationMapper;
 
     private String generateCityID() {
         City lastCity = cityRepository.findLastCity();
@@ -41,7 +40,7 @@ public class City_Service {
         return String.format("CT%03d", newNumber);
     }
 
-    public CityResponse createCity(CityRequest request) {
+    public City_Response createCity(City_Request request) {
         if (cityRepository.existsByCityName(request.getCityName())) {
             throw new AppException(ErrorCode.CITY_EXISTED);
         }
@@ -50,7 +49,7 @@ public class City_Service {
         return cityMapper.toCityResponse(cityRepository.save(result));
     }
 
-    public List<CityResponse> findAll() {
+    public List<City_Response> findAll() {
         return cityRepository.findAll().stream()
                 .map(cityMapper::toCityResponse)
                 .collect(Collectors.toList());
@@ -67,17 +66,27 @@ public class City_Service {
         return cityRepository.save(result);
     }
 
-    public CityResponse findByName(String cityName) {
+    public City_Response findByName(String cityName) {
         City city = cityRepository.findByCityName(cityName)
                 .orElseThrow(() -> new AppException(ErrorCode.CITY_NOT_EXISTED));
-        CityResponse cityResponse = cityMapper.toCityResponse(city);
+        City_Response cityResponse = cityMapper.toCityResponse(city);
         cityResponse.setStations(city.getStations().stream()
                 .map(stationMapper::toStationResponse)
                 .collect(Collectors.toList()));
         return cityResponse;
     }
 
-    public CityResponse updateCity(String cityID, CityRequest request) {
+    public City_Response findByID(String cityID) {
+        City city = cityRepository.findByCityID(cityID)
+                .orElseThrow(() -> new AppException(ErrorCode.CITY_NOT_EXISTED));
+        City_Response cityResponse = cityMapper.toCityResponse(city);
+        cityResponse.setStations(city.getStations().stream()
+                .map(stationMapper::toStationResponse)
+                .collect(Collectors.toList()));
+        return cityResponse;
+    }
+
+    public City_Response updateCity(String cityID, City_Request request) {
         City city = cityRepository.findByCityID(cityID)
                 .orElseThrow(() -> new RuntimeException("City not found"));
         cityMapper.updateCity(city, request);

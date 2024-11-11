@@ -2,11 +2,13 @@ package com.PBL4.test.entity;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import java.util.Set;
 
 @Data
 @Builder
@@ -19,7 +21,6 @@ import lombok.experimental.FieldDefaults;
 @DiscriminatorColumn(name = "account_type", discriminatorType = DiscriminatorType.STRING)
 public class Account {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
     @Column(nullable = false, unique = true)
@@ -36,6 +37,7 @@ public class Account {
     LocalDate dob;
     String address;
     String phoneNumber;
+    String role;
 
     @Column(nullable = false, unique = true)
     String cid; // citizen identification card

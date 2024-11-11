@@ -3,7 +3,6 @@ package com.PBL4.test.Exception;
 public enum ErrorCode {
 
     UNCATEGORIZED_EXCEPTION(9999, "Uncategorized error"),
-
     ACCOUNT_EXISTED(1002, "Account already existed"),
     ACCOUNT_NOT_EXISTED(1003, "Account not existed"),
     INVALID_PASSWORD(1004, "Invalid password"),
@@ -15,6 +14,9 @@ public enum ErrorCode {
     CITY_NOT_EXISTED(1010,"City not existed"),
     STATION_EXISTED(1011,"Station existed"),
     STATION_NOT_EXISTED(1012,"Station not existed"),
+    TRAIN_EXISTED(1013,"Train existed"),
+    TRAIN_NOT_EXISTED(1014,"Train not existed"),
+    EMAIL_EXISTED(1015,"Email existed"),
     ;
     // Constructor
     ErrorCode(int code, String message) {

@@ -13,7 +13,6 @@ import lombok.experimental.FieldDefaults;
 public class Station {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     String stationId;
     String address;
     @Column(unique = true)

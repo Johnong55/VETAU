@@ -1,11 +1,11 @@
 package com.PBL4.test.DTO.request;
 
-public class IntrospectRequest {
+public class Introspect_Request {
 
     String token;
 
-    public IntrospectRequest() {}
-    public IntrospectRequest(String token) {
+    public Introspect_Request() {}
+    public Introspect_Request(String token) {
         this.token = token;
     }
 

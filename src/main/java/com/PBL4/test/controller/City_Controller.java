@@ -1,13 +1,10 @@
 package com.PBL4.test.controller;
 
-import com.PBL4.test.DTO.request.ApiResponse;
-import com.PBL4.test.DTO.request.CityRequest;
-import com.PBL4.test.DTO.response.CityResponse;
+import com.PBL4.test.DTO.request.Api_Response;
+import com.PBL4.test.DTO.request.City_Request;
+import com.PBL4.test.DTO.response.City_Response;
 import com.PBL4.test.Service.City_Service;
 import com.PBL4.test.entity.City;
-import com.PBL4.test.entity.Station;
-import lombok.Builder;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,35 +17,47 @@ import java.util.List;
 public class City_Controller {
     @Autowired
     private City_Service city_service;
-    @Autowired
-    private City_Service city_Service;
 
     @PostMapping
-    public ApiResponse<CityResponse> CreateCity(@RequestBody CityRequest city) {
-        return ApiResponse.<CityResponse>builder()
+    public Api_Response<City_Response> CreateCity(@RequestBody City_Request city) {
+        return Api_Response.<City_Response>builder()
                 .result(city_service.createCity(city))
                 .build();
     }
     @GetMapping
-    public List<CityResponse> getAllCities() {
+    public List<City_Response> getAllCities() {
         return city_service.findAll();
     }
 
     @PostMapping("/{CityID}/stations/{StationID}")
-    public ApiResponse<City> AddStations(@PathVariable String CityID, @PathVariable String StationID)
+    public Api_Response<City> AddStations(@PathVariable String CityID, @PathVariable String StationID)
     {
-        ApiResponse<City> response =  new ApiResponse<>();
+        Api_Response<City> response =  new Api_Response<>();
         response.setResult(city_service.addAStation(CityID, StationID));
         return response;
     }
 
     @PutMapping("/{cityID}")
-    public CityResponse updateCity(@PathVariable String cityID, @RequestBody CityRequest request) {
+    public City_Response updateCity(@PathVariable String cityID, @RequestBody City_Request request) {
         return city_service.updateCity(cityID, request);
     }
 
     @DeleteMapping("/{cityId}")
-    void deleteCity(@PathVariable String cityId) {
-        city_Service.deleteCity(cityId);
+    Api_Response<String> deleteCity(@PathVariable String cityId) {
+        city_service.deleteCity(cityId);
+        return Api_Response.<String>builder()
+                .result("Station has been deleted")
+                .build();
     }
+
+    @GetMapping("/name/{cityName}")
+    public City_Response findByName(@PathVariable String cityName) {
+        return city_service.findByName(cityName);
+    }
+
+    @GetMapping("/id/{cityId}")
+    public City_Response findByID(@PathVariable String cityId) {
+        return city_service.findByID(cityId);
+    }
+
 }

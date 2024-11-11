@@ -1,6 +1,6 @@
 package com.PBL4.test.DTO.response;
 
-public class IntrospectResponse {
+public class Introspect_Response {
     boolean valid;
 
     public boolean isValid() {
@@ -11,7 +11,7 @@ public class IntrospectResponse {
         this.valid = valid;
     }
 
-    public IntrospectResponse(boolean valid) {
+    public Introspect_Response(boolean valid) {
         this.valid = valid;
     }
 }

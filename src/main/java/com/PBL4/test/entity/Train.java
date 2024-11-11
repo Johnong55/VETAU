@@ -15,18 +15,6 @@ import lombok.experimental.FieldDefaults;
 @Entity
 public class Train {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     String trainId;
     String trainName;
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    List<TrainTrip> trainTrips;
-
-    @OneToMany(fetch = FetchType.LAZY)
-    List<Schedule> schedules;
-
-    public void addTrainTrip(TrainTrip trainTrip) {
-        trainTrips.add(trainTrip);
-        trainTrip.setTrain(this);
-    }
 }
