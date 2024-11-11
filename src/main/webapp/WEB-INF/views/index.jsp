@@ -13,7 +13,7 @@
 			rel="stylesheet">
 	<!--reset css-->
 	<link rel="stylesheet"
-		  href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+		  href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 	<!--icon-->
 	<!--css-->
 	<link rel="stylesheet" href="../style/main.css">
