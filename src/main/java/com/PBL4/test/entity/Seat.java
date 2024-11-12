@@ -19,20 +19,17 @@ import lombok.experimental.FieldDefaults;
 )
 public class Seat {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    String SeatID;
+    String seatId;
     String seatName;
     boolean situation;
 
-    @Column(nullable =  false, unique = true)
+    @Column(nullable = false, unique = true)
     private String sku;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "Carriage")
+    @ManyToOne
+    @JoinColumn(name = "carriage_id", nullable = false)
     Carriage carriage;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "TypeofSeat")
-    SeatType typeOfSeat;
-
+    @Column(name = "seat_type")
+    private String seatType;
 }

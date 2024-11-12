@@ -17,6 +17,11 @@ public enum ErrorCode {
     TRAIN_EXISTED(1013,"Train existed"),
     TRAIN_NOT_EXISTED(1014,"Train not existed"),
     EMAIL_EXISTED(1015,"Email existed"),
+    CARRIAGE_EXISTED(1016,"Carriage existed"),
+    CARRIAGE_NOT_EXISTED(1017,"Carriage not existed"),
+    SEAT_ID_MISSING(1018,"Seat id missing"),
+    SEAT_NOT_EXISTED(1019,"Seat not existed"),
+    SEATS_WITH_CARRIAGEID_NOT_EXISTED(1020,"Seats with carriageID not existed"),
     ;
     // Constructor
     ErrorCode(int code, String message) {

@@ -38,9 +38,4 @@ public class TrainTrip {
 
     @OneToMany(mappedBy = "trainTrip")
     List<TrainTrip_Carriage> trainTripCarriages;
-
-    @Override
-    public String toString() {
-        return "ChuyenTau [id=" + TrainTripId + ", tau=" + train + ", ngaydi=" + ngaydi + ", ngayde=" + ngayden + "]";
-    }
 }

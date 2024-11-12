@@ -1,15 +1,11 @@
 package com.PBL4.test.entity;
 
-import java.util.List;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import com.PBL4.test.enums.CarriageClass;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import java.util.List;
 
 @Data
 @Builder
@@ -20,12 +16,14 @@ import lombok.experimental.FieldDefaults;
 public class Carriage {
     @Id
     String carriageId;
-    String carriageName;
-    String carriageRank;
     int seatCount;
+    String carriageName;
 
-    @OneToMany(mappedBy = "carriage", fetch = FetchType.LAZY)
-    List<Seat> Seats;
+    @Enumerated(EnumType.STRING)
+    CarriageClass carriageClass;
+
+    @OneToMany(mappedBy = "carriage", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    List<Seat> seats;
 
     @OneToMany(mappedBy = "carriage")
     List<TrainTrip_Carriage> trainTripCarriages;

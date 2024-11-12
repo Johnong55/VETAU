@@ -12,15 +12,15 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Account_Response {
-    private String id;
-    private String username;
-    private String email;
-    private String firstName;
-    private String lastName;
-    private LocalDate dob;
-    private String address;
-    private String phoneNumber;
-    private String cid;
+    String id;
+    String username;
+    String email;
+    String firstName;
+    String lastName;
+    LocalDate dob;
+    String address;
+    String phoneNumber;
+    String cid;
     String role;
 //    private List<TicketResponse> tickets;
 }

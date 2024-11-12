@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class City_Response {
-    private String cityID;
-    private String cityName;
-    private List<Station_Response> stations;
+    String cityID;
+    String cityName;
+    List<Station_Response> stations;
 }
