@@ -32,9 +32,6 @@ public class Schedule {
     @JoinColumn(name = "ArrivalStation")
     Station arrivalStation;
 
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    TrainTrip_Carriage trainTripCarriage;
-
     @OneToMany(mappedBy = "schedule", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<StopSchedule> stopSchedules;
 }

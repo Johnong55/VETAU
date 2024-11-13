@@ -25,6 +25,7 @@ public class Carriage {
     @OneToMany(mappedBy = "carriage", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Seat> seats;
 
-    @OneToMany(mappedBy = "carriage")
-    List<TrainTrip_Carriage> trainTripCarriages;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "train_id")
+    private Train train;
 }

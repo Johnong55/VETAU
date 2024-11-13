@@ -29,14 +29,6 @@ public class City_Controller {
         return city_service.findAll();
     }
 
-    @PostMapping("/{CityID}/stations/{StationID}")
-    public Api_Response<City> AddStations(@PathVariable String CityID, @PathVariable String StationID)
-    {
-        Api_Response<City> response =  new Api_Response<>();
-        response.setResult(city_service.addAStation(CityID, StationID));
-        return response;
-    }
-
     @PutMapping("/{cityID}")
     public City_Response updateCity(@PathVariable String cityID, @RequestBody City_Request request) {
         return city_service.updateCity(cityID, request);

@@ -2,7 +2,6 @@ package com.PBL4.test.DTO.response;
 
 import com.PBL4.test.entity.Carriage;
 import com.PBL4.test.entity.Seat;
-import com.PBL4.test.entity.TrainTrip_Carriage;
 import com.PBL4.test.enums.CarriageClass;
 import jakarta.persistence.*;
 import lombok.*;

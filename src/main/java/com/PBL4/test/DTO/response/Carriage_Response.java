@@ -18,4 +18,5 @@ public class Carriage_Response {
     String carriageName;
     CarriageClass carriageClass;
     String seatType;
+    String trainID;
 }

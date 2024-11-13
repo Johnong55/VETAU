@@ -17,4 +17,5 @@ public class Carriage_Request {
     int seatCount;
     @NotNull
     CarriageClass carriageClass;
+    String trainID;
 }

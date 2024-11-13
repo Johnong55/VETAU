@@ -55,8 +55,11 @@ public class Carriage_Controller {
 
     @GetMapping("/id/{carriageID}")
     public Carriage_Response findByID(@PathVariable String carriageID) {
-
         return carriage_service.findByID(carriageID);
     }
 
+    @GetMapping("/trainID/{trainID}")
+    public List<Carriage_Response> findByTrainID(@PathVariable String trainID) {
+        return carriage_service.findByTrainID(trainID);
+    }
 }

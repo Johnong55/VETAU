@@ -27,8 +27,6 @@ public class PriceList {
     String priceListID;
     double price;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    TrainTrip_Carriage trainTrip_Carriage;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "ArrivalStation")

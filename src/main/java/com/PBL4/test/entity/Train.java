@@ -17,4 +17,7 @@ public class Train {
     @Id
     String trainId;
     String trainName;
+
+    @OneToMany(mappedBy = "train", cascade = CascadeType.ALL)
+    private List<Carriage> carriages;
 }
