@@ -23,7 +23,7 @@
 <body>
 	<script>
 		function BackPage() {
-			window.location.href = "/reviewbooking";
+			window.location.href = "/metroway/reviewbooking";
 		}
 	</script>
 
@@ -296,20 +296,20 @@
 			</div>
 		</div>
 	</div>
-	<script type="module" src="../JS/intro.js"></script>
-	<script type="module" src="../JS/Cookie.js"></script>
-	<script type="module" src="../JS/user.js"></script>
-	<script type="module" src="JS/login.js"></script>
-	<script type="module" src="../JS/Validate.js"></script>
-	<script type="module" src="../JS/ValidateLogin.js"></script>
-	<script src="JS/VnPayAPI.js"></script>
+	<script type="module" src="../metroway/JS/intro.js"></script>
+	<script type="module" src="../metroway/JS/Cookie.js"></script>
+	<script type="module" src="../metroway/JS/user.js"></script>
+	<script type="module" src="../metroway/JS/login.js"></script>
+	<script type="module" src="../metroway/JS/Validate.js"></script>
+	<script type="module" src="../metroway/JS/ValidateLogin.js"></script>
+	<script src="../metroway/JS/VnPayAPI.js"></script>
 	<script>
 		setTimeout(function() {
 			const script = document.createElement('script');
 
 			script.type = "module";
 
-			script.src="../JS/logout.js";
+			script.src="../metroway/JS/logout.js";
 
 			document.body.appendChild(script);
 

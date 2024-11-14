@@ -122,7 +122,7 @@ function actionBtnNext() {
 						console.log(data);
 						if (data === "ok") {
 							localStorage.setItem("chairhold",JSON.stringify(chairHold));
-							window.location.href = "/reviewbooking";
+							window.location.href = "/metroway/reviewbooking";
 						}
 					})
 					.catch(error => {

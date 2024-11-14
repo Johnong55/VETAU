@@ -16,7 +16,7 @@
 		  href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 	<!--icon-->
 	<!--css-->
-	<link rel="stylesheet" href="../style/main.css">
+	<link rel="stylesheet" href="../metroway/style/main.css">
 	<link rel="stylesheet"
 		  href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
@@ -96,7 +96,7 @@
 		</div>
 	</div>
 </div>
-<script src="../JS/findtrain.js"></script>
+<script src="../metroway/JS/findtrain.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
 	function getCurrentDate() {

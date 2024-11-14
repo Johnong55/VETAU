@@ -30,7 +30,7 @@ console.log(btn_book);
 			.then(data => {
 				if(data === "ok") {
 					localStorage.setItem("userInfo", JSON.stringify(payload));
-					window.location.href = "/payment";
+					window.location.href = "/metroway/payment";
 				}
 			})
 			.catch(error => {

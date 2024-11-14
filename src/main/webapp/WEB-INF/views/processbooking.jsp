@@ -264,17 +264,17 @@
 			</div>
 		</div>
 	</div>
-	<script type="module" src="../JS/intro.js"></script>
-	<script type="module" src="../JS/Cookie.js"></script>
-	<script type="module" src="../JS/user.js"></script>
-	<script type="module" src="../JS/login.js"></script>
-	<script type="module" src="../JS/Validate.js"></script>
-	<script type="module" src="../JS/ValidateLogin.js"></script>
-	<script type="module" src="../JS/user.js"></script>
-	<script type="module" src="../JS/loadProcessbooking.js"></script>
-	<script type="module" src="../JS/renderChair.js"></script>
-	<script type="module" src="../JS/renderTrain.js"></script>
-	<script type="module" src="../JS/ConfirmBook.js"></script>
+	<script type="module" src="../metroway/JS/intro.js"></script>
+	<script type="module" src="../metroway/JS/Cookie.js"></script>
+	<script type="module" src="../metroway/JS/user.js"></script>
+	<script type="module" src="../metroway/JS/login.js"></script>
+	<script type="module" src="../metroway/JS/Validate.js"></script>
+	<script type="module" src="../metroway/JS/ValidateLogin.js"></script>
+	<script type="module" src="../metroway/JS/user.js"></script>
+	<script type="module" src="../metroway/JS/loadProcessbooking.js"></script>
+	<script type="module" src="../metroway/JS/renderChair.js"></script>
+	<script type="module" src="../metroway/JS/renderTrain.js"></script>
+	<script type="module" src="../metroway/JS/ConfirmBook.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 	<script>
 
@@ -289,7 +289,7 @@
 
 			script.type = "module";
 
-			script.src = '../JS/ChooseChair.js';
+			script.src = '../metroway/JS/ChooseChair.js';
 
 			document.body.appendChild(script);
 
@@ -300,7 +300,7 @@
 
 			script.type = "module";
 
-			script.src="../JS/logout.js";
+			script.src="../metroway/JS/logout.js";
 
 			document.body.appendChild(script);
 

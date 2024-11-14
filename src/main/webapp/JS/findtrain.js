@@ -34,7 +34,7 @@ btn_findtrain.addEventListener('click', function (){
                 localStorage.setItem("startCity",input_startCity.value);
                 localStorage.setItem("endCity",input_endCity.value);
                 localStorage.setItem("date",input_date.value);
-                window.location.href = "/processbooking";
+                window.location.href = "/metroway/processbooking";
             }
         })
         .catch(error => {

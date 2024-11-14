@@ -3,7 +3,7 @@
 
 
 // Kết nối WebSocket
-export const ws = new WebSocket("ws://localhost:8080/hello");
+export const ws = new WebSocket("ws://localhost:8080/metroway/hello");
 ws.onopen = function() {
 	console.log("WebSocket is open now.");
 };
