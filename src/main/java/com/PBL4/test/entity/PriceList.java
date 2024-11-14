@@ -14,6 +14,8 @@ import jakarta.persistence.OneToOne;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.List;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -25,14 +27,12 @@ public class PriceList {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     String priceListID;
-    double price;
+    double basePrice;
 
+    @ManyToOne
+    @JoinColumn(name = "schedule_id")
+    Schedule schedule;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "ArrivalStation")
-    Station arrivalStation;
-
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "DepartureStation")
-    Station departureStation;
+    @OneToMany(mappedBy = "priceList", cascade = CascadeType.ALL)
+    List<SeasonalRate> seasonalRates;
 }

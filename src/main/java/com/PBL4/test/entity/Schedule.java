@@ -20,9 +20,9 @@ import lombok.experimental.FieldDefaults;
 public class Schedule {
     @Id
     String scheduleId;
+
     LocalDateTime timeToRun;
     LocalDateTime arrivalTime;
-    Duration duration;
 
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "DepartureStation")
@@ -32,6 +32,12 @@ public class Schedule {
     @JoinColumn(name = "ArrivalStation")
     Station arrivalStation;
 
-    @OneToMany(mappedBy = "schedule", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    List<StopSchedule> stopSchedules;
+    @ManyToOne
+    @JoinColumn(name = "train_id")
+    Train train;
+
+    @OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL)
+    List<PriceList> priceLists;
+//    @OneToMany(mappedBy = "schedule", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    List<StopSchedule> stopSchedules;
 }
