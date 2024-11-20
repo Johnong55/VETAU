@@ -35,7 +35,7 @@
 
             <div class="row mt-5">
                 <div class="col-md-3 ps-3">
-                    <img src="../imgs/user.png" class="rounded-circle avatar-admin" alt="Admin">
+                    <img src="../metroway/imgs/user.png" class="rounded-circle avatar-admin" alt="Admin">
                 </div>
                 <p class="col-md-9 h3 my-auto center-text">Đức Đẹp Trai</p>
             </div>
@@ -77,7 +77,7 @@
 
 
 
-            <button type="button" class="btn btn-lg btn-primary mt-auto mb-5 ms-3 me-3">Đăng xuất</button>
+            <button type="button" class="btn btn-lg btn-primary mt-auto mb-5 ms-3 me-3 btn-logout">Đăng xuất</button>
 
 
         </div>
@@ -106,9 +106,9 @@
         </div>
     </div>
 </div>
-<script type="module" src="../JS/menuAdmin.js"></script>
-<script type="module" src="../JS/renderAdmin.js"></script>
-
+<script type="module" src="JS/menuAdmin.js"></script>
+<script type="module" src="JS/renderAdmin.js"></script>
+<script type="module" src="JS/actionAdmin.js"></script>
 </body>
 
 </html>

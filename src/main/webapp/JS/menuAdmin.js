@@ -1,4 +1,4 @@
-import {getTable} from "./renderAdmin.js";
+import {getTable, getAddTrain, getDelete, getAddCarriage, getAddStation, getAddCity} from "./renderAdmin.js";
 
 const Items = {
     train: [
@@ -40,33 +40,123 @@ const Items = {
     ]
 };
 
-const headers = ["Ma tau", "Ten tau", "Toa"];
-const trainData = [
-    { maTau: 'T01', tenTau: 'Tàu lòn', toa: '1A, 2A, 3A' },
-    { maTau: 'T02', tenTau: 'Tòn làu', toa: '1B, 2B, 3B' },
-    { maTau: 'T03', tenTau: 'Dooley', toa: '1C, 2C, 3C' }
-];
+const wrapTableEL = document.querySelector(".wrap-table");
 
 const funcMap = {
-    allTrains: () => { wrapTableEL.innerHTML = getTable(headers, trainData);},
-    addTrain: () => {},
-    deleteTrain: () => {},
+    allTrains: () => {
+        const headersAllTrains = ["Mã tàu", "Tên tàu"];
+        fetch('/metroway/trains')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                wrapTableEL.innerHTML = getTable(headersAllTrains, data,"train");
+            } )
+            .catch(error => console.error('Error:', error));
+        },
+    addTrain: () => {
+        console.log(123)
+        wrapTableEL.innerHTML = getAddTrain("Thêm")
+    },
+    deleteTrain: () => {
+        const headersAllTrains = ["Mã tàu", "Tên tàu"];
+        fetch('/metroway/trains')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                wrapTableEL.innerHTML = getDelete(headersAllTrains, data);
+            } )
+            .catch(error => console.error('Error:', error));
 
-    allToas: () => {},
-    addToa: () => {},
-    deleteToa: () => {},
+    },
+
+    allToas: () => {
+        const headersAllToas = ["Mã toa", "Tên toa","Số lượng ghế","Loại ghế","Mã tàu"];
+        fetch('/metroway/carriages')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                wrapTableEL.innerHTML = getTable(headersAllToas, data, "toa");
+            } )
+            .catch(error => console.error('Error:', error));
+    },
+    addToa: () => {
+        fetch('/metroway/trains')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                wrapTableEL.innerHTML = getAddCarriage(data,"Thêm")
+            })
+            .catch(error => console.log(error))
+    },
+    deleteToa: () => {
+        const headersAllToas = ["Mã toa", "Tên toa","Số lượng ghế","Loại ghế","Mã tàu"];
+        fetch('/metroway/carriages')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                wrapTableEL.innerHTML = getDelete(headersAllToas, data);
+            } )
+            .catch(error => console.error('Error:', error));
+    },
 
     allTrips: () => {},
     addTrip: () => {},
     deleteTrip: () => {},
 
-    allStations: () => {},
-    addStation: () => {},
-    deleteStation: () => {},
+    allStations: () => {
+        const headersAllStations = ["Mã ga","Tên ga","Địa chỉ","Thành phố"];
+        fetch('/metroway/stations')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                wrapTableEL.innerHTML = getTable(headersAllStations,data, "station")
+            })
+            .catch(error => console.log(error))
+    },
+    addStation: () => {
+        fetch('/metroway/cities')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                wrapTableEL.innerHTML = getAddStation(data,"Thêm")
+            })
 
-    allCities: () => {},
-    addCity: () => {},
-    deleteCity: () => {},
+    },
+    deleteStation: () => {
+        const headersAllStations = ["Mã ga","Tên ga","Địa chỉ","Thành phố"];
+        fetch('/metroway/stations')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                wrapTableEL.innerHTML = getDelete(headersAllStations,data)
+            })
+            .catch(error => console.log(error))
+    },
+
+    allCities: () => {
+        const headersAllCities = ["Mã thành phố", "Tên thành phố"];
+        fetch('/metroway/cities')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                wrapTableEL.innerHTML = getTable(headersAllCities,data, "city")
+            })
+            .catch(error => console.log(error))
+
+    },
+    addCity: () => {
+        wrapTableEL.innerHTML = getAddCity("Thêm");
+    },
+    deleteCity: () => {
+        const headersAllCities = ["Mã thành phố", "Tên thành phố"];
+        fetch('/metroway/cities')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                wrapTableEL.innerHTML = getDelete(headersAllCities,data)
+            })
+            .catch(error => console.log(error))
+    },
 
     allCustomers: () => {},
     addCustomer: () => {},
@@ -110,12 +200,11 @@ const menuAdmin = document.querySelector("#menu-admin");
 
 console.log(menuAdmin);
 
-const wrapTableEL = document.querySelector(".wrap-table");
-console.log(wrapTableEL);
-
 menuAdmin.addEventListener('click', function (e){
     console.log(e.target)
     if(e.target.dataset.key) {
         (funcMap[e.target.dataset.key])();
+    } else if(e.target.classList.contains("btn-logout")) {
+        console.log("dang suat");
     }
 })

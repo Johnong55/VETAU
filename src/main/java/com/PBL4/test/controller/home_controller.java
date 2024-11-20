@@ -36,4 +36,9 @@ public class home_controller {
 		{
 			return "test";
 		}
+		@GetMapping("/admin")
+		public String admin()
+	{
+		return "admin";
+	}
 }

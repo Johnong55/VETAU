@@ -8,9 +8,11 @@ import com.PBL4.test.entity.*;
 
 import com.PBL4.test.mapper.TrainMapper;
 import com.PBL4.test.repository.Train_Repository;
+import org.hibernate.sql.results.graph.FetchOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,6 +37,14 @@ public class Train_Service {
                 .map(trainMapper::toTrainResponse)
                 .collect(Collectors.toList());
 
+    }
+    public List<String> getAllName() {
+        List<String> names = new ArrayList<>();
+        List<Train> trains = trainRepository.findAll();
+        for(Train train : trains) {
+            names.add(train.getTrainName());
+        }
+        return names;
     }
 
     private String generateCityID() {
