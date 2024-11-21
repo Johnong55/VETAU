@@ -35,4 +35,12 @@ public class PriceList {
 
     @OneToMany(mappedBy = "priceList", cascade = CascadeType.ALL)
     List<SeasonalRate> seasonalRates;
+
+    @ManyToOne
+    @JoinColumn(name ="DepartureStation")
+    Station departureStation;
+
+    @ManyToOne
+    @JoinColumn(name = "ArrivalStation")
+    Station arrivalStation;
 }

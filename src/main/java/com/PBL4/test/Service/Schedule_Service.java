@@ -2,14 +2,12 @@ package com.PBL4.test.Service;
 
 import com.PBL4.test.DTO.request.Schedule_Request;
 import com.PBL4.test.DTO.request.Seasonal_Rate_Request;
+import com.PBL4.test.DTO.request.StopSchedule_Request;
 import com.PBL4.test.DTO.response.Schedule_Response;
 import com.PBL4.test.DTO.response.Seasonal_Rate_Response;
 import com.PBL4.test.Exception.AppException;
 import com.PBL4.test.Exception.ErrorCode;
-import com.PBL4.test.entity.Schedule;
-import com.PBL4.test.entity.SeasonalRate;
-import com.PBL4.test.entity.Station;
-import com.PBL4.test.entity.Train;
+import com.PBL4.test.entity.*;
 import com.PBL4.test.mapper.ScheduleMapper;
 import com.PBL4.test.repository.Schedule_Repository;
 import com.PBL4.test.repository.Station_Repository;
@@ -17,6 +15,8 @@ import com.PBL4.test.repository.Train_Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,6 +30,10 @@ public class Schedule_Service {
     Station_Repository stationRepository;
     @Autowired
     Train_Repository trainRepository;
+    @Autowired
+    private Schedule_Repository schedule_Repository;
+    @Autowired
+    private Station_Repository station_Repository;
 
     private String generateScheduleID() {
         Schedule lastSchedule = scheduleRepository.findLastSchedule();
@@ -41,7 +45,6 @@ public class Schedule_Service {
         int newNumber = lastNumber + 1;
         return String.format("SCD%06d", newNumber);
     }
-
     public Schedule_Response createSchedule(Schedule_Request request) {
         Train train = trainRepository.findByTrainId(request.getTrainId())
                 .orElseThrow(()->new AppException(ErrorCode.TRAIN_NOT_EXISTED));
@@ -55,6 +58,7 @@ public class Schedule_Service {
         }
         Schedule result = scheduleMapper.toSchedule(request);
         result.setScheduleId(generateScheduleID());
+
         return scheduleMapper.toScheduleResponse(scheduleRepository.save(result));
     }
 
@@ -88,6 +92,8 @@ public class Schedule_Service {
                 .orElseThrow(() -> new AppException(ErrorCode.SCHEDULE_NOT_EXISTED));
         return scheduleMapper.toScheduleResponse(schedule);
     }
+
+
 //
 //    public Seasonal_Rate_Response updateSeasonalRate(String seasonalRateID, Seasonal_Rate_Request request) {
 //        SeasonalRate seasonalRate = seasonRateRepository.findBySeasonalRateId(seasonalRateID)
@@ -98,4 +104,5 @@ public class Schedule_Service {
     public void deteteSchedule(String scheduleID) {
         scheduleRepository.deleteById(scheduleID);
     }
+
 }

@@ -25,4 +25,12 @@ public interface Seat_Repository extends JpaRepository<Seat,String> {
 
     List<Seat> findByCarriage_CarriageId(String carriageId);
     void deleteByCarriage_CarriageId(String carriageID);
+//
+//        @Query("SELECT c.seat.seatId from Ticket c " +
+//           "where c.schedule = :schedule and c.priceList.departureStation ")
+//    List<Seat> findChosenSeats(String ScheduleID, String DC, String AC);
+
+
+
+
 }

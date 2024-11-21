@@ -5,6 +5,7 @@ import lombok.experimental.FieldDefaults;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Builder
@@ -15,6 +16,7 @@ public class Schedule_Request {
     LocalDateTime timeToRun;
     LocalDateTime arrivalTime;
     String departureStationId;
+
     String arrivalStationId;
     String trainId;
 }

@@ -21,7 +21,7 @@ public class Schedule {
     @Id
     String scheduleId;
 
-    LocalDateTime timeToRun;
+    LocalDateTime departureTime;
     LocalDateTime arrivalTime;
 
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
@@ -38,6 +38,8 @@ public class Schedule {
 
     @OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL)
     List<PriceList> priceLists;
-//    @OneToMany(mappedBy = "schedule", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    List<StopSchedule> stopSchedules;
+    @OneToMany(mappedBy = "schedule", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    List<StopSchedule> stopSchedules;
+
+
 }

@@ -118,4 +118,5 @@ public class Seat_Service {
                 .map(seatMapper::toSeatResponse)
                 .collect(Collectors.toList());
     }
+
 }

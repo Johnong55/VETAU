@@ -21,4 +21,5 @@ public class Station {
     @ManyToOne
     @JoinColumn(name = "city_id")
     City city;
+
 }

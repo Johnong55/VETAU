@@ -5,6 +5,7 @@ import lombok.experimental.FieldDefaults;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Builder
@@ -16,6 +17,7 @@ public class Schedule_Response {
     LocalDateTime timeToRun;
     LocalDateTime arrivalTime;
     String departureStationName;
+    List<Stop_Schedule_Response> stopStationNames;
     String arrivalStationName;
     String trainId;
 }
