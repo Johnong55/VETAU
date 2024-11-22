@@ -1,8 +1,10 @@
 package com.PBL4.test.Service;
 
+import com.PBL4.test.DTO.request.Carriage_Request;
 import com.PBL4.test.DTO.request.Schedule_Request;
 import com.PBL4.test.DTO.request.Seasonal_Rate_Request;
 import com.PBL4.test.DTO.request.StopSchedule_Request;
+import com.PBL4.test.DTO.response.Carriage_Response;
 import com.PBL4.test.DTO.response.Schedule_Response;
 import com.PBL4.test.DTO.response.Seasonal_Rate_Response;
 import com.PBL4.test.Exception.AppException;
@@ -69,23 +71,35 @@ public class Schedule_Service {
                 .collect(Collectors.toList());
     }
 
-    public Schedule_Response findByArrivalStation(String arrivalStationId) {
-        Schedule schedule = scheduleRepository.findByArrivalStation_StationId(arrivalStationId)
-                .orElseThrow(() -> new AppException(ErrorCode.SCHEDULE_NOT_EXISTED));
-        return scheduleMapper.toScheduleResponse(schedule);
+    public List<Schedule_Response> findByArrivalStation(String arrivalStationId) {
+
+        List<Schedule> schedules = scheduleRepository.findByArrivalStation_StationId(arrivalStationId);
+        if (schedules.isEmpty()) {
+            throw new AppException(ErrorCode.SCHEDULE_NOT_EXISTED);
+        }
+        return schedules.stream()
+                .map(scheduleMapper::toScheduleResponse)
+                .toList();
     }
 
-    public Schedule_Response findByDepartureStation(String departureStationId) {
-        Schedule schedule = scheduleRepository.findByDepartureStation_StationId(departureStationId)
-                .orElseThrow(() -> new AppException(ErrorCode.SCHEDULE_NOT_EXISTED));
-        return scheduleMapper.toScheduleResponse(schedule);
+    public List<Schedule_Response> findByDepartureStation(String departureStationId) {
+        List<Schedule> schedules = scheduleRepository.findByDepartureStation_StationId(departureStationId);
+        if (schedules.isEmpty()) {
+            throw new AppException(ErrorCode.SCHEDULE_NOT_EXISTED);
+        }
+        return schedules.stream()
+                .map(scheduleMapper::toScheduleResponse)
+                .toList();
     }
-    public Schedule_Response findByArrivalStationAndDepartureStatio(String arrivalStationId, String departureStatioId) {
-        Schedule schedule = scheduleRepository.findByArrivalStation_StationIdAndDepartureStation_StationId(arrivalStationId, departureStatioId)
-                .orElseThrow(() -> new AppException(ErrorCode.SCHEDULE_NOT_EXISTED));
-        return scheduleMapper.toScheduleResponse(schedule);
+    public List<Schedule_Response> findByDepartureStationAndArrivalStation(String departureStationId, String arrivalStationId) {
+        List<Schedule> schedules = scheduleRepository.findByArrivalStation_StationIdAndDepartureStation_StationId(arrivalStationId, departureStationId);
+        if (schedules.isEmpty()) {
+            throw new AppException(ErrorCode.SCHEDULE_NOT_EXISTED);
+        }
+        return schedules.stream()
+                .map(scheduleMapper::toScheduleResponse)
+                .toList();
     }
-
 
     public Schedule_Response findByID(String scheduleID) {
         Schedule schedule = scheduleRepository.findByScheduleId(scheduleID)
@@ -93,16 +107,14 @@ public class Schedule_Service {
         return scheduleMapper.toScheduleResponse(schedule);
     }
 
-
-//
-//    public Seasonal_Rate_Response updateSeasonalRate(String seasonalRateID, Seasonal_Rate_Request request) {
-//        SeasonalRate seasonalRate = seasonRateRepository.findBySeasonalRateId(seasonalRateID)
-//                .orElseThrow(() -> new AppException(ErrorCode.SEASONAL_RATE_NOT_EXISTED));
-//        seasonalRateMapper.updateSeasonalRate(seasonalRate, request);
-//        return seasonalRateMapper.toSeasonalRateResponse(seasonRateRepository.save(seasonalRate));
-//    }
-    public void deteteSchedule(String scheduleID) {
-        scheduleRepository.deleteById(scheduleID);
+    public Schedule_Response updateSchedule(String scheduleID, Schedule_Request request) {
+        Schedule schedule = scheduleRepository.findByScheduleId(scheduleID)
+                .orElseThrow(() -> new AppException(ErrorCode.SCHEDULE_NOT_EXISTED));
+        scheduleMapper.updateSchedule(schedule, request);
+        return scheduleMapper.toScheduleResponse(schedule_Repository.save(schedule));
     }
 
+    public void deleteSchedule(String scheduleID) {
+        scheduleRepository.deleteById(scheduleID);
+    }
 }

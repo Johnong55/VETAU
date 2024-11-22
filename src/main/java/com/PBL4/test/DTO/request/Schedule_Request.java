@@ -13,10 +13,9 @@ import java.util.List;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Schedule_Request {
-    LocalDateTime timeToRun;
+    LocalDateTime departureTime;
     LocalDateTime arrivalTime;
     String departureStationId;
-
     String arrivalStationId;
     String trainId;
 }

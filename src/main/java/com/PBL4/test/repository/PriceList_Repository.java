@@ -3,6 +3,7 @@ package com.PBL4.test.repository;
 import com.PBL4.test.enums.CarriageClass;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.PBL4.test.entity.PriceList;
@@ -13,7 +14,7 @@ import java.util.Optional;
 @Repository
 public interface PriceList_Repository extends JpaRepository<PriceList, String> {
 
-    Boolean existsByDepartureStation_StationIdAndArrivalStation_StationIdAndSchedule_scheduleIDAndCarriageClass(String departureStationID, String arrivalStationID, String scheduleID, CarriageClass carriageClass);
+    Boolean existsByDepartureStation_StationIdAndArrivalStation_StationIdAndSchedule_scheduleIdAndCarriageClass(String departureStationID, String arrivalStationID, String scheduleID, CarriageClass carriageClass);
     Optional<PriceList> findByPriceListID(String priceListID);
 
     List<PriceList> findByDepartureStation_StationIdAndArrivalStation_StationId(String departureStationId, String arrivalStationId);
@@ -25,4 +26,8 @@ public interface PriceList_Repository extends JpaRepository<PriceList, String> {
 
     @Query("SELECT c FROM PriceList c ORDER BY c.priceListID DESC LIMIT 1")
     PriceList findLastPriceList();
+
+    @Query("SELECT p FROM PriceList p WHERE p.price BETWEEN :minPrice AND :maxPrice")
+    List<PriceList> findByPriceBetween(@Param("minPrice") double minPrice, @Param("maxPrice") double maxPrice);
+
 }

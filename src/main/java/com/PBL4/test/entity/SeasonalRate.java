@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.List;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -18,6 +20,5 @@ public class SeasonalRate {
     double rateMultiplier;
 
     @OneToMany(mappedBy = "seasonalRate", cascade = CascadeType.ALL)
-    @JoinColumn(name = "price_list_id")
-    PriceList priceList;
+    List<PriceList> priceLists;
 }

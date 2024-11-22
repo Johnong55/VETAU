@@ -24,10 +24,10 @@ public interface Schedule_Repository extends JpaRepository<Schedule, String > {
     @EntityGraph(attributePaths = "train")
     Optional<Schedule> findByScheduleId(String scheduleId);
 
-    Optional<Schedule> findByArrivalStation_StationId(String arrivalStationId);
-    Optional<Schedule> findByDepartureStation_StationId(String departureStationId);
+    List<Schedule> findByArrivalStation_StationId(String arrivalStationId);
+    List<Schedule> findByDepartureStation_StationId(String departureStationId);
 
-    Optional<Schedule> findByArrivalStation_StationIdAndDepartureStation_StationId(String arrivalStationId, String departureStationId);
+    List<Schedule> findByArrivalStation_StationIdAndDepartureStation_StationId(String arrivalStationId, String departureStationId);
 
     @EntityGraph(attributePaths = "train")
     Optional<Schedule> findByTrain_TrainId(String trainId);

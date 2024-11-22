@@ -14,7 +14,7 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Schedule_Response {
     String scheduleId;
-    LocalDateTime timeToRun;
+    LocalDateTime departureTime;
     LocalDateTime arrivalTime;
     String departureStationName;
     List<Stop_Schedule_Response> stopStationNames;

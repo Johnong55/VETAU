@@ -1,5 +1,7 @@
 package com.PBL4.test.enums;
 
+import java.util.Arrays;
+
 public enum CarriageClass {
     FIRST_CLASS("Phòng nằm"),
     SECOND_CLASS("Giường nằm"),
@@ -14,6 +16,12 @@ public enum CarriageClass {
 
     public String getSeatType() {
         return seatType;
+    }
+    public static CarriageClass fromString(String seatType) {
+        return Arrays.stream(CarriageClass.values())
+                .filter(carriageClass -> carriageClass.seatType.equalsIgnoreCase(seatType))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("No enum constant for seatType: " + seatType));
     }
 }
 

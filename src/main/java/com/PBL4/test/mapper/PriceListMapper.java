@@ -13,6 +13,9 @@ public interface PriceListMapper {
     @Mapping(source = "arrivalStation.stationName", target = "arrivalStationName")
     @Mapping(source = "seasonalRate.seasonName", target = "seasonName")
     @Mapping(source = "seasonalRate.rateMultiplier", target = "rateMultiplier")
+    @Mapping(source = "schedule.scheduleId", target = "scheduleId")
+    @Mapping(source = "schedule.train.trainName", target = "trainName")
+    @Mapping(source = "priceListID", target = "priceListID")
     PriceList_Response toPriceListResponse(PriceList priceList);
 
     PriceList toPriceList(PriceList_Request request);

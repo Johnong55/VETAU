@@ -27,6 +27,9 @@ public enum ErrorCode {
     SEASONAL_RATE_EXISTED(1023,"Seasonal rate existed"),
     SEASONAL_RATE_NOT_EXISTED(1024,"Seasonal rate not existed"),
     SCHEDULE_EXISTED(1025,"Schedule existed"),
+    PRICE_EXISTED(1026,"Price existed"),
+    PRICE_NOT_EXISTED(1027,"Price not existed"),
+    INVALID_PRICE_RANGE(1028,"Invalid price range"),
     ;
     // Constructor
     ErrorCode(int code, String message) {

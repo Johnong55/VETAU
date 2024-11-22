@@ -17,7 +17,6 @@ import java.util.List;
 
 public class PriceList {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     String priceListID;
     double price;
 
@@ -26,14 +25,15 @@ public class PriceList {
     Schedule schedule;
 
     @ManyToOne
+    @JoinColumn(name = "seasonal_rate_id")
     SeasonalRate seasonalRate;
 
     @ManyToOne
-    @JoinColumn(name ="DepartureStation")
+    @JoinColumn(name ="departure_station_id")
     Station departureStation;
 
     @ManyToOne
-    @JoinColumn(name = "ArrivalStation")
+    @JoinColumn(name = "arrival-Station_id")
     Station arrivalStation;
 
     @Enumerated(EnumType.STRING)

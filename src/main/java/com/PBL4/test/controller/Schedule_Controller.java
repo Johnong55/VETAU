@@ -1,8 +1,10 @@
 package com.PBL4.test.controller;
 
 import com.PBL4.test.DTO.request.Api_Response;
+import com.PBL4.test.DTO.request.Carriage_Request;
 import com.PBL4.test.DTO.request.Schedule_Request;
 import com.PBL4.test.DTO.request.Seasonal_Rate_Request;
+import com.PBL4.test.DTO.response.Carriage_Response;
 import com.PBL4.test.DTO.response.Schedule_Response;
 import com.PBL4.test.DTO.response.Seasonal_Rate_Response;
 import com.PBL4.test.Service.Schedule_Service;
@@ -30,41 +32,35 @@ public class Schedule_Controller {
     public List<Schedule_Response> getAllSchedule() {
         return scheduleService.findAll();
     }
-//
-//    @PutMapping("/{seasonalRateID}")
-//    public Seasonal_Rate_Response updateSeasonalRate(@PathVariable String seasonalRateID, @RequestBody Seasonal_Rate_Request request) {
-//        return seasonalRateService.updateSeasonalRate(seasonalRateID, request);
-//    }
-//
+
     @DeleteMapping("/{scheduleID}")
     Api_Response<String> deleteSchedule(@PathVariable String scheduleID) {
-        scheduleService.deteteSchedule(scheduleID);
+        scheduleService.deleteSchedule(scheduleID);
         return Api_Response.<String>builder()
                 .result("Schedule has been deleted")
                 .build();
     }
-//
-//    @GetMapping("/name/{seasonalRateName}")
-//    public Seasonal_Rate_Response findByName(@PathVariable String seasonalRateName) {
-//        return seasonalRateService.findByName(seasonalRateName);
-//    }
-//
+    @PutMapping("/{scheduleID}")
+    public Schedule_Response updateSchedule(@PathVariable String scheduleID, @RequestBody Schedule_Request request) {
+        return scheduleService.updateSchedule(scheduleID, request);
+    }
+
     @GetMapping("/id/{scheduleID}")
-    public Schedule_Response findByID(@PathVariable String seasonalRateID) {
-        return scheduleService.findByID(seasonalRateID);
+    public Schedule_Response findByID(@PathVariable String scheduleID) {
+        return scheduleService.findByID(scheduleID);
     }
     @GetMapping("/arrival-station-id/{arrivalID}")
-    public Schedule_Response findByArrivalStationID(@PathVariable String arrivalID) {
+    public List<Schedule_Response> findByArrivalStationID(@PathVariable String arrivalID) {
         return scheduleService.findByArrivalStation(arrivalID);
     }
 
     @GetMapping("/departure-station-id/{departureID}")
-    public Schedule_Response findByDepartureStationID(@PathVariable String departureID) {
+    public List<Schedule_Response> findByDepartureStationID(@PathVariable String departureID) {
         return scheduleService.findByDepartureStation(departureID);
     }
 
-    @GetMapping("/departure-arrival/{departureID}")
-    public Schedule_Response findByDeparture_ArrivalStationID(@PathVariable String departureID) {
+    @GetMapping("/departure-arrival/{departureID}/{arrivalID}")
+    public List<Schedule_Response> findByDeparture_ArrivalStationID(@PathVariable String departureID, @PathVariable String arrivalID) {
         return scheduleService.findByDepartureStation(departureID);
     }
 }

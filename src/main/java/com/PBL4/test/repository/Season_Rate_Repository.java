@@ -14,10 +14,10 @@ import java.util.Optional;
 public interface Season_Rate_Repository extends JpaRepository<SeasonalRate,String> {
     Boolean existsBySeasonName(String seasonName);
 
-    @EntityGraph(attributePaths = "priceList")
+    @EntityGraph(attributePaths = "priceLists")
     Optional<SeasonalRate> findBySeasonalRateId(String seasonalRateId);
 
-    @EntityGraph(attributePaths = "priceList")
+    @EntityGraph(attributePaths = "priceLists")
     Optional<SeasonalRate> findBySeasonName(String seasonName);
 
     @Query("SELECT c FROM SeasonalRate c ORDER BY c.seasonalRateId DESC LIMIT 1")
