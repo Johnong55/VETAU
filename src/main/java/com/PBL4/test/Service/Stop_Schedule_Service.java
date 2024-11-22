@@ -109,6 +109,25 @@ public class Stop_Schedule_Service {
         return response;
 
     }
+    public List<Stop_Schedule_Response> findAll()
+    {
+        List<Stop_Schedule_Response> response = new ArrayList<>();
+        List<StopSchedule> stopSchedules = stopSchedule_Repository.findAll();
+        for(StopSchedule stopSchedule : stopSchedules)
+        {
+            Stop_Schedule_Response i = new Stop_Schedule_Response();
+            i.setScheduleId(stopSchedule.getSchedule().getScheduleId());
+            i.setArrivalTime(stopSchedule.getArrivalTime());
+            i.setArrivalStationName(stopSchedule.getArrivalStation().getStationName());
+            i.setDepartureStationName(stopSchedule.getDepartureStation().getStationName());
+            i.setOrderedSeat(stopSchedule.getOrderedSeat());
+            i.setTimeToRun(stopSchedule.getTimeToRun());
+            i.setStopStationName(stopSchedule.getStopStation().getStationName());
+            response.add(i);
+
+        }
+        return response;
+    }
 
 
 }
