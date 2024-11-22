@@ -17,7 +17,7 @@ public class SeasonalRate {
     String seasonName;
     double rateMultiplier;
 
-    @ManyToOne
+    @OneToMany(mappedBy = "seasonalRate", cascade = CascadeType.ALL)
     @JoinColumn(name = "price_list_id")
     PriceList priceList;
 }

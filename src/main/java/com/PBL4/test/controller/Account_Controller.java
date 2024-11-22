@@ -16,7 +16,7 @@ import com.PBL4.test.DTO.request.Account_CreationRequest;
 
 @RestController
 @RequestMapping("/accounts")  // Fixed typo: "/ccounts" to "/accounts"
-public class Account_Controller {
+public class  Account_Controller {
 
     @Autowired
     private Account_Service accountService;
