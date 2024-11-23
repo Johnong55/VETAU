@@ -3,6 +3,7 @@ package com.PBL4.test.Service;
 import com.PBL4.test.DTO.request.Schedule_Request;
 import com.PBL4.test.DTO.request.Seasonal_Rate_Request;
 import com.PBL4.test.DTO.request.StopSchedule_Request;
+import com.PBL4.test.DTO.response.FindSchedule_Response;
 import com.PBL4.test.DTO.response.Schedule_Response;
 import com.PBL4.test.DTO.response.Seasonal_Rate_Response;
 import com.PBL4.test.Exception.AppException;
@@ -15,6 +16,8 @@ import com.PBL4.test.repository.Train_Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -58,6 +61,11 @@ public class Schedule_Service {
         }
         Schedule result = scheduleMapper.toSchedule(request);
         result.setScheduleId(generateScheduleID());
+
+        result.setDepartureTime(request.getTimeToRun());
+        result.setArrivalTime(request.getArrivalTime());
+        System.out.println(request.getTimeToRun());
+        System.out.println(result.getDepartureTime());
 
         return scheduleMapper.toScheduleResponse(scheduleRepository.save(result));
     }
@@ -104,5 +112,12 @@ public class Schedule_Service {
     public void deteteSchedule(String scheduleID) {
         scheduleRepository.deleteById(scheduleID);
     }
+    public List<FindSchedule_Response> findScheduleForClient(String departureCity, String arrivalCity, LocalDate date)
+    {
+        LocalDateTime time = date.atStartOfDay();
+        List<FindSchedule_Response> result = scheduleRepository.findSchedulesByClient(departureCity, arrivalCity, time);
+        return result;
+    }
+
 
 }

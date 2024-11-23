@@ -26,6 +26,7 @@ public class PriceList {
     Schedule schedule;
 
     @ManyToOne
+    @JoinColumn(name = "seasonal_Rate")
     SeasonalRate seasonalRate;
 
     @ManyToOne

@@ -20,9 +20,26 @@ public class Ticket_Request {
     String purchaseMethod;
     LocalDateTime purchaseDate;
     String status;
-
     String scheduleId;
+    String priceListId;
+    String accountId;
+    String seatId;
+    public String generateSkuTicket() {
+        // Format the purchase date as a string (e.g., YYYYMMDDHHMMSS)
+        String formattedDate = purchaseDate != null ?
+                purchaseDate.format(java.time.format.DateTimeFormatter.ofPattern("yyyyMMddHHmmss")) :
+                "00000000000000";
 
-    String priceList;
+        // Combine fields to create a unique SKU
+        return String.format(
+                "SKU-%s-%s-%s-%s-%s-%s",
+                scheduleId != null ? scheduleId : "UNKNOWN",
+                priceListId != null ? priceListId : "UNKNOWN",
+                accountId != null ? accountId : "UNKNOWN",
+                seatId != null ? seatId : "UNKNOWN",
+                status != null ? status : "PENDING",
+                formattedDate
+        );
+    }
 
 }

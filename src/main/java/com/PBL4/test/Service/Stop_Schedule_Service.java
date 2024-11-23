@@ -13,6 +13,7 @@ import com.PBL4.test.repository.StopSchedule_Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -56,6 +57,8 @@ public class Stop_Schedule_Service {
         Schedule schedule = schedule_Repository.findByScheduleId(request.getScheduleId()).orElseThrow(() -> new AppException(ErrorCode.STATION_NOT_EXISTED));
         stopSchedule.setSchedule(schedule);
         stopSchedule.setTrain(schedule.getTrain());
+
+        stopSchedule.setTimeToRun(generateTimeToRun(request.getTime(), schedule.getDepartureTime()));
         if (stopSchedules.size() == 0) {
 
             stopSchedule.setSchedule(schedule);
@@ -63,6 +66,7 @@ public class Stop_Schedule_Service {
             stopSchedule.setDepartureStation(schedule.getDepartureStation());
             stopSchedule.setTrain(schedule.getTrain());
             stopSchedule.setStopStation(station_Repository.findByStationId(request.getStopScheduleId()).orElseThrow(() -> new AppException(ErrorCode.STATION_NOT_EXISTED)));
+
             return stopSchedule_Repository.save(stopSchedule);
         }
         for (int i = 0; i < stopSchedules.size(); i++) {
@@ -73,6 +77,8 @@ public class Stop_Schedule_Service {
                 stopSchedule.setDepartureStation(stopSchedules.get(i).getDepartureStation());
                 stopSchedules.get(i).setDepartureStation(stopSchedule.getStopStation());
                 System.out.println(stopSchedule);
+
+
                 if (i > 0) {
                     stopSchedules.get(i - 1).setArrivalStation(stopSchedule.getStopStation());
                     stopSchedule_Repository.save(stopSchedules.get(i - 1));
@@ -83,13 +89,20 @@ public class Stop_Schedule_Service {
             }
         }
         stopSchedule.setArrivalStation(schedule.getArrivalStation());
-        stopSchedule.setDepartureStation(stopSchedules.get(stopSchedules.size() - 1).getDepartureStation());
+        stopSchedule.setDepartureStation(stopSchedules.get(stopSchedules.size() - 1).getStopStation());
         stopSchedules.get(stopSchedules.size() - 1).setArrivalStation(stopSchedule.getStopStation());
         stopSchedule_Repository.save(stopSchedules.get(stopSchedules.size() - 1));
         return stopSchedule_Repository.save(stopSchedule);
 
     }
+    private LocalDateTime generateTimeToRun(double minuteToAdd, LocalDateTime time)
+    {
+            return time.plusMinutes((long) minuteToAdd);
+    }
+    private void updateOrderedSeat(String seatId, String departureStation, String arrivalStation,String Schedule)
+    {
 
+    }
     public Stop_Schedule_Response CreateRequest(StopSchedule_Request stopSchedule_Request) {
 
         if (!station_Repository.existsByStationId(stopSchedule_Request.getStopScheduleId())) {

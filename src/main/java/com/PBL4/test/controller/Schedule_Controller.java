@@ -1,8 +1,10 @@
 package com.PBL4.test.controller;
 
 import com.PBL4.test.DTO.request.Api_Response;
+import com.PBL4.test.DTO.request.FindSchedule_Request;
 import com.PBL4.test.DTO.request.Schedule_Request;
 import com.PBL4.test.DTO.request.Seasonal_Rate_Request;
+import com.PBL4.test.DTO.response.FindSchedule_Response;
 import com.PBL4.test.DTO.response.Schedule_Response;
 import com.PBL4.test.DTO.response.Seasonal_Rate_Response;
 import com.PBL4.test.Service.Schedule_Service;
@@ -66,5 +68,9 @@ public class Schedule_Controller {
     @GetMapping("/departure-arrival/{departureID}")
     public Schedule_Response findByDeparture_ArrivalStationID(@PathVariable String departureID) {
         return scheduleService.findByDepartureStation(departureID);
+    }
+    @PostMapping("/clientRequest")
+    public List<FindSchedule_Response> findByClientRequest(@RequestBody FindSchedule_Request request) {
+        return scheduleService.findScheduleForClient(request.getDepartureCity(),request.getArrivalCity(),request.getDepartureDate());
     }
 }

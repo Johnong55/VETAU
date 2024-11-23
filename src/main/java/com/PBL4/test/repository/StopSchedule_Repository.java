@@ -13,4 +13,6 @@ public interface StopSchedule_Repository extends JpaRepository<StopSchedule, Str
         @Query("select s from StopSchedule s where s.schedule.scheduleId= :schedule " +
                 "order by s.ArrivalTime")
         List<StopSchedule> findByScheduleId(@Param("schedule") String schedule);
+        //@Query("select s from StopSchedule s1")
+        //List<StopSchedule> findStopScheduleBetweenDepartureAndArrivalStation()
 }

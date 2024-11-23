@@ -16,7 +16,6 @@ public class Schedule_Request {
     LocalDateTime timeToRun;
     LocalDateTime arrivalTime;
     String departureStationId;
-
     String arrivalStationId;
     String trainId;
 }
