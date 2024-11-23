@@ -10,6 +10,7 @@ import com.PBL4.test.Exception.AppException;
 import com.PBL4.test.Exception.ErrorCode;
 import com.PBL4.test.entity.*;
 import com.PBL4.test.mapper.ScheduleMapper;
+import com.PBL4.test.repository.Carriage_Repository;
 import com.PBL4.test.repository.Schedule_Repository;
 import com.PBL4.test.repository.Station_Repository;
 import com.PBL4.test.repository.Train_Repository;
@@ -37,6 +38,10 @@ public class Schedule_Service {
     private Schedule_Repository schedule_Repository;
     @Autowired
     private Station_Repository station_Repository;
+    @Autowired
+    private Carriage_Repository Carriage_Repository;
+    @Autowired
+    private Carriage_Service carriage_Service;
 
     private String generateScheduleID() {
         Schedule lastSchedule = scheduleRepository.findLastSchedule();
@@ -116,6 +121,11 @@ public class Schedule_Service {
     {
         LocalDateTime time = date.atStartOfDay();
         List<FindSchedule_Response> result = scheduleRepository.findSchedulesByClient(departureCity, arrivalCity, time);
+        for(int i =0;i<result.size();i++)
+        {
+            Train train = trainRepository.findByTrainName(result.get(i).getTrainName()).get();
+            result.get(i).setCarriages(carriage_Service.findByTrainID(train.getTrainId()));
+        }
         return result;
     }
 

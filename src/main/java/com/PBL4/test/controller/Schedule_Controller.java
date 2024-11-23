@@ -69,8 +69,4 @@ public class Schedule_Controller {
     public Schedule_Response findByDeparture_ArrivalStationID(@PathVariable String departureID) {
         return scheduleService.findByDepartureStation(departureID);
     }
-    @PostMapping("/clientRequest")
-    public List<FindSchedule_Response> findByClientRequest(@RequestBody FindSchedule_Request request) {
-        return scheduleService.findScheduleForClient(request.getDepartureCity(),request.getArrivalCity(),request.getDepartureDate());
-    }
 }
