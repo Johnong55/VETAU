@@ -17,7 +17,7 @@ public class City {
     @Id
     String cityID;
     String cityName;
-
+    int count;
     @OneToMany(mappedBy = "city", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Station> stations;
 

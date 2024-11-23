@@ -13,4 +13,6 @@ import java.util.List;
 public class City_Response {
     String cityID;
     String cityName;
+    List<Station_Response> stations;
+
 }

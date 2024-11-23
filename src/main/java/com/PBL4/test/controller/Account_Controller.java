@@ -3,8 +3,7 @@ package com.PBL4.test.controller;
 import java.util.List;
 
 import com.PBL4.test.DTO.request.Account_UpdateRequest;
-import com.PBL4.test.DTO.request.Api_Response;
-import com.PBL4.test.DTO.response.Account_Response;
+import com.PBL4.test.DTO.request.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -12,61 +11,40 @@ import org.springframework.web.bind.annotation.*;
 import com.PBL4.test.Service.Account_Service;
 import com.PBL4.test.entity.Account;
 
-import com.PBL4.test.DTO.request.Account_CreationRequest;
+import com.PBL4.test.DTO.request.Account_Request;
 
 @RestController
 @RequestMapping("/accounts")  // Fixed typo: "/ccounts" to "/accounts"
 public class Account_Controller {
 
     @Autowired
-    private Account_Service accountService;
+    private Account_Service service;
+    @Autowired
+    private Account_Service account_Service;
 
     @PostMapping(produces = {"application/json", "application/xml"}, consumes = "application/json")
-    public Api_Response<Account_Response> createAccount(@RequestBody @Validated Account_CreationRequest request) {
-        return Api_Response.<Account_Response>builder()
-                .result(accountService.createAccount(request))
-                .build();
-
+    public ApiResponse<Account> CreateAccount(@RequestBody @Validated Account_Request rq) {
+            ApiResponse<Account> apiResponse = new ApiResponse<>();
+            apiResponse.setResult(account_Service.CreateRequest(rq));
+            return apiResponse ;
     }
-
-    @GetMapping
-    public List<Account_Response> findAllAccount() {
-        return accountService.findall();
+    
+    @GetMapping("/account")
+    public List<Account> FindAllAccount()
+    {
+    	return service.findall();
     }
-
-    @PutMapping("/{accountID}")
-    public Api_Response<Account_Response> updateAccount(@RequestBody Account_UpdateRequest request, @PathVariable("accountID") String accountID) {
-        return Api_Response.<Account_Response>builder()
-                .result(accountService.updateAccount(accountID, request))
-                .build();
+    
+     @PutMapping("/account/{accountID}")
+    public ApiResponse<Account> updateAccount(@RequestBody Account_UpdateRequest rq, @PathVariable("accountID") String accountID)
+    {
+        ApiResponse<Account> apiResponse = new ApiResponse<>();
+        apiResponse.setResult(account_Service.UpdateRequest(rq,accountID));
+        return apiResponse ;
     }
-
-    @GetMapping("/id/{accountID}")
-    public Api_Response<Account_Response> findById(@PathVariable("accountID") String accountID) {
-        return Api_Response.<Account_Response>builder()
-                .result(accountService.getByAccountID(accountID))
-                .build();
-    }
-
-    @GetMapping("/username/{username}")
-    public Api_Response<Account_Response> findByUsename(@PathVariable("username") String username) {
-        return Api_Response.<Account_Response>builder()
-                .result(accountService.getByUsername(username))
-                .build();
-    }
-
-    @GetMapping("/email/{email}")
-    public Api_Response<Account_Response> findByEmail(@PathVariable("email") String email) {
-        return Api_Response.<Account_Response>builder()
-                .result(accountService.getByEmail(email))
-                .build();
-    }
-
-    @DeleteMapping("/{accountId}")
-    Api_Response<String> deleteAccount(@PathVariable String accountId) {
-        accountService.deleteAccount(accountId);
-        return Api_Response.<String>builder()
-                .result("Account has been deleted")
-                .build();
+    @GetMapping("/account/{accountID}")
+    public Account FindById(@PathVariable("accountID") String accountID)
+    {
+        return account_Service.getAccount(accountID);
     }
 }

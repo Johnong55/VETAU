@@ -2,8 +2,10 @@
 package com.PBL4.test.entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
+import com.PBL4.test.DTO.request.StopSchedule_Request;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -21,8 +23,9 @@ public class StopSchedule {
     @GeneratedValue(strategy = GenerationType.UUID)
     String ID;
     LocalDateTime TimeToRun;
-    LocalDateTime ArrivalTime;
+    double ArrivalTime;
 
+    
     @ManyToOne
     @JoinColumn(name = "ArrivalStation")
     Station ArrivalStation;
@@ -39,7 +42,13 @@ public class StopSchedule {
     @JoinColumn(name = "schedule")
     Schedule schedule;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "StopStation")
     Station stopStation;
+    //ghe da order
+    List<String> orderedSeat ;
+    @Override
+    public String toString() {
+            return "Arrival" + this.getArrivalStation().getStationId() +"\n departure: "+ getDepartureStation().getStationId()+"\n train"+getTrain().getTrainId()+"\n station"+stopStation.getStationId();
+    }
 }

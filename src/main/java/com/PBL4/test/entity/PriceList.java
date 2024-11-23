@@ -1,18 +1,12 @@
 package com.PBL4.test.entity;
 
+import com.PBL4.test.enums.CarriageClass;
 import io.micrometer.common.lang.Nullable;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import java.util.List;
 
 @Data
 @Builder
@@ -27,12 +21,23 @@ public class PriceList {
     String priceListID;
     double price;
 
+    @ManyToOne
+    @JoinColumn(name = "schedule_id")
+    Schedule schedule;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
+    @JoinColumn(name = "seasonal_Rate")
+    SeasonalRate seasonalRate;
+
+    @ManyToOne
+    @JoinColumn(name ="DepartureStation")
+    Station departureStation;
+
+    @ManyToOne
     @JoinColumn(name = "ArrivalStation")
     Station arrivalStation;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "DepartureStation")
-    Station departureStation;
+    @Enumerated(EnumType.STRING)
+    CarriageClass carriageClass;
+
 }

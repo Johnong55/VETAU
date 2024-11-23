@@ -57,7 +57,7 @@ public class Carriage_Service {
         carriage.setCarriageId(generateCarriageID());
         carriage.setTrain(train);
         Carriage_Response response = carriageMapper.toCarriageResponse(carriageRepository.save(carriage));
-        response.setSeatType(carriage.getCarriageClass().getSeatType());
+        response.setSeatType(response.getCarriageClass().getSeatType());
         return response;
     }
 

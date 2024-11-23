@@ -2,18 +2,10 @@ package com.PBL4.test.entity;
 
 import java.time.LocalDateTime;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.engine.internal.Cascade;
 
 @Data
 @Builder
@@ -51,4 +43,7 @@ public class Ticket {
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "Account")
     Account account;
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "Seat")
+    Seat seat;
 }

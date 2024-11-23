@@ -14,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,14 +54,6 @@ public class City_Service {
                 .map(cityMapper::toCityResponse)
                 .collect(Collectors.toList());
     }
-    public List<String> findAllName() {
-        List<String> names = new ArrayList<>();
-        List<City> cityList = cityRepository.findAll();
-        for(City city : cityList) {
-            names.add(city.getCityName());
-        }
-        return names;
-    }
 
     public City addAStation(String cityID, String stationID) {
         City result = new City();
@@ -78,15 +69,21 @@ public class City_Service {
     public City_Response findByName(String cityName) {
         City city = cityRepository.findByCityName(cityName)
                 .orElseThrow(() -> new AppException(ErrorCode.CITY_NOT_EXISTED));
-
-        return cityMapper.toCityResponse(city);
+        City_Response cityResponse = cityMapper.toCityResponse(city);
+        cityResponse.setStations(city.getStations().stream()
+                .map(stationMapper::toStationResponse)
+                .collect(Collectors.toList()));
+        return cityResponse;
     }
 
     public City_Response findByID(String cityID) {
         City city = cityRepository.findByCityID(cityID)
                 .orElseThrow(() -> new AppException(ErrorCode.CITY_NOT_EXISTED));
-
-        return cityMapper.toCityResponse(city);
+        City_Response cityResponse = cityMapper.toCityResponse(city);
+        cityResponse.setStations(city.getStations().stream()
+                .map(stationMapper::toStationResponse)
+                .collect(Collectors.toList()));
+        return cityResponse;
     }
 
     public City_Response updateCity(String cityID, City_Request request) {

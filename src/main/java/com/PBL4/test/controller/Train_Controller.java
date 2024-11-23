@@ -27,7 +27,6 @@ public class Train_Controller {
 
     @PostMapping
     public Api_Response<Train_Response> createTrain(@RequestBody Train_Request request) {
-        System.out.println(request.getTrainName());
         return Api_Response.<Train_Response>builder()
                 .result(train_service.createTrain(request))
                 .build();
@@ -38,10 +37,7 @@ public class Train_Controller {
         return train_service.getAll();
     }
 
-    @GetMapping("/getAllName")
-    public List<String> getAllName() {
-        return train_service.getAllName();
-    }
+
     @PutMapping("/{trainId}")
     public Train_Response updateTrain(@PathVariable String trainId, @RequestBody Train_Request request) {
         return train_service.updateTrain(trainId, request);

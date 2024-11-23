@@ -37,7 +37,7 @@ public class Station_Service {
         }
         Station result = station_mapper.toStation(request);
         result.setCity(city);
-        result.setStationId(generateCityID());
+        result.setStationId(generateCityID(result.getCity().getCityID()));
         return station_mapper.toStationResponse(station_repository.save(result));
     }
 
@@ -68,15 +68,15 @@ public class Station_Service {
     }
 
 
-    private String generateCityID() {
-        Station lastStation = station_repository.findLastStation();
+    private String generateCityID(String CityID) {
+        Station lastStation = station_repository.findLastStation(CityID);
         if (lastStation == null) {
-            return "ST001";
+            return CityID+"001";
         }
         String lastID = lastStation.getStationId();
         int lastNumber = Integer.parseInt(lastID.substring(2));
         int newNumber = lastNumber + 1;
-        return String.format("ST%03d", newNumber);
+        return String.format("CT%03d", newNumber);
     }
 
     public List<Station_Response> getAll() {

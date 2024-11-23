@@ -29,11 +29,6 @@ public class City_Controller {
         return city_service.findAll();
     }
 
-    @GetMapping("/getNames")
-    public List<String> gettAllNameCities() {
-        return city_service.findAllName();
-    }
-
     @PutMapping("/{cityID}")
     public City_Response updateCity(@PathVariable String cityID, @RequestBody City_Request request) {
         return city_service.updateCity(cityID, request);

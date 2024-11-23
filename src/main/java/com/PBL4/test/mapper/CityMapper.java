@@ -11,6 +11,7 @@ import org.mapstruct.MappingTarget;
 public interface CityMapper {
     City toCity(City_Request request);
 
+    @Mapping(target = "stations", source = "stations")
     City_Response toCityResponse(City city);
 
     void updateCity(@MappingTarget City city, City_Request request);

@@ -1,40 +1,21 @@
 package com.PBL4.test.controller;
 
-import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
+import com.PBL4.test.DTO.request.FindSchedule_Request;
+import com.PBL4.test.DTO.response.FindSchedule_Response;
+import com.PBL4.test.Service.Schedule_Service;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequiredArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class Find_Controller {
-    //  ListTrip_Service listTripService;
+    @Autowired
+    Schedule_Service schedule_service;
+
     @PostMapping("/findtrain")
-    public String responseFindTrain(@RequestBody Map<String, String> payload) {
-
-        String startCity = payload.get("startCity");
-        String endCity = payload.get("endCity");
-        String startDate = payload.get("date");
-
-        System.out.println(startCity);
-        System.out.println(endCity);
-        System.out.println(startDate);
-        // xử lí dữ liệu, trả về danh sách chuyến tàu
-
-
-        return "ok";
+    public List<FindSchedule_Response> findByClientRequest(@RequestBody FindSchedule_Request request) {
+        return schedule_service.findScheduleForClient(request.getDepartureCity(),request.getArrivalCity(),request.getDepartureDate());
     }
-//    @PostMapping("/findtrain")
-//    public ApiResponse<ListTrip_Response> getListTrip(@RequestBody ListTrip_Request request) {
-//        ApiResponse<ListTrip_Response> response = new ApiResponse<>();
-//        response.setCode(200);
-//        response.setMessage("ok");
-//        response.setResult(listTripService.getListTrip(request));
-//
-//        return response;
-//    }
 }
