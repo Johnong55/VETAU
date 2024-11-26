@@ -31,6 +31,8 @@ public enum ErrorCode {
     PRICE_NOT_EXISTED(1027,"Price not existed"),
     INVALID_PRICE_RANGE(1028,"Invalid price range"),
     TICKET_EXISTED(1029,"Ticket existed"),
+    STOP_SCHEDULE_NOT_EXISTED(1030,"Stop schedule not existed"),
+    STOP_SCHEDULE_EXISTED(1031,"Stop schedule existed"),
     ;
     // Constructor
     ErrorCode(int code, String message) {

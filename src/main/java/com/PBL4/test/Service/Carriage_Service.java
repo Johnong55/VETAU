@@ -23,7 +23,7 @@ import java.util.stream.IntStream;
 
 @Slf4j
 @Service
-public class Carriage_Service {
+public class    Carriage_Service {
     @Autowired
     Carriage_Repository carriageRepository;
     @Autowired

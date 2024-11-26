@@ -117,6 +117,7 @@ public class Schedule_Service {
     public void deteteSchedule(String scheduleID) {
         scheduleRepository.deleteById(scheduleID);
     }
+
     public List<FindSchedule_Response> findScheduleForClient(String departureCity, String arrivalCity, LocalDate date)
     {
         LocalDateTime time = date.atStartOfDay();

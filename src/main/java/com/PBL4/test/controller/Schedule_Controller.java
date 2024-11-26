@@ -28,16 +28,19 @@ public class Schedule_Controller {
                 .result(scheduleService.createSchedule(request))
                 .build();
     }
+
     @GetMapping
     public List<Schedule_Response> getAllSchedule() {
         return scheduleService.findAll();
     }
+
 //
 //    @PutMapping("/{seasonalRateID}")
 //    public Seasonal_Rate_Response updateSeasonalRate(@PathVariable String seasonalRateID, @RequestBody Seasonal_Rate_Request request) {
 //        return seasonalRateService.updateSeasonalRate(seasonalRateID, request);
 //    }
 //
+
     @DeleteMapping("/{scheduleID}")
     Api_Response<String> deleteSchedule(@PathVariable String scheduleID) {
         scheduleService.deteteSchedule(scheduleID);
@@ -45,16 +48,19 @@ public class Schedule_Controller {
                 .result("Schedule has been deleted")
                 .build();
     }
+
 //
 //    @GetMapping("/name/{seasonalRateName}")
 //    public Seasonal_Rate_Response findByName(@PathVariable String seasonalRateName) {
 //        return seasonalRateService.findByName(seasonalRateName);
 //    }
 //
+
     @GetMapping("/id/{scheduleID}")
     public Schedule_Response findByID(@PathVariable String seasonalRateID) {
         return scheduleService.findByID(seasonalRateID);
     }
+
     @GetMapping("/arrival-station-id/{arrivalID}")
     public Schedule_Response findByArrivalStationID(@PathVariable String arrivalID) {
         return scheduleService.findByArrivalStation(arrivalID);

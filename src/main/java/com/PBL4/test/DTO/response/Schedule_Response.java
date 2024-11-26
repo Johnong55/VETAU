@@ -17,7 +17,7 @@ public class Schedule_Response {
     LocalDateTime timeToRun;
     LocalDateTime arrivalTime;
     String departureStationName;
-    List<Stop_Schedule_Response> stopStationNames;
     String arrivalStationName;
     String trainId;
+    List<String> stopStationName;
 }
