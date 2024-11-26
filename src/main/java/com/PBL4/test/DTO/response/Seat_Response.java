@@ -1,16 +1,24 @@
 package com.PBL4.test.DTO.response;
 
-
+import com.PBL4.test.entity.Carriage;
+import com.PBL4.test.entity.Seat;
+import com.PBL4.test.enums.CarriageClass;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.List;
+
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Seat_Response {
-    String IdSeat;
-    String Seat_Name;
-    String Seat_Status;
+    String seatId;
+    String seatName;
+    boolean situation;
+    private String sku;
+    String carriageName;
+    private String seatType;
 }

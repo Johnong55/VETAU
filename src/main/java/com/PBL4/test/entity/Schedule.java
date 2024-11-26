@@ -1,74 +1,45 @@
 package com.PBL4.test.entity;
 
+import java.sql.Time;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
-import jakarta.persistence.*;
 
+import jakarta.persistence.*;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
+
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 public class Schedule {
     @Id
-    private String ScheduleId;
+    String scheduleId;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "train", nullable = true)
-    private Train train;
+    LocalDateTime departureTime;
+    LocalDateTime arrivalTime;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "Schedules")
-    private List<StopStation> stopStations;
-    
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "DepartureStation")
-    private Station DepartureStation;
-    
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    Station departureStation;
+
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "ArrivalStation")
-    private Station ArrivalStation;
-    
-    // Getters and setters remain the same
-    
-    
-    public Schedule() {
-        super();
-    }
+    Station arrivalStation;
 
-	public String getScheduleId() {
-		return ScheduleId;
-	}
+    @ManyToOne
+    @JoinColumn(name = "train_id")
+    Train train;
 
-	public void setScheduleId(String scheduleId) {
-		ScheduleId = scheduleId;
-	}
+    @OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL)
+    List<PriceList> priceLists;
+    @OneToMany(mappedBy = "schedule", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    List<StopSchedule> stopSchedules;
 
-	public Train getTrain() {
-		return train;
-	}
 
-	public void setTrain(Train train) {
-		this.train = train;
-	}
-
-	public List<StopStation> getStopStations() {
-		return stopStations;
-	}
-
-	public void setStopStations(List<StopStation> stopStations) {
-		this.stopStations = stopStations;
-	}
-
-	public Station getDepartureStation() {
-		return DepartureStation;
-	}
-
-	public void setDepartureStation(Station departureStation) {
-		DepartureStation = departureStation;
-	}
-
-	public Station getArrivalStation() {
-		return ArrivalStation;
-	}
-
-	public void setArrivalStation(Station arrivalStation) {
-		ArrivalStation = arrivalStation;
-	}
-    
-    // Rest of the code remains the same
 }

@@ -27,7 +27,7 @@
 <body>
 	<script>
 		function BackPage() {
-			window.location.href = "/processbooking"
+			window.location.href = "/metroway/processbooking"
 		}
 	</script>
 	<div id="header-bookingProcess">
@@ -55,9 +55,9 @@
 					<div class="wrap-lable-info-user-title">Thông tin chi tiết</div>
 
 					<div class="wrap-input-info">
-						<input type="text" class="input-info-review" style="width: 60%;" id="name" placeholder="Họ và Tên">
-						<input type="number"class="input-info-review" style="width: 10%;" id="age" placeholder="Tuổi">
-						<input type="text" class="input-info-review" style="width: 10%;" id="gender" placeholder="Giới tính">
+						<input type="text" class="input-info-review name-user" style="width: 60%;" id="name" placeholder="Họ và Tên">
+						<input type="number"class="input-info-review age-user" style="width: 10%;" id="age" placeholder="Tuổi">
+						<input type="text" class="input-info-review gender-user" style="width: 10%;" id="gender" placeholder="Giới tính">
 					</div>
 				</div>
 
@@ -67,10 +67,10 @@
 						Thông tin liên lạc</div>
 
 					<div class="wrap-input-info">
-						<input type="number" class="input-info-review" style="width: 45%;" id="sdt"
+						<input type="number" class="input-info-review sdt-user" style="width: 45%;" id="sdt"
 							placeholder="Số điện thoại">
 						<input type="email" id="email"
-							class="input-info-review" style="width: 45%;" placeholder="Email">
+							class="input-info-review email-user" style="width: 45%;" placeholder="Email">
 					</div>
 				</div>
 
@@ -136,11 +136,11 @@
 
 					<div class="lable-time_line time-ticket">
 						<div class="wrap-time time-start">
-							<p class="day">Ngày 14/9</p>
+							<p class="day-start">Ngày 14/9</p>
 
-							<p class="hour">11:25 pm</p>
+							<p class="hour-start">11:25 pm</p>
 
-							<p class="location">Đà Nẵng</p>
+							<p class="location-start">Đà Nẵng</p>
 						</div>
 
 						<div class="time-illustration">
@@ -148,11 +148,11 @@
 						</div>
 
 						<div class="wrap-time time-end">
-							<p class="day">Ngày 15/9</p>
+							<p class="day-end">Ngày 15/9</p>
 
-							<p class="hour">12:25 pm</p>
+							<p class="hour-end">12:25 pm</p>
 
-							<p class="location">Hà Nội</p>
+							<p class="location-end">Hà Nội</p>
 						</div>
 					</div>
 				</div>
@@ -212,7 +212,7 @@
 					<div class="footer-wrap-input">
 						<input type="email" class="input-email" name="email"
 							placeholder="Nhập email của bạn"> <img class="icon-date"
-							src="imgs/icon-send.png" alt="">
+							src="imgs/icon-send.png">
 					</div>
 				</div>
 			</div>
@@ -326,22 +326,22 @@
 			</div>
 		</div>
 	</div>
-	<script type="module" src="../JS/intro.js"></script>
-	<script type="module" src="../JS/Cookie.js"></script>
-	<script type="module" src="../JS/user.js"></script>
-	<script type="module" src="JS/login.js"></script>
-	<script type="module" src="../JS/Validate.js"></script>
-	<script type="module" src="../JS/ValidateLogin.js"></script>
-	<script src="JS/loadReview.js"></script>
-	<script src="JS/addFood.js"></script>
-	<script src="JS/Book_Payment.js"></script>
+	<script type="module" src="../metroway/JS/intro.js"></script>
+	<script type="module" src="../metroway/JS/Cookie.js"></script>
+	<script type="module" src="../metroway/JS/user.js"></script>
+	<script type="module" src="../metroway/JS/login.js"></script>
+	<script type="module" src="../metroway/JS/Validate.js"></script>
+	<script type="module" src="../metroway/JS/ValidateLogin.js"></script>
+	<script src="../metroway/JS/loadReview.js"></script>
+	<script src="../metroway/JS/addFood.js"></script>
+	<script src="../metroway/JS/Book_Payment.js"></script>
 	<script>
 		setTimeout(function() {
 			const script = document.createElement('script');
 
 			script.type = "module";
 
-			script.src="../JS/logout.js";
+			script.src="../metroway/JS/logout.js";
 
 			document.body.appendChild(script);
 

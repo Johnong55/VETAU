@@ -1,11 +1,11 @@
 function getUserEL() {
     return `
         <div class="avatar" id="user-avatar">
-            <img style="width: 40px" src="../imgs/user.png" alt="" />
+            <img style="width: 40px" src="../metroway/imgs/user.png" alt="" />
             <div id="tmp"></div>
             <div class="user-menu">
-              <a class="item-user" href="http://localhost:8080/informationalUser">Thông tin cá nhân</a>
-              <a class="item-user" href="http://localhost:8080/myTicket">Vé của tôi</a>
+              <a class="item-user" href="http://localhost:8080/metroway/informationalUser">Thông tin cá nhân</a>
+              <a class="item-user" href="http://localhost:8080/metroway/myTicket">Vé của tôi</a>
               <a class="item-user" id="logout-btn" >Đăng xuất</a>
             </div>
         </div>

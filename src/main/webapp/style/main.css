@@ -1609,3 +1609,54 @@ small {
 .text-black {
     color: var(--black-color) !important;
 }
+
+
+.contain-left {
+    box-shadow: -10px 0 30px -5px rgba(0, 0, 0, 0.5);
+    z-index: 2;
+}
+
+.contain-right {
+    background-color: #f1f3f4;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.avatar-admin {
+    width: 45px;
+}
+
+.options-admin:hover {
+    color: var(--primary-color);
+}
+
+.p-menu-admin {
+    padding-left: 0 !important;
+}
+
+.wrap-title {
+    position: relative;
+}
+
+.title-admin {
+    margin-top: 70px !important;
+    margin-left: 30px !important;
+}
+
+.title-admin::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    border-bottom: 1px solid var(--border-color);
+    bottom: -10px;
+    left: 0;
+}
+
+.wrap-table {
+    margin-top: 100px !important;
+    margin-left: auto !important;
+}
+
+.header-table {
+    font-weight: 500;
+}

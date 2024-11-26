@@ -14,9 +14,10 @@ if(btn_login) {
     btn_login.addEventListener('click', function (e) {
         e.preventDefault();
         console.log(123);
-        let isUsername = checkUsername(usernameEL),
-            isPassword = checkPassword(passwordEl);
-        let isFormValid = isPassword && isUsername;
+     //   let isUsername = checkUsername(usernameEL),
+     //       isPassword = checkPassword(passwordEl);
+       // let isFormValid = isPassword && isUsername;
+        let isFormValid = true;
 
         if(isFormValid) {
             console.log(usernameEL.value);
@@ -27,7 +28,7 @@ if(btn_login) {
                 password: passwordEl.value
             };
 
-            fetch('/auth/token', {
+            fetch('/metroway/auth/token', {
                 method: "POST",
                 headers: {'Content-Type':'application/json'},
                 body: JSON.stringify(dataLogin)
@@ -36,13 +37,25 @@ if(btn_login) {
                     if(!response.ok) console.log("LOI!!!!")
                     return  response.json();
                 })
-                .then(data => {
-                    console.log(data);
-                    const token = data.result.token;
-                    document.cookie = `identify=${token}; path=/; max-age=${60 * 60}; secure`;
-                    console.log(getCookie("identify"));
-                    Back();
-                    replaceButton();
+                .then(data1 => {
+                    console.log(data1);
+                    fetch(`/metroway/accounts/username/${usernameEL.value}`)
+                        .then(response => {
+                            if(!response.ok) console.log("LOI")
+                            return response.json()
+                        })
+                        .then(data => {
+                            console.log(data)
+                            if(data.result.role === "ADMIN") {
+                                window.location.href = "/metroway/admin";
+                            } else if(data.result.role === "USER") {
+                                const token = data1.result.token;
+                                document.cookie = `identify=${token}; path=/; max-age=${60 * 60}; secure`;
+                                console.log(getCookie("identify"));
+                                Back();
+                                replaceButton();
+                            }
+                        })
                 })
                 .catch(error => {
                     console.log(error);

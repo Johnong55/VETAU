@@ -11,33 +11,10 @@ btn_findtrain.addEventListener('click', function (){
     console.log(input_date.value);
     console.log(typeof input_date.value);
     const data = {
-        startCity: input_startCity.value,
-        endCity: input_endCity.value,
-        date: input_date.value
+        departureCity: input_startCity.value,
+        arrivalCity: input_endCity.value,
+        departureDate: input_date.value
     };
-
-    fetch('findtrain',{
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(data)
-
-    })
-        .then(response => {
-            if(!response.ok) {
-                console.log("LỖIIII");
-            }
-            return response.text();
-        })
-        .then(data =>{
-            console.log(data);
-            if(data === "ok") {
-                localStorage.setItem("startCity",input_startCity.value);
-                localStorage.setItem("endCity",input_endCity.value);
-                localStorage.setItem("date",input_date.value);
-                window.location.href = "/processbooking";
-            }
-        })
-        .catch(error => {
-            console.log(error);
-        })
+    sessionStorage.setItem("findTrain",JSON.stringify(data))
+    window.location.href = "/metroway/processbooking";
 });

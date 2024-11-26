@@ -3,7 +3,7 @@
 
 
 // Kết nối WebSocket
-export const ws = new WebSocket("ws://localhost:8080/hello");
+export const ws = new WebSocket("ws://localhost:8080/metroway/hello");
 ws.onopen = function() {
 	console.log("WebSocket is open now.");
 };
@@ -19,17 +19,8 @@ ws.onmessage = function(event) {
 	console.log(listChairHold);
 	let tmp = JSON.parse(localStorage.getItem("listChairHold"));
 	console.log(tmp);
-	const newObject = {};
 	if(tmp !==null) {
-		let count = 0;
-		for (const key in tmp) {
-			newObject[key] = tmp[key];
-			count++;
-		}
-		for (const key in listChairHold) {
-			newObject[count] = listChairHold[key];
-			count++;
-		}
+		const newObject = { ...tmp, ...listChairHold };
 		console.log(newObject);
 		localStorage.setItem("listChairHold",JSON.stringify(newObject));
 	} else {

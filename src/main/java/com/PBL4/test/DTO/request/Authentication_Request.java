@@ -1,19 +1,15 @@
 package com.PBL4.test.DTO.request;
 
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Authentication_Request {
-    private String username;
-    private String password;
-    public String getUsername() {
-        return username;
-
-    }
-    public String getPassword() {
-        return password;
-    }
-
-    public Authentication_Request(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
+    String username;
+    String password;
 
 }

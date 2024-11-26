@@ -1,9 +1,9 @@
 package com.PBL4.test.Service;
 
 import com.PBL4.test.DTO.request.Authentication_Request;
-import com.PBL4.test.DTO.request.IntrospectRequest;
+import com.PBL4.test.DTO.request.Introspect_Request;
 import com.PBL4.test.DTO.response.Authentication_response;
-import com.PBL4.test.DTO.response.IntrospectResponse;
+import com.PBL4.test.DTO.response.Introspect_Response;
 import com.PBL4.test.Exception.AppException;
 import com.PBL4.test.Exception.ErrorCode;
 import com.PBL4.test.repository.Account_Repository;
@@ -30,7 +30,7 @@ public class Authentication_Service {
 
     @Value("${jwt.signing.key}")
     protected  String SignKey;
-    public IntrospectResponse introspect(IntrospectRequest rq) {
+    public Introspect_Response introspect(Introspect_Request rq) {
         var token = rq.getToken();
 
         JWSVerifier verifier;
@@ -43,21 +43,25 @@ public class Authentication_Service {
 
         try {
             SignedJWT signedJWT = SignedJWT.parse(token);
-            Date expiration = signedJWT.getJWTClaimsSet().getExpirationTime();
+            Date expiretime = signedJWT.getJWTClaimsSet().getExpirationTime();
             var    verified = signedJWT.verify(verifier);
-            return new IntrospectResponse(verified && expiration.after(new Date()));
-        } catch (ParseException | JOSEException e) {
+            return new Introspect_Response(verified && expiretime.after(new Date()));
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        } catch (JOSEException e) {
             throw new RuntimeException(e);
         }
+
 
     }
 
     public Authentication_response authentication(Authentication_Request request) {
-        var account = account_Repository.existsByEmailOrUsername(request.getUsername()).orElseThrow(() -> new AppException(ErrorCode.ACCOUNT_NOT_EXISTED));
+        if(!account_Repository.existsByUsername(request.getUsername())) {
+            throw new AppException(ErrorCode.ACCOUNT_NOT_EXISTED);
+        }
+        var account = account_Repository.findByUsername(request.getUsername()).orElseThrow(() -> new AppException(ErrorCode.ACCOUNT_NOT_EXISTED));
         System.out.println(account);
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
-        System.out.println(request.getPassword());
-        System.out.println(account.getPassword());
         boolean authenticated = passwordEncoder.matches(request.getPassword(), account.getPassword());
         if (!authenticated) {
             throw new AppException(ErrorCode.UNAUTHENTICATED);
