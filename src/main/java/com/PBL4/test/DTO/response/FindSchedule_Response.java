@@ -2,10 +2,12 @@ package com.PBL4.test.DTO.response;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Slf4j
 @Data
 @Builder
 @AllArgsConstructor
@@ -18,7 +20,8 @@ public class FindSchedule_Response {
     LocalDateTime arrivalTimeAtArrivalCity;
     String trainName;
     List<Carriage_Response> carriages;
-    public FindSchedule_Response(String departureCity, String arrivalCity,
+    String scheduleId;
+    public FindSchedule_Response(String scheduleId,String departureCity, String arrivalCity,
                                  LocalDateTime departureTimeAtDepartureCity,
                                  LocalDateTime arrivalTimeAtArrivalCity,
                                  String trainName) {
@@ -27,5 +30,6 @@ public class FindSchedule_Response {
         this.departureTimeAtDepartureCity = departureTimeAtDepartureCity;
         this.arrivalTimeAtArrivalCity = arrivalTimeAtArrivalCity;
         this.trainName = trainName;
+        this.scheduleId = scheduleId;
     }
 }

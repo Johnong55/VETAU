@@ -1,12 +1,9 @@
 package com.PBL4.test.controller;
 
-import com.PBL4.test.DTO.request.Api_Response;
+import com.PBL4.test.DTO.response.Api_Response;
 import com.PBL4.test.DTO.request.Seasonal_Rate_Request;
-import com.PBL4.test.DTO.request.Service_Fee_Request;
 import com.PBL4.test.DTO.response.Seasonal_Rate_Response;
-import com.PBL4.test.DTO.response.Service_Fee_Response;
 import com.PBL4.test.Service.Seasonal_Rate_Service;
-import com.PBL4.test.Service.Service_Fee_Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
