@@ -28,6 +28,6 @@ public class ReturnVNpay {
         model.addAttribute("paymentTime", paymentTime);
         model.addAttribute("transactionId", transactionId);
 
-        return paymentStatus == 1 ? "redirect:/bookingsuccess" : "redirect:/orderfail";
+        return paymentStatus == 1 ? "redirect:/processing" : "redirect:/orderfail";
     }
 }

@@ -119,8 +119,6 @@
 			<div id="booking-right-header">
 				<h1 class="booking-content-header"
 					style="color: var(--black-color);">Các Chuyến Tàu</h1>
-				<p class="text-desc" style="margin: 26px 0 0 30px;">5 chuyến tàu
-				</p>
 			</div>
 
 			<div id="booking-right-body">

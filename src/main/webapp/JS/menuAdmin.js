@@ -11,6 +11,11 @@ const Items = {
         { key: "addToa", label: "Thêm toa" },
         { key: "deleteToa", label: "Xóa toa" }
     ],
+    chair: [
+        { key: "allChairs", label: "Tất cả ghế" },
+        { key: "addChair", label: "Thêm ghế" },
+        { key: "deleteChair", label: "Xóa ghế" }
+    ],
     trip: [
         { key: "allTrips", label: "Tất cả chuyến tàu" },
         { key: "addTrip", label: "Thêm chuyến tàu" },
@@ -98,6 +103,19 @@ const funcMap = {
             } )
             .catch(error => console.error('Error:', error));
     },
+
+    allChairs: () => {
+        const headersAllChairs = ["Mã ghế", "Tên ghế","Trạng thái", "","Toa","Loại ghế"];
+        fetch('/metroway/seats')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                wrapTableEL.innerHTML = getTable(headersAllChairs, data, "chair");
+            } )
+            .catch(error => console.error('Error:', error));
+    },
+    addChair: () => {},
+    deleteChair: () => {},
 
     allTrips: () => {},
     addTrip: () => {},
@@ -205,6 +223,6 @@ menuAdmin.addEventListener('click', function (e){
     if(e.target.dataset.key) {
         (funcMap[e.target.dataset.key])();
     } else if(e.target.classList.contains("btn-logout")) {
-        console.log("dang suat");
+        window.location.href = "/metroway/processbooking"
     }
 })

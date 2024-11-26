@@ -58,7 +58,6 @@
 //
 //   console.log(vnpUrl);
 //
-// // Vui lòng tham khảo thêm tại code demo
 
 
 const btn_pay = document.querySelector("#vnpay");
@@ -70,7 +69,7 @@ btn_pay.addEventListener('click' , function () {
    fetch('/metroway/submitOrder', {
      method: "POST",
      headers: {'Content-Type':'application/json'},
-     body: JSON.stringify({amount: "10000"})
+     body: JSON.stringify({amount: sessionStorage.getItem("amount")})
    })
        .then(response => {
          return response.text()

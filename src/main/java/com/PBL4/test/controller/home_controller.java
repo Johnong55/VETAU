@@ -31,9 +31,18 @@ public class home_controller {
 		{
 			return "payment";
 		}
+		@GetMapping("/processingOrder")
+		public String processingOrder()
+	{
+		return "processingOrder";
+	}
 		@GetMapping("/test")
 		public String test()
 		{
 			return "test";
 		}
+		@GetMapping("/bookingsuccess")
+		public String bookingsuccess() {return "bookingsuccess";}
+		@GetMapping("/admin")
+		public String admin() {return "admin";}
 }

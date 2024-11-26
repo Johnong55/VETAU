@@ -50,6 +50,11 @@
                 <p class="h3 col-md-10 my-auto p-menu-admin">Toa</p>
             </div>
 
+            <div class="row mt-4 ms-3 options-admin options-admin-item" data-value="chair">
+                <i class="col-md-2 bi bi-person-wheelchair fs-3"></i>
+                <p class="h3 col-md-10 my-auto p-menu-admin">Ghế</p>
+            </div>
+
             <div class="row mt-4 ms-3 options-admin options-admin-item" data-value="trip">
                 <i class="col-md-2 bi bi-calendar3 fs-3"></i>
                 <p class="h3 col-md-10 my-auto p-menu-admin">Chuyến tàu</p>

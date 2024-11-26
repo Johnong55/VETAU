@@ -1,4 +1,4 @@
-function renderChairs(m,id,toa) {
+function renderChairs(m,id,toa,chairs) {
     let divs = "";
     const div = document.createElement('div');
 
@@ -8,7 +8,7 @@ function renderChairs(m,id,toa) {
     for(let i = 1; i <=4; i++) {
         div.innerHTML = `
             <div class="item-backrest"></div>
-            <div class="item-square" id="${i+m}-${toa}-${id}" data-value="available" data-status="available">
+            <div class="item-square" data-id=${chairs[i+m-1]["seatId"]} id="${i+m}-${toa}-${id}" data-value="available" data-status="available">
                 ${i+m}
             </div>
         `;
@@ -17,7 +17,7 @@ function renderChairs(m,id,toa) {
     return divs;
 }
 
-function render_chair_column(m,id,toa) {
+function render_chair_column(m,id,toa,chairs) {
     let divs = "";
     const div = document.createElement('div');
 
@@ -26,7 +26,7 @@ function render_chair_column(m,id,toa) {
 
     for(let i = 0; i <=4; i++) {
         div.innerHTML = `
-            ${renderChairs(m+i*4,id,toa)}
+            ${renderChairs(m+i*4,id,toa,chairs)}
         `;
         divs += div.outerHTML;
     }
@@ -34,7 +34,7 @@ function render_chair_column(m,id,toa) {
 }
 
 
-export function getChairs(id, toa) {
+export function getChairs(id, toa,chairs) {
 
     return `
     
@@ -50,7 +50,7 @@ export function getChairs(id, toa) {
 
                     <div class="option-body option-body-${toa}">
                         <div class="option-body-left">
-                            ${render_chair_column(0,id,toa)}
+                            ${render_chair_column(0,id,toa,chairs)}
                         </div>
 
                         <div class="option-body-mid">
@@ -60,7 +60,7 @@ export function getChairs(id, toa) {
                         </div>
 
                         <div class="option-body-right">
-                            ${render_chair_column(20,id,toa)}
+                            ${render_chair_column(20,id,toa,chairs)}
                         </div>
                     </div>
 

@@ -69,21 +69,14 @@ public class City_Service {
     public City_Response findByName(String cityName) {
         City city = cityRepository.findByCityName(cityName)
                 .orElseThrow(() -> new AppException(ErrorCode.CITY_NOT_EXISTED));
-        City_Response cityResponse = cityMapper.toCityResponse(city);
-        cityResponse.setStations(city.getStations().stream()
-                .map(stationMapper::toStationResponse)
-                .collect(Collectors.toList()));
-        return cityResponse;
+        return cityMapper.toCityResponse(city);
     }
 
     public City_Response findByID(String cityID) {
         City city = cityRepository.findByCityID(cityID)
                 .orElseThrow(() -> new AppException(ErrorCode.CITY_NOT_EXISTED));
-        City_Response cityResponse = cityMapper.toCityResponse(city);
-        cityResponse.setStations(city.getStations().stream()
-                .map(stationMapper::toStationResponse)
-                .collect(Collectors.toList()));
-        return cityResponse;
+
+        return cityMapper.toCityResponse(city);
     }
 
     public City_Response updateCity(String cityID, City_Request request) {

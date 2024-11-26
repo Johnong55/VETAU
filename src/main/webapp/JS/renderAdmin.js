@@ -3,7 +3,15 @@ export function getTable(headers, list, type) {
 
     const bodyRows = list.map(row => `
         <tr>
-            ${Object.values(row).map(value => `<td>${value}</td>`).join('')}
+            ${Object.values(row).map(value => {
+                if(value === false) {
+                    return `<td>Trống</td>`
+                } else if(value === true) {
+                    return `<td>Đã bán</td>`
+                } else {
+                    return `<td>${value}</td>`
+                }
+    }).join('')}
             <td>
                 <button class="btn btn-primary btn-update" data-type="${type}" data-id="${Object.values(row)[0]}">Cập nhật</button>
             </td>

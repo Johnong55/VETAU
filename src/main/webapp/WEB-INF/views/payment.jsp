@@ -60,11 +60,11 @@
 
 					<div class="lable-time_line time-ticket">
 						<div class="wrap-time time-start">
-							<p class="day">Ngày 14/9</p>
+							<p class="day-start">Ngày 14/9</p>
 
-							<p class="hour">11:25 pm</p>
+							<p class="hour-start">11:25 pm</p>
 
-							<p class="location">Đà Nẵng</p>
+							<p class="location-start">Đà Nẵng</p>
 						</div>
 
 						<div class="time-illustration">
@@ -72,28 +72,28 @@
 						</div>
 
 						<div class="wrap-time time-end">
-							<p class="day">Ngày 15/9</p>
+							<p class="day-end">Ngày 15/9</p>
 
-							<p class="hour">12:25 pm</p>
+							<p class="hour-end">12:25 pm</p>
 
-							<p class="location">Hà Nội</p>
+							<p class="location-end">Hà Nội</p>
 						</div>
 					</div>
 
 					<div class="lable-customer-info">
 						<div class="ticket-title">Khách Hàng</div>
 						<div class="lable-customer-info-content">
-							<div class="customer-info-content-item"
+							<div class="customer-info-content-item name-user"
 								style="color: var(--black-color);">Tên: Trần Đăng Minh Đức</div>
-							<div class="customer-info-content-item">Tuổi: 20</div>
-							<div class="customer-info-content-item">Giới tính: Nam</div>
+							<div class="customer-info-content-item age-user">Tuổi: 20</div>
+							<div class="customer-info-content-item gender-user">Giới tính: Nam</div>
 						</div>
 					</div>
 					<div class="lable-ticket-contact">
 						<div class="lable-ticket-contact-left">Vé điện tử sẽ được
 							gửi qua Email:</div>
 
-						<div class="lable-ticket-contact-right">
+						<div class="lable-ticket-contact-right email-user">
 							minhduc07042004@gmail.com</div>
 					</div>
 				</div>
@@ -132,11 +132,11 @@
 					<div class="bill-content">
 						<div class="bill-content-item">
 							<div class="bill-content-item-left">Giá vé</div>
-							<div class="bill-content-item-right">200.000 VND</div>
+							<div class="bill-content-item-right priceofTicket">200.000 VND</div>
 						</div>
 						<div class="bill-content-item">
 							<div class="bill-content-item-left">Số lượng</div>
-							<div class="bill-content-item-right">3</div>
+							<div class="bill-content-item-right numofticket">3</div>
 						</div>
 						<div class="bill-content-item">
 							<div class="bill-content-item-left">Thuế hàng hóa và dịch
@@ -302,6 +302,7 @@
 	<script type="module" src="../metroway/JS/login.js"></script>
 	<script type="module" src="../metroway/JS/Validate.js"></script>
 	<script type="module" src="../metroway/JS/ValidateLogin.js"></script>
+	<script type="module" src="../metroway/JS/loadPayment.js"></script>
 	<script src="../metroway/JS/VnPayAPI.js"></script>
 	<script>
 		setTimeout(function() {
