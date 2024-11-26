@@ -18,4 +18,8 @@
         public List<FindSchedule_Response> findByClientRequest(@RequestBody FindSchedule_Request request) {
             return schedule_service.findScheduleForClient(request.getDepartureCity(),request.getArrivalCity(),request.getDepartureDate());
         }
+        @GetMapping("/findtrain")
+        public List<FindSchedule_Response> findAllScheduleForClient() {
+            return schedule_service.findAllScheduleForClient();
+        }
     }

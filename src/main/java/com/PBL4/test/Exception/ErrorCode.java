@@ -33,6 +33,8 @@ public enum ErrorCode {
     TICKET_EXISTED(1029,"Ticket existed"),
     STOP_SCHEDULE_NOT_EXISTED(1030,"Stop schedule not existed"),
     STOP_SCHEDULE_EXISTED(1031,"Stop schedule existed"),
+    SCHEDULE_NOT_FOUND(1032,"Schedule not found"),
+    STOP_SCHEDULE_NOT_FOUND(1033,"Stop schedule not found"),
     ;
     // Constructor
     ErrorCode(int code, String message) {

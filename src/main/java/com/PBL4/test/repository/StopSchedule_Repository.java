@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,4 +35,8 @@ public interface StopSchedule_Repository extends JpaRepository<StopSchedule, Str
             @Param("arrivalStationId") String arrivalStationId,
             @Param("departureStationId") String departureStationId
     );
+
+    @Query("SELECT s FROM StopSchedule s " +
+            "WHERE s.TimeToRun > :currentTime")
+    List<StopSchedule> findByTimeToRunAfter(LocalDateTime currentTime);
 }

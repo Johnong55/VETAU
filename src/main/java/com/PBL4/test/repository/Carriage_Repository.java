@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Repository
 public interface Carriage_Repository extends JpaRepository<Carriage,String> {
-    Boolean existsByCarriageName(String carriageName);
+    Boolean existsByCarriageNameAndTrain_TrainId(String carriageName, String trainId);
 
     @EntityGraph(attributePaths = "seats")
     Optional<Carriage> findByCarriageId(String carriageId);
