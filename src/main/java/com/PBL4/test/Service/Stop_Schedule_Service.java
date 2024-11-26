@@ -1,15 +1,18 @@
 package com.PBL4.test.Service;
 
 import com.PBL4.test.DTO.request.StopSchedule_Request;
+import com.PBL4.test.DTO.request.Ticket_Request;
 import com.PBL4.test.DTO.response.Stop_Schedule_Response;
 import com.PBL4.test.Exception.AppException;
 import com.PBL4.test.Exception.ErrorCode;
 import com.PBL4.test.entity.Schedule;
 import com.PBL4.test.entity.StopSchedule;
+import com.PBL4.test.entity.Ticket;
 import com.PBL4.test.mapper.StopScheduleMapper;
 import com.PBL4.test.repository.Schedule_Repository;
 import com.PBL4.test.repository.Station_Repository;
 import com.PBL4.test.repository.StopSchedule_Repository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +22,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.*;
 
+@Slf4j
 @Service
 public class Stop_Schedule_Service {
     @Autowired
@@ -99,9 +103,27 @@ public class Stop_Schedule_Service {
     {
             return time.plusMinutes((long) minuteToAdd);
     }
-    private void updateOrderedSeat(String seatId, String departureStation, String arrivalStation,String Schedule)
-    {
+    public void synchronousInsertOrderedSeat(Ticket_Request ticket) {
+        List<StopSchedule> stopSchedules = stopSchedule_Repository.findByScheduleId(ticket.getScheduleId());
 
+        for (StopSchedule stopSchedule : stopSchedules) {
+
+           if((stopSchedule.getTimeToRun().isAfter(ticket.getDepartureTime())&& stopSchedule.getTimeToRun().isBefore(ticket.getArrivalTime()))||
+                stopSchedule.getStopStation().getStationName().equals(ticket.getDepartureStationName()) || stopSchedule.getStopStation().getStationName().equals(ticket.getArrivalStationName())
+           )
+
+           {
+                List<String> orderedSeat = stopSchedule.getOrderedSeat();
+                if (orderedSeat == null) {
+                    orderedSeat = new ArrayList<>();
+                }
+
+                orderedSeat.add(ticket.getSeatId());
+                stopSchedule.setOrderedSeat(orderedSeat);
+                log.info("StopSchedule: " + stopSchedule.getStopStation().getStationName() + ", orderedSeat: " + orderedSeat);
+                stopSchedule_Repository.save(stopSchedule);
+            }
+        }
     }
     public Stop_Schedule_Response CreateRequest(StopSchedule_Request stopSchedule_Request) {
 
@@ -118,6 +140,7 @@ public class Stop_Schedule_Service {
                 .timeToRun(stopSchedule.getTimeToRun())
                 .arrivalTime(stopSchedule.getArrivalTime())
                 .scheduleId(stopSchedule.getSchedule().getScheduleId())
+                .orderedSeat(stopSchedule.getOrderedSeat())
                 .build();
         return response;
 

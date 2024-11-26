@@ -17,7 +17,6 @@ import java.util.List;
 
 public class PriceList {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     String priceListID;
     double price;
 

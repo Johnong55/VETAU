@@ -1,11 +1,10 @@
 package com.PBL4.test.controller;
 
-import com.PBL4.test.DTO.request.Api_Response;
+import com.PBL4.test.DTO.response.Api_Response;
 import com.PBL4.test.DTO.request.StopSchedule_Request;
 import com.PBL4.test.DTO.response.Stop_Schedule_Response;
 import com.PBL4.test.Service.Stop_Schedule_Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

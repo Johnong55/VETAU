@@ -1,10 +1,8 @@
 package com.PBL4.test.controller;
 
 
-import com.PBL4.test.DTO.request.Api_Response;
-import com.PBL4.test.DTO.request.City_Request;
+import com.PBL4.test.DTO.response.Api_Response;
 import com.PBL4.test.DTO.request.Train_Request;
-import com.PBL4.test.DTO.response.City_Response;
 import com.PBL4.test.DTO.response.Train_Response;
 import com.PBL4.test.Service.Train_Service;
 import org.springframework.beans.factory.annotation.Autowired;

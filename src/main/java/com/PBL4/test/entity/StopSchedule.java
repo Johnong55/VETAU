@@ -2,6 +2,7 @@
 package com.PBL4.test.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -47,6 +48,7 @@ public class StopSchedule {
     Station stopStation;
     //ghe da order
     List<String> orderedSeat ;
+
     @Override
     public String toString() {
             return "Arrival" + this.getArrivalStation().getStationId() +"\n departure: "+ getDepartureStation().getStationId()+"\n train"+getTrain().getTrainId()+"\n station"+stopStation.getStationId();

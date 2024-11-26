@@ -67,6 +67,7 @@ public class Carriage_Service {
                 .map(carriage -> {
                     Carriage_Response carriageResponse = carriageMapper.toCarriageResponse(carriage);
                     carriageResponse.setSeatType(carriage.getCarriageClass().getSeatType());
+
                     return carriageResponse;
                 })
                 .collect(Collectors.toList());
@@ -93,7 +94,7 @@ public class Carriage_Service {
         List<Carriage> carriages = carriageRepository.findByTrain_TrainId(trainId);
 
         if (carriages.isEmpty()) {
-            throw new AppException(ErrorCode.CARRIAGE_NOT_EXISTED);
+          return null;
         }
         
         return carriages.stream()

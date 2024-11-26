@@ -7,6 +7,7 @@ import com.PBL4.test.entity.Seat;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.springframework.cglib.core.Local;
 
 import java.time.LocalDateTime;
 
@@ -18,27 +19,30 @@ import java.time.LocalDateTime;
 public class Ticket_Request {
 
     String purchaseMethod;
-    LocalDateTime purchaseDate;
-    String status;
+    String status = "AVAILABLE";
     String scheduleId;
-    String priceListId;
+    String departureStationName;
+    String arrivalStationName;
     String accountId;
     String seatId;
+    LocalDateTime departureTime;
+    LocalDateTime arrivalTime;
     public String generateSkuTicket() {
         // Format the purchase date as a string (e.g., YYYYMMDDHHMMSS)
-        String formattedDate = purchaseDate != null ?
-                purchaseDate.format(java.time.format.DateTimeFormatter.ofPattern("yyyyMMddHHmmss")) :
-                "00000000000000";
+
 
         // Combine fields to create a unique SKU
         return String.format(
                 "SKU-%s-%s-%s-%s-%s-%s",
                 scheduleId != null ? scheduleId : "UNKNOWN",
-                priceListId != null ? priceListId : "UNKNOWN",
+                departureStationName != null ? departureStationName : "UNKNOWN",
+                arrivalStationName != null ? arrivalStationName : "UNKNOWN",
                 accountId != null ? accountId : "UNKNOWN",
                 seatId != null ? seatId : "UNKNOWN",
-                status != null ? status : "PENDING",
-                formattedDate
+                departureTime != null ? departureTime : "UNKNOWN",
+                arrivalTime !=null ? arrivalTime :"UNKNOWN",
+                status != null ? status : "PENDING"
+
         );
     }
 

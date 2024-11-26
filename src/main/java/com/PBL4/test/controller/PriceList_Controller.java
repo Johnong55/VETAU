@@ -1,6 +1,6 @@
 package com.PBL4.test.controller;
 
-import com.PBL4.test.DTO.request.Api_Response;
+import com.PBL4.test.DTO.response.Api_Response;
 import com.PBL4.test.DTO.request.PriceList_PriceBetween_Request;
 import com.PBL4.test.DTO.request.PriceList_Request;
 import com.PBL4.test.DTO.response.PriceList_Response;

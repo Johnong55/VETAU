@@ -1,4 +1,4 @@
-package com.PBL4.test.DTO.request;
+package com.PBL4.test.DTO.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;

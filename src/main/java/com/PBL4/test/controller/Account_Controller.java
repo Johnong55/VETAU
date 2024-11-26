@@ -3,14 +3,13 @@ package com.PBL4.test.controller;
 import java.util.List;
 
 import com.PBL4.test.DTO.request.Account_UpdateRequest;
-import com.PBL4.test.DTO.request.Api_Response;
+import com.PBL4.test.DTO.response.Api_Response;
 import com.PBL4.test.DTO.response.Account_Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import com.PBL4.test.Service.Account_Service;
-import com.PBL4.test.entity.Account;
 
 import com.PBL4.test.DTO.request.Account_CreationRequest;
 
