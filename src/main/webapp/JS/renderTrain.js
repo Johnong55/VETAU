@@ -55,8 +55,11 @@ export function getTrainEL(Train_Trip) {
         timeEnd: timeEndFormatted,
         dateStart: dateStart,
         dateEnd: dateEnd,
-        duration: difference
+        duration: difference,
+        departureTime: Train_Trip["departureTimeAtDepartureCity"],
+        arrivalTime: Train_Trip["arrivalTimeAtArrivalCity"]
     }
+    console.log(1)
     sessionStorage.setItem("infoOrder", JSON.stringify(data));
 
     return `

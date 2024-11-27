@@ -12,6 +12,7 @@ import com.PBL4.test.mapper.StopScheduleMapper;
 import com.PBL4.test.repository.Schedule_Repository;
 import com.PBL4.test.repository.Station_Repository;
 import com.PBL4.test.repository.StopSchedule_Repository;
+import lombok.Synchronized;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -103,6 +104,7 @@ public class Stop_Schedule_Service {
     {
             return time.plusMinutes((long) minuteToAdd);
     }
+    @Synchronized
     public void synchronousInsertOrderedSeat(Ticket_Request ticket) {
         List<StopSchedule> stopSchedules = stopSchedule_Repository.findByScheduleId(ticket.getScheduleId());
 

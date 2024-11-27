@@ -104,7 +104,7 @@ public class Schedule_Service {
     }
 
 
-//
+    //
 //    public Seasonal_Rate_Response updateSeasonalRate(String seasonalRateID, Seasonal_Rate_Request request) {
 //        SeasonalRate seasonalRate = seasonRateRepository.findBySeasonalRateId(seasonalRateID)
 //                .orElseThrow(() -> new AppException(ErrorCode.SEASONAL_RATE_NOT_EXISTED));

@@ -4,7 +4,7 @@ import {getTrainEL} from "./renderTrain.js";
 const input_startCity = document.querySelector("#start-city");
 const input_endCity = document.querySelector("#end-city");
 const input_date = document.querySelector("#date-input");
-
+input_date.value = getCurrentDate();
 function getCurrentDate() {
     const today = new Date(); // Khởi tạo đối tượng Date với ngày giờ hiện tại
     const year = today.getFullYear(); // Lấy năm hiện tại
@@ -13,20 +13,6 @@ function getCurrentDate() {
     console.log(year, month, day);
     return year + "-" + month + "-" + day; // Trả về chuỗi theo định dạng YYYY-MM-DD
 }
-const dataFind = JSON.parse(sessionStorage.getItem("findTrain"));
-(dataFind.departureCity != null) ? input_startCity.value = localStorage.getItem("startCity")
-    : input_startCity.value = "Thành phố/ Tỉnh xuất phát";
-
-(dataFind.arrivalCity != null) ? input_endCity.value = localStorage.getItem("endCity")
-    : input_endCity.value = "Thành phố/ Tỉnh đích đến";
-
-(dataFind.departureDate != null) ? input_date.value = localStorage.getItem("date")
-    : input_date.value = getCurrentDate();
-
-
-const listTrain_Trip = document.querySelector("#booking-right-body");
-
-console.log(listTrain_Trip);
 
 function getTrainTrip(data) {
     fetch('/metroway/findtrain', {
@@ -40,6 +26,7 @@ function getTrainTrip(data) {
         })
         .then(data => {
             console.log(data)
+            listTrain_Trip.innerHTML = "";
             for(let i = 0; i < data.length; i++ ) {
                 listTrain_Trip.innerHTML += getTrainEL(data[i]);
             }
@@ -47,9 +34,26 @@ function getTrainTrip(data) {
         .catch(error => console.log(error))
 }
 
-if(!Object.values(dataFind).includes(null)) {
-    getTrainTrip(dataFind)
+if(sessionStorage.getItem("findTrain")){
+    const dataFind = JSON.parse(sessionStorage.getItem("findTrain"));
+    (dataFind.departureCity != null) ? input_startCity.value = localStorage.getItem("startCity")
+        : input_startCity.value = "Thành phố/ Tỉnh xuất phát";
+
+    (dataFind.arrivalCity != null) ? input_endCity.value = localStorage.getItem("endCity")
+        : input_endCity.value = "Thành phố/ Tỉnh đích đến";
+
+    (dataFind.departureDate != null) ? input_date.value = localStorage.getItem("date")
+        : input_date.value = getCurrentDate();
+
+    if(!Object.values(dataFind).includes(null)) {
+        getTrainTrip(dataFind)
+    }
 }
+
+
+const listTrain_Trip = document.querySelector("#booking-right-body");
+
+console.log(listTrain_Trip);
 
 
 const btn_search = document.querySelector(".search-btn");
