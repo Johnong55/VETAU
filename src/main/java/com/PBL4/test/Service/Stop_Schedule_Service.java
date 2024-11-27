@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -218,7 +219,7 @@ public class Stop_Schedule_Service {
             StopSchedule previousStop = stopSchedules.get(indexToDelete - 1);
             previousStop.setArrivalStation(stopScheduleToDelete.getArrivalStation());
             stopSchedule_Repository.save(previousStop);
-            }
+        }
 
         stopSchedule_Repository.deleteById(stopScheduleId);
         }

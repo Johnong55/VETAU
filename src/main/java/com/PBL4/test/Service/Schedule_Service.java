@@ -131,14 +131,14 @@ public class Schedule_Service {
 
     public Set<String> getReservedSeats(String scheduleId, String startStation, String endStation) {
 
-        List<StopSchedule.StopSchedule> stopSchedules = stopSchedule_Repository.findByScheduleId(scheduleId);
+        List<StopSchedule> stopSchedules = stopSchedule_Repository.findByScheduleId(scheduleId);
 
 
         Set<String> reservedSeats = new HashSet<>();
 
         boolean isBetweenStations = false;
 
-        for (StopSchedule.StopSchedule stopSchedule : stopSchedules) {
+        for (StopSchedule stopSchedule : stopSchedules) {
 
             if (stopSchedule.getStopStation().getStationName().equals(startStation) || stopSchedule.getSchedule().getDepartureStation().getStationName().equals(startStation)) {
                 isBetweenStations = true;
@@ -166,65 +166,83 @@ public class Schedule_Service {
     public List<FindSchedule_Response> findAllScheduleForClient() {
         LocalDateTime currentTime = LocalDateTime.now();
 
-        List<StopSchedule> stopSchedules = stopScheduleRepository.findByTimeToRunAfter(currentTime);
-        if(stopSchedules.isEmpty()){
-            throw new AppException(ErrorCode.STOP_SCHEDULE_NOT_FOUND);
+        // Lấy tất cả các Schedule, bao gồm cả những cái không có StopSchedule
+        List<Schedule> schedules = scheduleRepository.findAll();
+        if (schedules.isEmpty()) {
+            throw new AppException(ErrorCode.SCHEDULE_NOT_FOUND);
         }
 
         List<FindSchedule_Response> responses = new ArrayList<>();
 
-        Map<Schedule, List<StopSchedule>> scheduleGroups = stopSchedules.stream()
-                .collect(Collectors.groupingBy(StopSchedule::getSchedule));
+        for (Schedule schedule : schedules) {
+            // Lấy danh sách StopSchedule liên quan đến Schedule hiện tại
+            List<StopSchedule> stopSchedules = stopSchedule_Repository.findByScheduleId(schedule.getScheduleId());
 
-        for (Map.Entry<Schedule, List<StopSchedule>> entry : scheduleGroups.entrySet()) {
-            Schedule schedule = entry.getKey();
-            List<StopSchedule> stops = entry.getValue();
-
-            stops.sort(Comparator.comparing(StopSchedule::getTimeToRun));
-
-            Train train = schedule.getTrain();
-            List<Carriage_Response> carriages = carriage_Service.findByTrainID(train.getTrainId());
-
-            if (!stops.isEmpty()) {
-                StopSchedule firstStop = stops.get(0);
+            // Nếu không có StopSchedule, chỉ thêm thông tin cơ bản của Schedule
+            if (stopSchedules.isEmpty()) {
+                Train train = schedule.getTrain();
+                List<Carriage_Response> carriages = carriage_Service.findByTrainID(train.getTrainId());
                 responses.add(createResponse(
                         schedule.getDepartureStation(),
-                        firstStop.getStopStation(),
-                        schedule.getDepartureTime(),
-                        schedule.getDepartureTime().plusMinutes((long) firstStop.getArrivalTime()),
-                        train.getTrainName(),
-                        carriages
-                ));
-            }
-
-            for (int i = 0; i < stops.size() - 1; i++) {
-                StopSchedule currentStop = stops.get(i);
-                StopSchedule nextStop = stops.get(i + 1);
-                responses.add(createResponse(
-                        currentStop.getStopStation(),
-                        nextStop.getStopStation(),
-                        currentStop.getTimeToRun(),
-                        currentStop.getTimeToRun().plusMinutes((long) nextStop.getArrivalTime()),
-                        train.getTrainName(),
-                        carriages
-                ));
-            }
-
-            if (!stops.isEmpty()) {
-                StopSchedule lastStop = stops.get(stops.size() - 1);
-                responses.add(createResponse(
-                        lastStop.getStopStation(),
                         schedule.getArrivalStation(),
-                        lastStop.getTimeToRun(),
+                        schedule.getDepartureTime(),
                         schedule.getArrivalTime(),
                         train.getTrainName(),
+                        schedule.getScheduleId(),
                         carriages
                 ));
+            } else {
+                // Nếu có StopSchedule, xử lý tương tự như logic cũ
+                stopSchedules.sort(Comparator.comparing(StopSchedule::getTimeToRun));
+
+                Train train = schedule.getTrain();
+                List<Carriage_Response> carriages = carriage_Service.findByTrainID(train.getTrainId());
+
+                if (!stopSchedules.isEmpty()) {
+                    StopSchedule firstStop = stopSchedules.get(0);
+                    responses.add(createResponse(
+                            schedule.getDepartureStation(),
+                            firstStop.getStopStation(),
+                            schedule.getDepartureTime(),
+                            schedule.getDepartureTime().plusMinutes((long) firstStop.getArrivalTime()),
+                            train.getTrainName(),
+                            schedule.getScheduleId(),
+                            carriages
+                    ));
+                }
+
+                for (int i = 0; i < stopSchedules.size() - 1; i++) {
+                    StopSchedule currentStop = stopSchedules.get(i);
+                    StopSchedule nextStop = stopSchedules.get(i + 1);
+                    responses.add(createResponse(
+                            currentStop.getStopStation(),
+                            nextStop.getStopStation(),
+                            currentStop.getTimeToRun(),
+                            currentStop.getTimeToRun().plusMinutes((long) nextStop.getArrivalTime()),
+                            train.getTrainName(),
+                            schedule.getScheduleId(),
+                            carriages
+                    ));
+                }
+
+                if (!stopSchedules.isEmpty()) {
+                    StopSchedule lastStop = stopSchedules.get(stopSchedules.size() - 1);
+                    responses.add(createResponse(
+                            lastStop.getStopStation(),
+                            schedule.getArrivalStation(),
+                            lastStop.getTimeToRun(),
+                            schedule.getArrivalTime(),
+                            train.getTrainName(),
+                            schedule.getScheduleId(),
+                            carriages
+                    ));
+                }
             }
         }
 
         return responses;
     }
+
 
     private FindSchedule_Response createResponse(
             Station departure,
@@ -232,6 +250,7 @@ public class Schedule_Service {
             LocalDateTime departureTime,
             LocalDateTime arrivalTime,
             String trainName,
+            String scheduleId,
             List<Carriage_Response> carriages
     ) {
         return FindSchedule_Response.builder()
@@ -241,6 +260,7 @@ public class Schedule_Service {
                 .arrivalTimeAtArrivalCity(arrivalTime)
                 .trainName(trainName)
                 .carriages(carriages)
+                .scheduleId(scheduleId)
                 .build();
     }
 }

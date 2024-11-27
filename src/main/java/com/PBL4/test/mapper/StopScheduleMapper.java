@@ -19,6 +19,7 @@ public interface StopScheduleMapper {
     @Mapping(target = "departureStationName", source = "departureStation.stationName")
     @Mapping(target = "arrivalTime", source = "arrivalTime")
     @Mapping(target = "scheduleId", source = "schedule.scheduleId")
+    @Mapping(target = "orderedSeat", source = "orderedSeat")
     Stop_Schedule_Response toResponse(StopSchedule stopSchedule);
 
     @Mapping(target = "stopStation.stationId", source = "stopStationId")
