@@ -1,13 +1,10 @@
 package com.PBL4.test.controller;
 
-import com.PBL4.test.DTO.request.Api_Response;
+import com.PBL4.test.DTO.response.Api_Response;
 import com.PBL4.test.DTO.request.Seat_Request;
 import com.PBL4.test.DTO.request.Seat_UpdateRequest;
-import com.PBL4.test.DTO.request.Station_Request;
 import com.PBL4.test.DTO.response.Seat_Response;
-import com.PBL4.test.DTO.response.Station_Response;
 import com.PBL4.test.Service.Seat_Service;
-import com.PBL4.test.Service.Station_Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

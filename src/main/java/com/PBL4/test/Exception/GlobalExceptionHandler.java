@@ -1,6 +1,6 @@
 package com.PBL4.test.Exception;
 
-import com.PBL4.test.DTO.request.Api_Response;
+import com.PBL4.test.DTO.response.Api_Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;

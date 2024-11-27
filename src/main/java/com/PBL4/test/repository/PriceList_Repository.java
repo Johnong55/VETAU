@@ -30,4 +30,6 @@ public interface PriceList_Repository extends JpaRepository<PriceList, String> {
  @Query("SELECT p FROM PriceList p WHERE p.price BETWEEN :minPrice AND :maxPrice")
  List<PriceList> findByPriceBetween(@Param("minPrice") double minPrice, @Param("maxPrice") double maxPrice);
 
+ @Query("SELECT p FROM PriceList p where p.departureStation.stationName = :departureStation and p.arrivalStation.stationName= :arrivalStation and p.schedule.scheduleId = :schedule and p.carriageClass = :carriageClass")
+ Optional<PriceList> findPriceByClient(@Param("departureStation") String departureStation, @Param("arrivalStation") String arrivalStation, @Param("schedule") String scheduleID, @Param("carriageClass") CarriageClass carriageClass);
 }

@@ -93,7 +93,7 @@ public class Carriage_Service {
         List<Carriage> carriages = carriageRepository.findByTrain_TrainId(trainId);
 
         if (carriages.isEmpty()) {
-            return null;
+            throw new AppException(ErrorCode.CARRIAGE_NOT_EXISTED);
         }
         
         return carriages.stream()

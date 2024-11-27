@@ -26,7 +26,7 @@
 	<script>
 		window.addEventListener('load', function() {
 			let openTabs = parseInt(localStorage.getItem('openTabs')) || 0;
-			localStorage.setItem('openTabs', (openTabs + 1).toString());
+			localStorage.setItem('openTabs', (openTabs+1).toString());
 			console.log(openTabs+1);
 		});
 		window.addEventListener("unload", function() {

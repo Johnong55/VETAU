@@ -15,5 +15,6 @@ public enum CarriageClass {
     public String getSeatType() {
         return seatType;
     }
+
 }
 

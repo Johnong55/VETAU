@@ -24,7 +24,7 @@
 <body>
 	<script>
             function BackPage() {
-                window.location.href = "/processbooking";
+                window.location.href = "/metroway/processbooking";
             }
         </script>
 
@@ -71,11 +71,11 @@
 
 					<div class="lable-time_line time-ticket">
 						<div class="wrap-time time-start">
-							<p class="day">Ngày 14/9</p>
+							<p class="day day-start">Ngày 14/9</p>
 
-							<p class="hour">11:25 pm</p>
+							<p class="hour hour-start">11:25 pm</p>
 
-							<p class="location">Đà Nẵng</p>
+							<p class="location location-start">Đà Nẵng</p>
 						</div>
 
 						<div class="time-illustration">
@@ -83,32 +83,32 @@
 						</div>
 
 						<div class="wrap-time time-end">
-							<p class="day">Ngày 15/9</p>
+							<p class="day day-end">Ngày 15/9</p>
 
-							<p class="hour">12:25 pm</p>
+							<p class="hour hour-end">12:25 pm</p>
 
-							<p class="location">Hà Nội</p>
+							<p class="location location-end">Hà Nội</p>
 						</div>
 					</div>
 
 					<div class="lable-customer-info">
 						<div class="ticket-title">Khách Hàng</div>
 						<div class="lable-customer-info-content">
-							<div class="customer-info-content-item"
+							<div class="customer-info-content-item name-user"
 								style="color: var(--black-color);">Tên: Trần Đăng Minh Đức</div>
-							<div class="customer-info-content-item">Tuổi: 20</div>
-							<div class="customer-info-content-item">Giới tính: Nam</div>
+							<div class="customer-info-content-item age-user">Tuổi: 20</div>
+							<div class="customer-info-content-item gender-user">Giới tính: Nam</div>
 						</div>
 					</div>
 					<div class="lable-ticket-contact">
 						<div class="lable-ticket-contact-left">Vé điện tử sẽ được
 							gửi qua Email:</div>
 
-						<div class="lable-ticket-contact-right">
+						<div class="lable-ticket-contact-right email-user">
 							minhduc07042004@gmail.com</div>
 					</div>
 					<div class="lable-ticket-total">
-						<span> Tổng tiền </span> <span> 650.000 VND </span>
+						<span> Tổng tiền </span> <span id="abc"> 650.000 VND </span>
 					</div>
 
 				</div>
@@ -279,6 +279,7 @@
 	<script type="module" src="../metroway/JS/login.js"></script>
 	<script type="module" src="../metroway/JS/Validate.js"></script>
 	<script type="module" src="../metroway/JS/ValidateLogin.js"></script>
+	<script src="../metroway/JS/loadBookingSuccess.js"></script>
 	<script>
 		setTimeout(function() {
 			const script = document.createElement('script');

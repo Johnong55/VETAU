@@ -10,18 +10,13 @@ import com.PBL4.test.Exception.AppException;
 import com.PBL4.test.Exception.ErrorCode;
 import com.PBL4.test.entity.*;
 import com.PBL4.test.mapper.ScheduleMapper;
-import com.PBL4.test.repository.Carriage_Repository;
-import com.PBL4.test.repository.Schedule_Repository;
-import com.PBL4.test.repository.Station_Repository;
-import com.PBL4.test.repository.Train_Repository;
+import com.PBL4.test.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,6 +37,8 @@ public class Schedule_Service {
     private Carriage_Repository Carriage_Repository;
     @Autowired
     private Carriage_Service carriage_Service;
+    @Autowired
+    private StopSchedule_Repository stopSchedule_Repository;
 
     private String generateScheduleID() {
         Schedule lastSchedule = scheduleRepository.findLastSchedule();
@@ -107,7 +104,7 @@ public class Schedule_Service {
     }
 
 
-//
+    //
 //    public Seasonal_Rate_Response updateSeasonalRate(String seasonalRateID, Seasonal_Rate_Request request) {
 //        SeasonalRate seasonalRate = seasonRateRepository.findBySeasonalRateId(seasonalRateID)
 //                .orElseThrow(() -> new AppException(ErrorCode.SEASONAL_RATE_NOT_EXISTED));
@@ -125,9 +122,42 @@ public class Schedule_Service {
         {
             Train train = trainRepository.findByTrainName(result.get(i).getTrainName()).get();
             result.get(i).setCarriages(carriage_Service.findByTrainID(train.getTrainId()));
+
         }
         return result;
     }
+    public Set<String> getReservedSeats(String scheduleId, String startStation, String endStation) {
+
+        List<StopSchedule> stopSchedules = stopSchedule_Repository.findByScheduleId(scheduleId);
 
 
+        Set<String> reservedSeats = new HashSet<>();
+
+        boolean isBetweenStations = false;
+
+        for (StopSchedule stopSchedule : stopSchedules) {
+
+            if (stopSchedule.getStopStation().getStationName().equals(startStation) || stopSchedule.getSchedule().getDepartureStation().getStationName().equals(startStation)) {
+                isBetweenStations = true;
+            }
+
+
+            if (isBetweenStations) {
+
+                List<String> orderedSeat = stopSchedule.getOrderedSeat();
+
+
+                if (orderedSeat != null) {
+                    reservedSeats.addAll(orderedSeat);
+                }
+            }
+
+
+            if (stopSchedule.getStopStation().getStationName().equals(endStation)) {
+                break;
+            }
+        }
+
+        return reservedSeats;
+    }
 }

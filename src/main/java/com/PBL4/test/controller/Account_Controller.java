@@ -3,7 +3,7 @@ package com.PBL4.test.controller;
 import java.util.List;
 
 import com.PBL4.test.DTO.request.Account_UpdateRequest;
-import com.PBL4.test.DTO.request.Api_Response;
+import com.PBL4.test.DTO.response.Api_Response;
 import com.PBL4.test.DTO.response.Account_Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;

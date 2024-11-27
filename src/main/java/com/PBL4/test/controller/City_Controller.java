@@ -1,10 +1,9 @@
 package com.PBL4.test.controller;
 
-import com.PBL4.test.DTO.request.Api_Response;
+import com.PBL4.test.DTO.response.Api_Response;
 import com.PBL4.test.DTO.request.City_Request;
 import com.PBL4.test.DTO.response.City_Response;
 import com.PBL4.test.Service.City_Service;
-import com.PBL4.test.entity.City;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

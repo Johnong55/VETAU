@@ -46,4 +46,11 @@ public class Ticket {
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "Seat")
     Seat seat;
+
+    long total;
+
+    LocalDateTime departureTime;
+    LocalDateTime arrivalTime;
+
+
 }

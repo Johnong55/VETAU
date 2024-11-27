@@ -115,6 +115,34 @@ function actionBtnNext() {
 		});
 }
 
+function loadChair_SoldOut(){
+	const infoOrder = JSON.parse(sessionStorage.getItem("infoOrder"));
+	console.log(infoOrder)
+	console.log('/metroway/reserved?startStation='+infoOrder.startCity+'&endStation='+infoOrder.endCity+'&scheduleId='+infoOrder.scheduleId)
+	fetch('/metroway/reserved?startStation='+infoOrder.startCity+'&endStation='+infoOrder.endCity+'&scheduleId='+infoOrder.scheduleId)
+		.then(response => {
+			if(!response.ok) console.log("LOI")
+			return response.json()
+		 	})
+		.then(data => {
+			 console.log(data)
+			 console.log(data.result)
+			let listChairHold = data.result
+			 const Chairs = document.querySelectorAll(".item-square");
+			 Chairs.forEach(tmp => {
+				 for (let i = 0; i < listChairHold.length; i++) {
+					 if (tmp.dataset.id === listChairHold[i]) {
+						 tmp.style.backgroundColor = "rgb(196, 196, 196)";
+						 tmp.style.cursor = "not-allowed";
+						 tmp.dataset.value = "holding";
+					 }
+				 }
+			 });
+		})
+		.catch(error => console.log(error))
+
+}
+
 function open_ViewOption3A(id,chairs) {
 	console.log(1);
 	console.log(document.body);
@@ -128,6 +156,7 @@ function open_ViewOption3A(id,chairs) {
 	const id_form_option_3A = "form-option-" + id +"-3A";
 	const form_option_3A = document.getElementById(id_form_option_3A);
 	form_option_3A.style.display = "block";
+	loadChair_SoldOut();
 	loadChairHold();
 	chooseChair();
 	actionBtnNext();
@@ -135,9 +164,9 @@ function open_ViewOption3A(id,chairs) {
 
 }
 
-function open_ViewOption2A(id) {
+function open_ViewOption2A(id,chairs) {
 
-	document.body.insertAdjacentHTML('beforeend', getChairs(id, "2A"));
+	document.body.insertAdjacentHTML('beforeend', getChairs(id, "2A",chairs));
 	console.log(document.body);
 	let idBody = id + "-2A-chair"
 	const bodyToa = document.getElementById(idBody);
@@ -148,13 +177,16 @@ function open_ViewOption2A(id) {
 	const id_form_option_2A = "form-option-" + id +"-2A";
 	const form_option_2A = document.getElementById(id_form_option_2A);
 	form_option_2A.style.display = "block";
+	loadChair_SoldOut();
+	loadChairHold();
 	chooseChair();
+	actionBtnNext();
 	ExitOption("2A",bodyToa,form_option_2A);
 }
 
-function open_ViewOption1A(id) {
+function open_ViewOption1A(id,chairs) {
 
-	document.body.insertAdjacentHTML('beforeend', getChairs(id, "1A"));
+	document.body.insertAdjacentHTML('beforeend', getChairs(id, "1A",chairs));
 	console.log(document.body);
 	let idBody = id + "-1A-chair"
 	const bodyToa = document.getElementById(idBody);
@@ -165,7 +197,10 @@ function open_ViewOption1A(id) {
 	const id_form_option_1A = "form-option-" + id +"-1A";
 	const form_option_1A = document.getElementById(id_form_option_1A);
 	form_option_1A.style.display = "block";
+	loadChair_SoldOut();
+	loadChairHold();
 	chooseChair();
+	actionBtnNext();
 	ExitOption("1A",bodyToa,form_option_1A);
 }
 
@@ -196,12 +231,34 @@ wrap_right.addEventListener('click' ,function (e){
 		console.log(2)
 		const id = (e.target.classList.contains("option-2A")) ? e.target.id : e.target.closest(".option-2A").id;
 		console.log(id)
-		open_ViewOption2A(id);
+		const idCarriage = (e.target.classList.contains("option-2A")) ? e.target.dataset.id : e.target.closest(".option-2A").dataset.id;
+		console.log(idCarriage)
+		fetch(`/metroway/seats/carriageID/${idCarriage}`)
+			.then(response => {
+				if(!response.ok) console.log("LOI")
+				return response.json()
+			})
+			.then(data => {
+				console.log(data)
+				open_ViewOption2A(id,data);
+			})
+			.then(error => console.log(error))
 	} else if(e.target.classList.contains("option-1A") || e.target.closest(".option-1A")) {
 		console.log(1)
 		const id = (e.target.classList.contains("option-1A")) ? e.target.id : e.target.closest(".option-1A").id;
 		console.log(id)
-		open_ViewOption1A(id);
+		const idCarriage = (e.target.classList.contains("option-1A")) ? e.target.dataset.id : e.target.closest(".option-1A").dataset.id;
+		console.log(idCarriage)
+		fetch(`/metroway/seats/carriageID/${idCarriage}`)
+			.then(response => {
+				if(!response.ok) console.log("LOI")
+				return response.json()
+			})
+			.then(data => {
+				console.log(data)
+				open_ViewOption1A(id,data);
+			})
+			.then(error => console.log(error))
 	}
 })
 

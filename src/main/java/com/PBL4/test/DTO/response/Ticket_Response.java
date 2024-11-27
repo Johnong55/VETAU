@@ -22,4 +22,7 @@ public class Ticket_Response {
     String account;
     String Carriage;
     String seat;
+    LocalDateTime departureTime;
+    LocalDateTime arrivalTime;
+    long total;
 }
