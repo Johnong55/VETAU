@@ -118,10 +118,10 @@ public class Schedule_Service {
     {
         LocalDateTime time = date.atStartOfDay();
         List<FindSchedule_Response> result = scheduleRepository.findSchedulesByClient(departureCity, arrivalCity, time);
-        for(int i =0;i<result.size();i++)
-        {
-            Train train = trainRepository.findByTrainName(result.get(i).getTrainName()).get();
-            result.get(i).setCarriages(carriage_Service.findByTrainID(train.getTrainId()));
+        for (FindSchedule_Response findScheduleResponse : result) {
+            Train train = trainRepository.findByTrainName(findScheduleResponse.getTrainName()).get();
+            findScheduleResponse.setCarriages(carriage_Service.findByTrainID(train.getTrainId()));
+            findScheduleResponse.setScheduleKey((findScheduleResponse.getScheduleId() + "-" + departureCity + "-" + arrivalCity).replace(" ", ""));
 
         }
         return result;

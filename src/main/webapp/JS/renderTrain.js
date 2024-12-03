@@ -1,4 +1,4 @@
-function parseDateTime24Hour(input) {
+export function parseDateTime24Hour(input) {
     const date = new Date(input);
 
     const year = date.getFullYear();
@@ -13,7 +13,7 @@ function parseDateTime24Hour(input) {
     return { date: formattedDate, time: formattedTime };
 }
 
-function calculateTimeDifference(startTime, endTime) {
+export function calculateTimeDifference(startTime, endTime) {
     // Chuyển chuỗi thời gian thành đối tượng Date
     const start = new Date(startTime);
     const end = new Date(endTime);
@@ -27,11 +27,11 @@ function calculateTimeDifference(startTime, endTime) {
     const diffInMilliseconds = end - start;
 
     // Chuyển đổi sang giờ
-    return diffInMilliseconds / (1000 * 60 * 60) + " giờ";
+    return parseInt((diffInMilliseconds / (1000 * 60 * 60)).toString()) + " giờ";
 }
 
 
-export function getTrainEL(Train_Trip) {
+export function getTrainEL(Train_Trip, index) {
     const nameTrain = Train_Trip["trainName"];
     const startCity = Train_Trip["departureCity"];
     const endCity = Train_Trip["arrivalCity"];
@@ -46,22 +46,6 @@ export function getTrainEL(Train_Trip) {
 
     const difference = calculateTimeDifference(timeStart, timeEnd);
 
-    const data = {
-        trainName: nameTrain,
-        scheduleId: Train_Trip["scheduleId"],
-        startCity: startCity,
-        endCity: endCity,
-        timeStart: timeStartFormatted,
-        timeEnd: timeEndFormatted,
-        dateStart: dateStart,
-        dateEnd: dateEnd,
-        duration: difference,
-        departureTime: Train_Trip["departureTimeAtDepartureCity"],
-        arrivalTime: Train_Trip["arrivalTimeAtArrivalCity"]
-    }
-    console.log(1)
-    sessionStorage.setItem("infoOrder", JSON.stringify(data));
-
     return `
     <div class="wrap-lable">
         <div class="booking-label">
@@ -69,16 +53,7 @@ export function getTrainEL(Train_Trip) {
                 <p style="margin-bottom: 6px;">${nameTrain}</p>
             </div>
 
-            <div class="lable-info-bonus">
-                <div class="lable-info-bonus-left">
-                    <p>Các ga đi qua:</p>
-                    <div class="info-bonus-left-result">Huế, Vinh, Thanh Hóa, Ninh Bình</div>
-                </div>
-
-                <div class="lable-info-bonus-right">
-                    <p>Xem chi tiết thời gian</p>
-                </div>
-            </div>
+       
 
             <div class="lable-time_line">
                 <div class="wrap-time time-start">
@@ -99,50 +74,9 @@ export function getTrainEL(Train_Trip) {
             </div>
 
             <div class="wrap-options">
-                <div class="option option-3A" data-id=${carriages[0]["carriageId"]} id="${carriages[0]["carriageId"]}-3A">
-                    <div class="content">
-                        <div class="option-left">
-                            <p>Toa</p>
-                            <p>Giá</p>
-                        </div>
-                        <div class="option-right">
-                            <p>3A</p>
-                            <p>200.000 VND</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="option option-2A" data-id=${carriages[1]["carriageId"]} id="${carriages[1]["carriageId"]}-2A">
-                    <div class="content">
-                        <div class="option-left">
-                            <p>Toa</p>
-                            <p>Giá</p>
-                        </div>
-                        <div class="option-right">
-                            <p>2A</p>
-                            <p>400.000 VND</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="option option-1A" data-id=${carriages[2]["carriageId"]} id="${carriages[2]["carriageId"]}-1A">
-                    <div class="content">
-                        <div class="option-left">
-                            <p>Toa</p>
-                            <p>Giá</p>
-                        </div>
-                        <div class="option-right">
-                            <p>1A</p>
-                            <p>600.000 VND</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="option">
-                    <div class="sold-out">
-                        <p>Hết vé</p>
-                    </div>
-                </div>
+                
+                <button class="search-btn choose-chair" data-index="${index}">Chọn ghế</button>
+               
             </div>
         </div>
     </div>

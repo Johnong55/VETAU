@@ -1,36 +1,70 @@
 import {getChairs} from "./renderChair.js";
 import {ws} from "./ConfirmBook.js";
+import {parseDateTime24Hour, calculateTimeDifference} from "./renderTrain.js";
 
-
-
-
-const option3As = document.querySelectorAll(".option-3A");
-const option2As = document.querySelectorAll(".option-2A");
-const option1As = document.querySelectorAll(".option-1A");
 let txt_status = null;
 
+const provinces = {
+	1: "HàNội",
+	2: "HảiPhòng",
+	3: "NamĐịnh",
+	4: "NinhBình",
+	5: "ThanhHóa",
+	6: "NghệAn",
+	7: "Vinh",
+	8: "HàTĩnh",
+	9: "QuảngBình",
+	10: "QuảngTrị",
+	11: "Huế",
+	12: "ĐàNẵng",
+	13: "QuảngNam",
+	14: "QuảngNgãi",
+	15: "BìnhĐịnh",
+	16: "PhúYên",
+	17: "KhánhHòa",
+	18: "NinhThuận",
+	19: "BìnhThuận",
+	20: "ĐồngNai",
+	21: "BìnhDương",
+	22: "SàiGòn"
+};
+
+function getIndexByValue(obj, value) {
+	for (const key in obj) {
+		if (obj[key] === value) {
+			return key;
+		}
+	}
+	return null;
+}
 
 function loadChairHold() {
-	let listChairHold;
-	if(localStorage.getItem("listChairHold")!=='[object Object]') {
-		listChairHold = JSON.parse(localStorage.getItem("listChairHold"));
-		console.log(listChairHold);
+	let listChairHolds;
+	if(localStorage.getItem("listChairHold")) {
+		listChairHolds = JSON.parse(localStorage.getItem("listChairHold"));
+		console.log(listChairHolds);
+		const Chairs = document.querySelectorAll(".seat");
+		Chairs.forEach(tmp => {
+			Object.keys(listChairHolds).forEach(key => {
+				if (tmp.dataset.idseat === key) {
+					const son = tmp.dataset.schedulekey.split("-");
+					const dad = listChairHolds[key].split("-");
+					if(son[0] === dad[0]) {
+						if(!(getIndexByValue(provinces, dad[2]) <= getIndexByValue(provinces, son[1]))) {
+							tmp.style.backgroundColor = "rgb(196, 196, 196)";
+							tmp.style.cursor = "not-allowed";
+							tmp.dataset.value = "holding";
+						}
+					}
+				}
+			})
+		});
 	}
-	const Chairs = document.querySelectorAll(".item-square");
-	Chairs.forEach(tmp => {
-		for (let key in listChairHold) {
-			if (tmp.id === listChairHold[key]) {
-				tmp.style.backgroundColor = "rgb(196, 196, 196)";
-				tmp.style.cursor = "not-allowed";
-				tmp.dataset.value = "holding";
-			}
-		}
-	});
 }
 
 function chooseChair() {
 	let count = 0;
-	let chairs = document.querySelectorAll(".item-square");
+	let chairs = document.querySelectorAll(".seat");
 	chairs.forEach(tmp => {
 		tmp.addEventListener('click', function() {
 			const style = window.getComputedStyle(tmp);
@@ -50,9 +84,8 @@ function chooseChair() {
 		});
 	});
 }
-function ExitOption(toa, bodyToa, form_option) {
-	const id_btn_back = "option-back-" + toa;
-	const btn_back = document.getElementById(id_btn_back);
+function ExitOption(bodyToa) {
+	const btn_back = document.querySelector(".chooseChair--back");
 	console.log(btn_back);
 	btn_back.addEventListener('click', function (){
 		bodyToa.classList.remove("scale-out-center");
@@ -60,10 +93,7 @@ function ExitOption(toa, bodyToa, form_option) {
 
 		bodyToa.classList.add("scale-out-center");
 
-		setTimeout(function() {
-			form_option.style.display = "none";
-		}, 200);
-		let chairs = document.querySelectorAll(".item-square");
+		let chairs = document.querySelectorAll(".seat");
 		chairs.forEach(tmp => {
 			if (tmp.dataset.status === "selecting") {
 				setTimeout(function() {
@@ -72,11 +102,7 @@ function ExitOption(toa, bodyToa, form_option) {
 				}, 300);
 			}
 		});
-		let idForm = "form-option-" + toa;
-		const form = document.getElementsByClassName(idForm);
-		Object.values(form).forEach(tmp => {
-			tmp.remove();
-		})
+		document.querySelector(".form-option").remove();
 	})
 }
 
@@ -87,7 +113,7 @@ function actionBtnNext() {
 			let chairHold = {};
 			let chairs_selected = [];
 			let chairs_duplicate = [];
-			const Chairs = document.querySelectorAll(".item-square");
+			const Chairs = document.querySelectorAll(".seat");
 			Chairs.forEach(tmp => {
 				// lấy ghế đang chọn
 				if (tmp.dataset.status === "selecting") {
@@ -97,9 +123,10 @@ function actionBtnNext() {
 			chairs_selected.forEach(chair => {
 				// xử lí chống trùng
 				if (chair.dataset.value !== "holding") {
-					chairHold[chair.dataset.id] = chair.id;
+					console.log(chair.dataset.idseat);
+					chairHold[chair.dataset.idseat] = chair.dataset.schedulekey;
 				} else if (chair.dataset.value === "holding") {
-					chairs_duplicate.push(chair.id);
+					chairs_duplicate.push(chair.dataset.nameChair);
 					chair.dataset.status = "non_available"
 				}
 			});
@@ -115,11 +142,11 @@ function actionBtnNext() {
 		});
 }
 
-function loadChair_SoldOut(){
+function loadChair_SoldOut(departureCity, arrivalCity,scheduleId){
 	const infoOrder = JSON.parse(sessionStorage.getItem("infoOrder"));
 	console.log(infoOrder)
-	console.log('/metroway/reserved?startStation='+infoOrder.startCity+'&endStation='+infoOrder.endCity+'&scheduleId='+infoOrder.scheduleId)
-	fetch('/metroway/reserved?startStation='+infoOrder.startCity+'&endStation='+infoOrder.endCity+'&scheduleId='+infoOrder.scheduleId)
+	console.log('/metroway/reserved?startStation='+departureCity+'&endStation='+arrivalCity+'&scheduleId='+scheduleId)
+	fetch('/metroway/reserved?startStation='+departureCity+'&endStation='+arrivalCity+'&scheduleId='+scheduleId)
 		.then(response => {
 			if(!response.ok) console.log("LOI")
 			return response.json()
@@ -128,10 +155,10 @@ function loadChair_SoldOut(){
 			 console.log(data)
 			 console.log(data.result)
 			let listChairHold = data.result
-			 const Chairs = document.querySelectorAll(".item-square");
+			 const Chairs = document.querySelectorAll(".seat");
 			 Chairs.forEach(tmp => {
 				 for (let i = 0; i < listChairHold.length; i++) {
-					 if (tmp.dataset.id === listChairHold[i]) {
+					 if (tmp.dataset.idseat === listChairHold[i]) {
 						 tmp.style.backgroundColor = "rgb(196, 196, 196)";
 						 tmp.style.cursor = "not-allowed";
 						 tmp.dataset.value = "holding";
@@ -143,122 +170,62 @@ function loadChair_SoldOut(){
 
 }
 
-function open_ViewOption3A(id,chairs) {
-	console.log(1);
-	console.log(document.body);
-	document.body.insertAdjacentHTML('beforeend', getChairs(id, "3A",chairs));
-	let idBody = id + "-3A-chair"
-	const bodyToa = document.getElementById(idBody);
-	bodyToa.classList.remove("scale-out-center");
-	bodyToa.classList.remove("scale-up-center");
-
-	bodyToa.classList.add("scale-up-center");
-	const id_form_option_3A = "form-option-" + id +"-3A";
-	const form_option_3A = document.getElementById(id_form_option_3A);
-	form_option_3A.style.display = "block";
-	loadChair_SoldOut();
-	loadChairHold();
-	chooseChair();
-	actionBtnNext();
-	ExitOption("3A",bodyToa,form_option_3A);
-
-}
-
-function open_ViewOption2A(id,chairs) {
-
-	document.body.insertAdjacentHTML('beforeend', getChairs(id, "2A",chairs));
-	console.log(document.body);
-	let idBody = id + "-2A-chair"
-	const bodyToa = document.getElementById(idBody);
-	bodyToa.classList.remove("scale-out-center");
-	bodyToa.classList.remove("scale-up-center");
-
-	bodyToa.classList.add("scale-up-center");
-	const id_form_option_2A = "form-option-" + id +"-2A";
-	const form_option_2A = document.getElementById(id_form_option_2A);
-	form_option_2A.style.display = "block";
-	loadChair_SoldOut();
-	loadChairHold();
-	chooseChair();
-	actionBtnNext();
-	ExitOption("2A",bodyToa,form_option_2A);
-}
-
-function open_ViewOption1A(id,chairs) {
-
-	document.body.insertAdjacentHTML('beforeend', getChairs(id, "1A",chairs));
-	console.log(document.body);
-	let idBody = id + "-1A-chair"
-	const bodyToa = document.getElementById(idBody);
-	bodyToa.classList.remove("scale-out-center");
-	bodyToa.classList.remove("scale-up-center");
-
-	bodyToa.classList.add("scale-up-center");
-	const id_form_option_1A = "form-option-" + id +"-1A";
-	const form_option_1A = document.getElementById(id_form_option_1A);
-	form_option_1A.style.display = "block";
-	loadChair_SoldOut();
-	loadChairHold();
-	chooseChair();
-	actionBtnNext();
-	ExitOption("1A",bodyToa,form_option_1A);
-}
-
-
 const wrap_right = document.querySelector("#booking-right-body");
 console.log(wrap_right)
 
-wrap_right.addEventListener('click' ,function (e){
+wrap_right.addEventListener('click' ,async function (e) {
 	console.log(e.target)
 
-	if(e.target.classList.contains("option-3A") || e.target.closest(".option-3A")){
-		console.log(3);
-		const id = (e.target.classList.contains("option-3A")) ? e.target.id : e.target.closest(".option-3A").id;
-		console.log(id)
-		const idCarriage = (e.target.classList.contains("option-3A")) ? e.target.dataset.id : e.target.closest(".option-3A").dataset.id;
-		console.log(idCarriage)
-		fetch(`/metroway/seats/carriageID/${idCarriage}`)
-			.then(response => {
-				if(!response.ok) console.log("LOI")
-				return response.json()
-			})
-			.then(data => {
-				console.log(data)
-				open_ViewOption3A(id,data);
-			})
-			.then(error => console.log(error))
-	} else if(e.target.classList.contains("option-2A") || e.target.closest(".option-2A")) {
-		console.log(2)
-		const id = (e.target.classList.contains("option-2A")) ? e.target.id : e.target.closest(".option-2A").id;
-		console.log(id)
-		const idCarriage = (e.target.classList.contains("option-2A")) ? e.target.dataset.id : e.target.closest(".option-2A").dataset.id;
-		console.log(idCarriage)
-		fetch(`/metroway/seats/carriageID/${idCarriage}`)
-			.then(response => {
-				if(!response.ok) console.log("LOI")
-				return response.json()
-			})
-			.then(data => {
-				console.log(data)
-				open_ViewOption2A(id,data);
-			})
-			.then(error => console.log(error))
-	} else if(e.target.classList.contains("option-1A") || e.target.closest(".option-1A")) {
-		console.log(1)
-		const id = (e.target.classList.contains("option-1A")) ? e.target.id : e.target.closest(".option-1A").id;
-		console.log(id)
-		const idCarriage = (e.target.classList.contains("option-1A")) ? e.target.dataset.id : e.target.closest(".option-1A").dataset.id;
-		console.log(idCarriage)
-		fetch(`/metroway/seats/carriageID/${idCarriage}`)
-			.then(response => {
-				if(!response.ok) console.log("LOI")
-				return response.json()
-			})
-			.then(data => {
-				console.log(data)
-				open_ViewOption1A(id,data);
-			})
-			.then(error => console.log(error))
+	if (e.target.classList.contains("choose-chair")) {
+		console.log("chuyen tau " + e.target.dataset.index);
+		const index = e.target.dataset.index;
+		const listTrainTrip = JSON.parse(sessionStorage.getItem("trainTrip"));
+		console.log(listTrainTrip[index]);
+
+		const timeStart = listTrainTrip[index]["departureTimeAtDepartureCity"];
+		const timeEnd = listTrainTrip[index]["arrivalTimeAtArrivalCity"];
+
+		const carriages = listTrainTrip[index]["carriages"];
+		console.log(carriages)
+
+		const { date: dateStart, time: timeStartFormatted } = parseDateTime24Hour(timeStart);
+		const { date: dateEnd, time: timeEndFormatted } = parseDateTime24Hour(timeEnd);
+
+		const difference = calculateTimeDifference(timeStart, timeEnd);
+
+		const data = {
+			trainName: listTrainTrip[index]["trainName"],
+			scheduleId: listTrainTrip[index]["scheduleId"],
+			startCity: listTrainTrip[index]["departureCity"],
+			endCity: listTrainTrip[index]["arrivalCity"],
+			timeStart: timeStartFormatted,
+			timeEnd: timeEndFormatted,
+			dateStart: dateStart,
+			dateEnd: dateEnd,
+			duration: difference,
+			departureTime: listTrainTrip[index]["departureTimeAtDepartureCity"],
+			arrivalTime: listTrainTrip[index]["arrivalTimeAtArrivalCity"]
+		}
+		sessionStorage.setItem("infoOrder", JSON.stringify(data));
+
+
+		const chairsHTML = await getChairs(listTrainTrip[index]["carriages"], listTrainTrip[index]["scheduleKey"]);
+
+		document.body.insertAdjacentHTML('beforeend', chairsHTML);
+
+		const bodyToa = document.querySelector(".modal__body");
+		bodyToa.classList.remove("scale-out-center");
+		bodyToa.classList.remove("scale-up-center");
+
+		bodyToa.classList.add("scale-up-center");
+		const bodyChooseChair = document.querySelector(".form-option");
+		bodyChooseChair.style.display = "block";
+		loadChairHold();
+		loadChair_SoldOut(listTrainTrip[index]["departureCity"], listTrainTrip[index]["arrivalCity"], listTrainTrip[index]["scheduleId"]);
+		chooseChair();
+		actionBtnNext()
+		ExitOption(bodyToa);
 	}
+
 })
 

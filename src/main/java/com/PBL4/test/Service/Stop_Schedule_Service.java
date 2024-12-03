@@ -111,8 +111,7 @@ public class Stop_Schedule_Service {
         for (StopSchedule stopSchedule : stopSchedules) {
 
            if((stopSchedule.getTimeToRun().isAfter(ticket.getDepartureTime())&& stopSchedule.getTimeToRun().isBefore(ticket.getArrivalTime()))||
-                stopSchedule.getStopStation().getStationName().equals(ticket.getDepartureStationName()) || stopSchedule.getStopStation().getStationName().equals(ticket.getArrivalStationName())
-           )
+                stopSchedule.getStopStation().getStationName().equals(ticket.getDepartureStationName()))
 
            {
                 List<String> orderedSeat = stopSchedule.getOrderedSeat();

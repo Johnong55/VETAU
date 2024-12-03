@@ -13,6 +13,8 @@ function getCurrentDate() {
     console.log(year, month, day);
     return year + "-" + month + "-" + day; // Trả về chuỗi theo định dạng YYYY-MM-DD
 }
+const listTrain_Trip = document.querySelector("#booking-right-body");
+console.log(listTrain_Trip);
 
 function getTrainTrip(data) {
     fetch('/metroway/findtrain', {
@@ -26,9 +28,10 @@ function getTrainTrip(data) {
         })
         .then(data => {
             console.log(data)
+            sessionStorage.setItem("trainTrip", JSON.stringify(data));
             listTrain_Trip.innerHTML = "";
             for(let i = 0; i < data.length; i++ ) {
-                listTrain_Trip.innerHTML += getTrainEL(data[i]);
+                listTrain_Trip.innerHTML += getTrainEL(data[i],i);
             }
         })
         .catch(error => console.log(error))
@@ -49,12 +52,6 @@ if(sessionStorage.getItem("findTrain")){
         getTrainTrip(dataFind)
     }
 }
-
-
-const listTrain_Trip = document.querySelector("#booking-right-body");
-
-console.log(listTrain_Trip);
-
 
 const btn_search = document.querySelector(".search-btn");
 

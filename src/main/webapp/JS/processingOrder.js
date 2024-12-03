@@ -12,6 +12,7 @@ const data = {
 };
 
 const chairHolds = JSON.parse(sessionStorage.getItem("chairhold"));
+console.log(chairHolds)
 const fetchPromises = [];
 
 Object.keys(chairHolds).forEach(key => {

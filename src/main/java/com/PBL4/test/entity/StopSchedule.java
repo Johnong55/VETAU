@@ -46,6 +46,7 @@ public class StopSchedule {
     @JoinColumn(name = "StopStation")
     Station stopStation;
     //ghe da order
+    @ElementCollection
     List<String> orderedSeat ;
     @Override
     public String toString() {

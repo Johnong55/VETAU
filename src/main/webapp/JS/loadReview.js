@@ -9,11 +9,8 @@ if(chairHold) {
     numberOfChair.innerHTML = Object.keys(chairHold).length.toString();
 
     let chair_String = "";
-    Object.values(chairHold).forEach(tmp => {
-        const parts = tmp.split("-");
-        const dm = `${parts[0]}-${parts[1]}`;
-        console.log(dm)
-        chair_String += dm + ", ";
+    Object.keys(chairHold).forEach(tmp => {
+        chair_String += tmp + ", ";
     });
     chair_String = chair_String.slice(0, -2);
     sessionStorage.setItem("nameChairs",chair_String)
