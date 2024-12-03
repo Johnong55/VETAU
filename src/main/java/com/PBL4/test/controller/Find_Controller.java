@@ -43,4 +43,8 @@ public class Find_Controller {
             return new Api_Response(500, "Error: " + e.getMessage(), null);
         }
     }
+    @GetMapping("/findtrain")
+    public List<FindSchedule_Response> findAllScheduleForClient() {
+        return schedule_service.findAllScheduleForClient();
+    }
 }

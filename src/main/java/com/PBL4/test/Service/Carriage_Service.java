@@ -23,7 +23,7 @@ import java.util.stream.IntStream;
 
 @Slf4j
 @Service
-public class Carriage_Service {
+public class    Carriage_Service {
     @Autowired
     Carriage_Repository carriageRepository;
     @Autowired
@@ -47,7 +47,7 @@ public class Carriage_Service {
     }
     @Transactional
     public Carriage_Response createCarriage(Carriage_Request request) {
-        if (carriageRepository.existsByCarriageName(request.getCarriageName())) {
+        if (carriageRepository.existsByCarriageNameAndTrain_TrainId(request.getCarriageName(), request.getTrainID())) {
             throw new AppException(ErrorCode.CARRIAGE_EXISTED);
         }
 
