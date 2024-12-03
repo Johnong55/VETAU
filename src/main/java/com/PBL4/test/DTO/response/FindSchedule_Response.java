@@ -19,8 +19,9 @@ public class FindSchedule_Response {
     LocalDateTime departureTimeAtDepartureCity;
     LocalDateTime arrivalTimeAtArrivalCity;
     String trainName;
-    String scheduleId;
     List<Carriage_Response> carriages;
+    String scheduleId;
+    String scheduleKey;
     public FindSchedule_Response(String scheduleId,String departureCity, String arrivalCity,
                                  LocalDateTime departureTimeAtDepartureCity,
                                  LocalDateTime arrivalTimeAtArrivalCity,

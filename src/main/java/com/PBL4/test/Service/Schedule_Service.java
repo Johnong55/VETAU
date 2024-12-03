@@ -3,7 +3,6 @@ package com.PBL4.test.Service;
 import com.PBL4.test.DTO.request.Schedule_Request;
 import com.PBL4.test.DTO.request.Seasonal_Rate_Request;
 import com.PBL4.test.DTO.request.StopSchedule_Request;
-import com.PBL4.test.DTO.response.Carriage_Response;
 import com.PBL4.test.DTO.response.FindSchedule_Response;
 import com.PBL4.test.DTO.response.Schedule_Response;
 import com.PBL4.test.DTO.response.Seasonal_Rate_Response;
@@ -17,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -106,7 +104,7 @@ public class Schedule_Service {
     }
 
 
-//
+    //
 //    public Seasonal_Rate_Response updateSeasonalRate(String seasonalRateID, Seasonal_Rate_Request request) {
 //        SeasonalRate seasonalRate = seasonRateRepository.findBySeasonalRateId(seasonalRateID)
 //                .orElseThrow(() -> new AppException(ErrorCode.SEASONAL_RATE_NOT_EXISTED));
@@ -116,19 +114,18 @@ public class Schedule_Service {
     public void deteteSchedule(String scheduleID) {
         scheduleRepository.deleteById(scheduleID);
     }
-
     public List<FindSchedule_Response> findScheduleForClient(String departureCity, String arrivalCity, LocalDate date)
     {
         LocalDateTime time = date.atStartOfDay();
         List<FindSchedule_Response> result = scheduleRepository.findSchedulesByClient(departureCity, arrivalCity, time);
-        for(int i =0;i<result.size();i++)
-        {
-            Train train = trainRepository.findByTrainName(result.get(i).getTrainName()).get();
-            result.get(i).setCarriages(carriage_Service.findByTrainID(train.getTrainId()));
+        for (FindSchedule_Response findScheduleResponse : result) {
+            Train train = trainRepository.findByTrainName(findScheduleResponse.getTrainName()).get();
+            findScheduleResponse.setCarriages(carriage_Service.findByTrainID(train.getTrainId()));
+            findScheduleResponse.setScheduleKey((findScheduleResponse.getScheduleId() + "-" + departureCity + "-" + arrivalCity).replace(" ", ""));
+
         }
         return result;
     }
-
     public Set<String> getReservedSeats(String scheduleId, String startStation, String endStation) {
 
         List<StopSchedule> stopSchedules = stopSchedule_Repository.findByScheduleId(scheduleId);
@@ -162,105 +159,5 @@ public class Schedule_Service {
         }
 
         return reservedSeats;
-    }
-    public List<FindSchedule_Response> findAllScheduleForClient() {
-        LocalDateTime currentTime = LocalDateTime.now();
-
-        // Lấy tất cả các Schedule, bao gồm cả những cái không có StopSchedule
-        List<Schedule> schedules = scheduleRepository.findAll();
-        if (schedules.isEmpty()) {
-            throw new AppException(ErrorCode.SCHEDULE_NOT_FOUND);
-        }
-
-        List<FindSchedule_Response> responses = new ArrayList<>();
-
-        for (Schedule schedule : schedules) {
-            // Lấy danh sách StopSchedule liên quan đến Schedule hiện tại
-            List<StopSchedule> stopSchedules = stopSchedule_Repository.findByScheduleId(schedule.getScheduleId());
-
-            // Nếu không có StopSchedule, chỉ thêm thông tin cơ bản của Schedule
-            if (stopSchedules.isEmpty()) {
-                Train train = schedule.getTrain();
-                List<Carriage_Response> carriages = carriage_Service.findByTrainID(train.getTrainId());
-                responses.add(createResponse(
-                        schedule.getDepartureStation(),
-                        schedule.getArrivalStation(),
-                        schedule.getDepartureTime(),
-                        schedule.getArrivalTime(),
-                        train.getTrainName(),
-                        schedule.getScheduleId(),
-                        carriages
-                ));
-            } else {
-                // Nếu có StopSchedule, xử lý tương tự như logic cũ
-                stopSchedules.sort(Comparator.comparing(StopSchedule::getTimeToRun));
-
-                Train train = schedule.getTrain();
-                List<Carriage_Response> carriages = carriage_Service.findByTrainID(train.getTrainId());
-
-                if (!stopSchedules.isEmpty()) {
-                    StopSchedule firstStop = stopSchedules.get(0);
-                    responses.add(createResponse(
-                            schedule.getDepartureStation(),
-                            firstStop.getStopStation(),
-                            schedule.getDepartureTime(),
-                            schedule.getDepartureTime().plusMinutes((long) firstStop.getArrivalTime()),
-                            train.getTrainName(),
-                            schedule.getScheduleId(),
-                            carriages
-                    ));
-                }
-
-                for (int i = 0; i < stopSchedules.size() - 1; i++) {
-                    StopSchedule currentStop = stopSchedules.get(i);
-                    StopSchedule nextStop = stopSchedules.get(i + 1);
-                    responses.add(createResponse(
-                            currentStop.getStopStation(),
-                            nextStop.getStopStation(),
-                            currentStop.getTimeToRun(),
-                            currentStop.getTimeToRun().plusMinutes((long) nextStop.getArrivalTime()),
-                            train.getTrainName(),
-                            schedule.getScheduleId(),
-                            carriages
-                    ));
-                }
-
-                if (!stopSchedules.isEmpty()) {
-                    StopSchedule lastStop = stopSchedules.get(stopSchedules.size() - 1);
-                    responses.add(createResponse(
-                            lastStop.getStopStation(),
-                            schedule.getArrivalStation(),
-                            lastStop.getTimeToRun(),
-                            schedule.getArrivalTime(),
-                            train.getTrainName(),
-                            schedule.getScheduleId(),
-                            carriages
-                    ));
-                }
-            }
-        }
-
-        return responses;
-    }
-
-
-    private FindSchedule_Response createResponse(
-            Station departure,
-            Station arrival,
-            LocalDateTime departureTime,
-            LocalDateTime arrivalTime,
-            String trainName,
-            String scheduleId,
-            List<Carriage_Response> carriages
-    ) {
-        return FindSchedule_Response.builder()
-                .departureCity(departure.getCity().getCityName())
-                .arrivalCity(arrival.getCity().getCityName())
-                .departureTimeAtDepartureCity(departureTime)
-                .arrivalTimeAtArrivalCity(arrivalTime)
-                .trainName(trainName)
-                .carriages(carriages)
-                .scheduleId(scheduleId)
-                .build();
     }
 }

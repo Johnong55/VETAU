@@ -73,13 +73,70 @@
 
 			<div id="input-booking-wrap">
 				<div class="wrap-input input-bookingProcess">
-					<input class="input-info"
-						id="start-city" placeholder="Thành phố/ Tỉnh xuất phát">
+
+					<label>
+						<select class="input-info" name="train-station-province" id="start-city">
+							<option value="" disabled selected>Chọn tỉnh/thành phố đi</option>
+							<option value="Hà Nội">Hà Nội</option>
+							<option value="Hải Phòng">Hải Phòng</option>
+							<option value="Nam Định">Nam Định</option>
+							<option value="Ninh Bình">Ninh Bình</option>
+							<option value="Thanh Hóa">Thanh Hóa</option>
+							<option value="Nghệ An">Nghệ An</option>
+							<option value="Vinh">Vinh</option>
+							<option value="Hà Tĩnh">Hà Tĩnh</option>
+							<option value="Quảng Bình">Quảng Bình</option>
+							<option value="Quảng Trị">Quảng Trị</option>
+							<option value="Thừa Thiên Huế">Thừa Thiên Huế</option>
+							<option value="Đà Nẵng">Đà Nẵng</option>
+							<option value="Quảng Nam">Quảng Nam</option>
+							<option value="Quảng Ngãi">Quảng Ngãi</option>
+							<option value="Bình Định">Bình Định</option>
+							<option value="Phú Yên">Phú Yên</option>
+							<option value="Khánh Hòa">Khánh Hòa</option>
+							<option value="Ninh Thuận">Ninh Thuận</option>
+							<option value="Bình Thuận">Bình Thuận</option>
+							<option value="Đồng Nai">Đồng Nai</option>
+							<option value="Bình Dương">Bình Dương</option>
+							<option value="Sài Gòn">Sài Gòn</option>
+						</select>
+					</label>
+
+
 				</div>
 
+
+
+
 				<div class="wrap-input input-bookingProcess">
-					<input class="input-info"
-						id="end-city" placeholder="Thành phố/ Tỉnh đích đến">
+					<label>
+						<select class="input-info" name="train-station-province" id="end-city">
+							<option value="" disabled selected>Chọn tỉnh/thành phố đến</option>
+							<option value="Hà Nội">Hà Nội</option>
+							<option value="Hải Phòng">Hải Phòng</option>
+							<option value="Nam Định">Nam Định</option>
+							<option value="Ninh Bình">Ninh Bình</option>
+							<option value="Thanh Hóa">Thanh Hóa</option>
+							<option value="Nghệ An">Nghệ An</option>
+							<option value="Vinh">Vinh</option>
+							<option value="Hà Tĩnh">Hà Tĩnh</option>
+							<option value="Quảng Bình">Quảng Bình</option>
+							<option value="Quảng Trị">Quảng Trị</option>
+							<option value="Thừa Thiên Huế">Thừa Thiên Huế</option>
+							<option value="Đà Nẵng">Đà Nẵng</option>
+							<option value="Quảng Nam">Quảng Nam</option>
+							<option value="Quảng Ngãi">Quảng Ngãi</option>
+							<option value="Bình Định">Bình Định</option>
+							<option value="Phú Yên">Phú Yên</option>
+							<option value="Khánh Hòa">Khánh Hòa</option>
+							<option value="Ninh Thuận">Ninh Thuận</option>
+							<option value="Bình Thuận">Bình Thuận</option>
+							<option value="Đồng Nai">Đồng Nai</option>
+							<option value="Bình Dương">Bình Dương</option>
+							<option value="Sài Gòn">Sài Gòn</option>
+						</select>
+					</label>
+
 				</div>
 				<div class="wrap-input input-bookingProcess">
 					<input type="date" class="input-info"
@@ -128,6 +185,7 @@
 			</div>
 		</div>
 	</div>
+
 	<!--footer -->
 	<div id="footer">
 		<div class="footer-wrap">

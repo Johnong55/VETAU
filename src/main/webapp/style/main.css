@@ -659,6 +659,25 @@ html {
 .modal__body {
     margin: auto;
     z-index: 1;
+    max-height: 80vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.modal__body::-webkit-scrollbar {
+    width: 8px; /* Độ rộng của thanh cuộn */
+}
+
+/* Tùy chỉnh phần thân của thanh cuộn */
+.modal__body::-webkit-scrollbar-thumb {
+    background-color: rgba(89, 85, 85, 0.93); /* Màu của thanh cuộn */
+    border-radius: 5px;     /* Bo tròn thanh cuộn */
+}
+
+/* Tùy chỉnh phần track (nền của thanh cuộn) */
+.modal__body::-webkit-scrollbar-track {
+    background-color: transparent; /* Màu nền */
+    border-radius: 5px;        /* Bo tròn phần track */
 }
 
 .auth-form {
@@ -767,15 +786,7 @@ small {
     overflow: hidden;
 }
 
-.form-option-3A {
-    display: none;
-}
-
-.form-option-2A {
-    display: none;
-}
-
-.form-option-1A {
+.form-option {
     display: none;
 }
 
@@ -798,15 +809,6 @@ small {
     border: 3px solid var(--primary-color);
     border-radius: 10px;
 }
-.option-body-3A {
-    background-color: rgba(208, 255, 200, 1);
-}
-.option-body-2A {
-    background-color: rgba(255, 233, 200, 1);
-}
-.option-body-1A {
-    background-color: rgba(255, 205, 205, 1);
-}
 
 .option-body-left {
     display: flex;
@@ -814,6 +816,49 @@ small {
     width: 45%;
     height: 50px;
     justify-content: space-between;
+}
+
+.carriage {
+    display: flex;
+    flex-direction: column;
+}
+
+.name-carriage {
+    font-size: 2.2rem;
+    line-height: 2.6rem;
+    font-width: 500;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.chairs{
+    background-color: rgba(208, 255, 200, 1);
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.container-chair {
+    width: 95%;
+    margin: auto;
+    height: 200px;
+    background-color: rgba(208, 255, 200, 1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.seat {
+    width: 30px;
+    height: 30px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    cursor: pointer;
 }
 
 .option-chair-column {
