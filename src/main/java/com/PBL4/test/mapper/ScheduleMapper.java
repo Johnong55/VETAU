@@ -17,6 +17,8 @@ public interface ScheduleMapper {
     @Mapping(target = "departureStationName", source = "departureStation.stationName")
     @Mapping(target = "arrivalStationName", source = "arrivalStation.stationName")
     @Mapping(target = "trainId", source = "train.trainId")
+    @Mapping(target = "timeToRun", source = "departureTime")
+    @Mapping(target = "stopStationName", expression = "java(schedule.getStopSchedules() != null ? schedule.getStopSchedules().stream().map(stop -> stop.getStopStation().getStationName()).toList() : java.util.Collections.emptyList())")
     Schedule_Response toScheduleResponse(Schedule schedule);
 
     void updateSchedule(@MappingTarget Schedule schedule, Schedule_Request request);

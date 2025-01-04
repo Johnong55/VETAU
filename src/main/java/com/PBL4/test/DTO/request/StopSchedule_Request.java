@@ -10,7 +10,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class StopSchedule_Request implements Comparable<StopSchedule_Request> {
-    String stopScheduleId;
+    String stopStationId;
     double time;
     String scheduleId;
     @Override

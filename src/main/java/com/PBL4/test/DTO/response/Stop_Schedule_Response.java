@@ -18,6 +18,6 @@ public class Stop_Schedule_Response {
     String departureStationName;
     double arrivalTime;
     LocalDateTime timeToRun;
-    List<String> orderedSeat;
     String scheduleId;
+    List<String> orderedSeat;
 }
