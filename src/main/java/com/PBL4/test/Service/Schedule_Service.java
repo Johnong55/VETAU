@@ -58,9 +58,9 @@ public class Schedule_Service {
         Station departureStation = stationRepository.findByStationId(request.getDepartureStationId())
                 .orElseThrow(()->new AppException(ErrorCode.STATION_NOT_EXISTED));
 
-        if (scheduleRepository.existsByTrainAndArrivalStationAndDepartureStation(train, arrivalStation, departureStation)) {
-            throw new AppException(ErrorCode.SCHEDULE_EXISTED);
-        }
+//        if (scheduleRepository.existsByTrainAndArrivalStationAndDepartureStation(train, arrivalStation, departureStation)) {
+//            throw new AppException(ErrorCode.SCHEDULE_EXISTED);
+//        }
         Schedule result = scheduleMapper.toSchedule(request);
         result.setScheduleId(generateScheduleID());
 

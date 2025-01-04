@@ -1,4 +1,13 @@
-import {getTable, getAddTrain, getDelete, getAddCarriage, getAddStation, getAddCity} from "./renderAdmin.js";
+import {
+    getTable,
+    getAddTrain,
+    getDelete,
+    getAddCarriage,
+    getAddStation,
+    getAddCity,
+    getAddChair,
+    getAddTrip
+} from "./renderAdmin.js";
 
 const Items = {
     train: [
@@ -44,6 +53,18 @@ const Items = {
         { key: "ticketPrice", label: "Giá vé" }
     ]
 };
+
+async function fetchData(url) {
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            console.log(response.status);
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('Có lỗi:', error);
+    }
+}
 
 const wrapTableEL = document.querySelector(".wrap-table");
 
@@ -114,11 +135,45 @@ const funcMap = {
             } )
             .catch(error => console.error('Error:', error));
     },
-    addChair: () => {},
+    addChair: () => {
+        fetch('/metroway/carriages')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                wrapTableEL.innerHTML = getAddChair(data);
+            })
+            .catch(error => console.log(error))
+    },
     deleteChair: () => {},
 
-    allTrips: () => {},
-    addTrip: () => {},
+    allTrips: () => {
+        const headersAllTrips = ["Mã chuyến tàu","Thời gian đến","Trạm xuất phát", "Trạm dừng", "Mã tàu"];
+        fetch('/metroway/schedules')
+           .then(response => response.json())
+           .then(data => {
+               console.log(data)
+               wrapTableEL.innerHTML = getTable(headersAllTrips, data, "schedule");
+           } )
+           .catch(error => console.error('Error:', error));
+    },
+    addTrip: async () => {
+        // lấy tàu và ga
+        let dataTrain = await fetchData('/metroway/trains');
+        let dataStation = await fetchData('/metroway/stations');
+        console.log(dataTrain);
+        console.log(dataStation);
+        wrapTableEL.innerHTML = getAddTrip(dataTrain, dataStation, "Thêm");
+        flatpickr("#timeDeparture", {
+            enableTime: true,
+            dateFormat: "Y-m-d H:i",
+            time_24hr: true
+        });
+        flatpickr("#timeDestination", {
+            enableTime: true,
+            dateFormat: "Y-m-d H:i",
+            time_24hr: true
+        });
+    },
     deleteTrip: () => {},
 
     allStations: () => {

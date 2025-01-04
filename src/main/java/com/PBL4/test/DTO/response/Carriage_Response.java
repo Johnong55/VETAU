@@ -14,8 +14,8 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Carriage_Response {
     String carriageId;
-    int seatCount;
     String carriageName;
+    int seatCount;
     String seatType;
     String trainID;
 }

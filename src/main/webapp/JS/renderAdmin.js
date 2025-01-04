@@ -5,10 +5,10 @@ export function getTable(headers, list, type) {
         <tr>
             ${Object.values(row).map(value => {
                 if(value === false) {
-                    return `<td>Trống</td>`
+                    return `<td>Bình thường</td>`
                 } else if(value === true) {
-                    return `<td>Đã bán</td>`
-                } else {
+                    return `<td>Hỏng</td>`
+                } else if(value !== null) {
                     return `<td>${value}</td>`
                 }
     }).join('')}
@@ -76,6 +76,45 @@ export function getAddTrain(option,id,name) {
     `;
     }
 }
+export function getAddTrip(trains, stations, option) {
+    const trainOptions = trains.length > 0
+       ? trains.map(train => `<option value="${train["trainId"]}">${train["trainName"]}</option>`).join('')
+       : '<option disabled>Không có tàu khả dụng</option>';
+
+    const stationOptions = stations.length > 0
+       ? stations.map(station => `<option value="${station["stationId"]}">${station["stationName"]}</option>`).join('')
+       : '<option disabled>Không có ga khả dụng</option>';
+
+    return `
+    <div>
+      <div class="mb-3 mt-3">
+        <label for="trainSelect" class="form-label display-6 mb-3">Chọn tàu :</label>
+        <select class="form-select form-select-lg mb-3" id="trainSelect">
+                ${trainOptions}
+        </select>
+        
+        <label for="departureSelect" class="form-label display-6 mb-3">Chọn điểm xuất phát :</label>
+        <select class="form-select form-select-lg mb-3" id="departureSelect">
+                ${stationOptions}
+        </select>
+        
+        <label for="destinationSelect" class="form-label display-6 mb-3">Chọn điểm đến :</label>
+        <select class="form-select form-select-lg mb-3" id="destinationSelect">
+                ${stationOptions}
+        </select>
+        
+        <label for="datetime" class="form-label display-6 mb-3">Chọn ngày giờ xuất phát :</label>
+         <input id="timeDeparture" type="text" class="form-control form-control-lg" placeholder="Chọn ngày giờ" />
+         
+         <label for="datetime" class="form-label display-6 mb-3">Chọn ngày giờ đến :</label>
+         <input id="timeDestination" type="text" class="form-control form-control-lg" placeholder="Chọn ngày giờ" />
+      </div>
+  
+        <button class="btn btn-primary btn-lg btn-addTrip" data-status="${option}">${option}</button>
+    </div>
+    `;
+}
+
 
 export function getAddCarriage(trainNames,option,id,toa) {
     if(id) {
@@ -215,4 +254,18 @@ export function getAddCity(option, city) {
 </div>
     `;
     }
+}
+
+export function getAddChair(carriages) {
+    const carriageOptions = carriages.map(carriage =>
+        `<option value="${carriage["carriageId"]}">${carriage["carriageName"]}</option>`).join('');
+    return `
+        <div>
+        
+            <select class="form-select form-select-lg" id="idCarriage">
+                ${carriageOptions}
+            </select>
+            <button class="btn btn-primary btn-lg mt-3 btn-addChair" data-status="Thêm">Thêm</button>
+        </div>
+    `;
 }

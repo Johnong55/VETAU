@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html data-bs-theme="dark">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -22,6 +22,13 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+
 </head>
 
 <body>
@@ -37,7 +44,7 @@
                 <div class="col-md-3 ps-3">
                     <img src="../metroway/imgs/user.png" class="rounded-circle avatar-admin" alt="Admin">
                 </div>
-                <p class="col-md-9 h3 my-auto center-text">Đức Đẹp Trai</p>
+                <p class="col-md-9 h3 my-auto center-text">Admin</p>
             </div>
 
             <div class="row mt-5 ms-3 options-admin options-admin-item" data-value="train">
@@ -93,16 +100,8 @@
         <div class="col-md-10 contain-right">
 
             <div class="wrap-title">
-                <p class="h1 text-secondary title-admin">Tàu</p>
+                <p class="h1 text-secondary title-admin">Trang Admin</p>
             </div>
-
-            <div class="input-group input-group-lg mb-3" style="margin-top: 50px !important;">
-                    <span class="input-group-text">
-                        Tìm kiếm
-                    </span>
-                <input type="text" class="form-control">
-            </div>
-
 
             <div class="container wrap-table" style="width: 80% !important;">
 

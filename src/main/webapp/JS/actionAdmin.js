@@ -22,7 +22,7 @@ wrap_table.addEventListener('click', function (e) {
                 })
                 .then(data => {
                     console.log(data);
-                    alert("Them thanh cong")
+                    alert("Thêm thành công")
                 })
                 .catch(error => console.log(error))
         } else if(e.target.dataset.status === "Cập nhật") {
@@ -38,7 +38,10 @@ wrap_table.addEventListener('click', function (e) {
                     if(!response.ok) console.log("LOI")
                     return response.json()
                 })
-                .then(data => console.log(data))
+                .then(data => {
+                    console.log(data)
+                    alert("Cập nhật thành công")
+                })
                 .catch(error => console.log(error))
         }
     } else if(e.target.classList.contains("btn-addCarriage")) {
@@ -67,6 +70,7 @@ wrap_table.addEventListener('click', function (e) {
                 })
                 .then(data => {
                     console.log(data)
+                    alert("Thêm thành công")
                 })
                 .catch(error => console.log(error))
         } else if(e.target.dataset.status === "Cập nhật") {
@@ -83,6 +87,7 @@ wrap_table.addEventListener('click', function (e) {
                 })
                 .then(data => {
                     console.log(data)
+                    alert("Cập nhật thành công")
                 })
                 .catch(error => console.log(error))
         }
@@ -110,6 +115,7 @@ wrap_table.addEventListener('click', function (e) {
                 })
                 .then(data => {
                     console.log(data)
+                    alert("Thêm thành công")
                 })
                 .catch(error => console.log(error))
         } else if(e.target.dataset.status === "Cập nhật") {
@@ -125,6 +131,7 @@ wrap_table.addEventListener('click', function (e) {
                 })
                 .then(data => {
                     console.log(data)
+                    alert("Cập nhật thành công")
                 })
                 .catch(error => console.log(error))
         }
@@ -135,25 +142,48 @@ wrap_table.addEventListener('click', function (e) {
             cityName: nameCityEL.value
         }
         console.log(data)
-        if(e.target.dataset.status === "Thêm") {
-            fetch('/metroway/cities',{
+        if (e.target.dataset.status === "Thêm") {
+            fetch('/metroway/cities', {
                 method: "POST",
-                headers: {'Content-Type':'application/json'},
+                headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(data)
             })
                 .then(response => {
-                    if(!response.ok) console.log("LOIII")
+                    if (!response.ok) console.log("LOIII")
                     return response.json()
                 })
                 .then(data => {
                     console.log(data)
+                    alert("Thêm thành công")
                 })
                 .catch(error => console.log(error))
-        } else if(e.target.dataset.status === "Cập nhật") {
+        } else if (e.target.dataset.status === "Cập nhật") {
             const id = e.target.dataset.id;
             fetch(`/metroway/cities/${id}`, {
                 method: "PUT",
                 headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+            })
+                .then(response => {
+                    if (!response.ok) console.log("LOI")
+                    return response.json()
+                })
+                .then(data => {
+                    console.log(data)
+                    alert("Cập nhật thành công")
+                })
+                .catch(error => console.log(error))
+        }
+    }else if(e.target.classList.contains("btn-addChair")) {
+        const formEL = e.target.parentNode;
+        const idCarriage = formEL.querySelector("#idCarriage").value;
+        const data = {
+            carriageID: idCarriage
+        };
+        if(e.target.dataset.status === "Thêm") {
+            fetch('/metroway/seats', {
+                method: "POST",
+                headers: {'Content-Type':'application/json'},
                 body: JSON.stringify(data)
             })
                 .then(response => {
@@ -162,9 +192,47 @@ wrap_table.addEventListener('click', function (e) {
                 })
                 .then(data => {
                     console.log(data)
+                    alert("Thêm thành công")
                 })
                 .catch(error => console.log(error))
+        } else if(e.target.dataset.status === "Cập nhật") {
+
         }
+
+
+    } else if(e.target.classList.contains("btn-addTrip")){
+        const formEL = e.target.parentNode;
+        const idTrain = formEL.querySelector("#trainSelect").value;
+        const idStationDeparture = formEL.querySelector("#departureSelect").value;
+        const idStationDestination = formEL.querySelector("#destinationSelect").value;
+        const timeDeparture = formEL.querySelector("#timeDeparture").value.replace(" ", "T");
+        const timeDestination = formEL.querySelector("#timeDestination").value.replace(" ", "T");
+        const data = {
+            timeToRun: timeDeparture,
+            arrivalTime: timeDestination,
+            departureStationId: idStationDeparture,
+            arrivalStationId: idStationDestination,
+            trainId: idTrain
+        };
+        console.log(data);
+        fetch('/metroway/schedules', {
+            method: "POST",
+            headers: {'Content-Type' : 'application/json'},
+            body: JSON.stringify(data)
+        })
+           .then(response => {
+               if(!response.ok){
+                   console.log("LOI")
+               }
+               return response.json();
+           })
+           .then(data => {
+               console.log(data);
+               alert("Thêm thành công")
+           })
+           .catch(error => {
+               console.log(error);
+           })
     } else if(e.target.classList.contains("btn-update")) {
         console.log(e.target.dataset.id)
         const id = e.target.dataset.id
